@@ -4,7 +4,7 @@ export function GET() {
   const content = `User-agent: *
 Allow: /
 
-Sitemap: https://thecustomstickers.co/sitemap-index.xml
+Sitemap: https://thecustomstickers.co/sitemap.xml
 
 # Disallow API routes
 Disallow: /api/
