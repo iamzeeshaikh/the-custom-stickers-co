@@ -1,0 +1,158 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Sticker Printing Options | Finishes, Shapes, Sizes & More | The Custom Stickers"
+  description="Explore all custom sticker printing options — shapes, sizes, finishes, lamination, adhesive types, and printing methods. Everything you need to know before ordering."
+  canonical="https://thecustomstickers.co/sticker-printing-options/"
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+  <div class="container" style="padding-top:20px">
+    <Breadcrumb items={[{ label: 'Sticker Printing Options' }]} />
+  </div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">Printing Options</div>
+      <h1>Custom Sticker Printing Options</h1>
+      <p>Every sticker we produce is fully customizable. Explore all the shapes, sizes, finishes, and options available for your order.</p>
+    </div>
+  </section>
+  <section class="content-page">
+    <div class="container content-body-wide">
+
+      <h2>Shapes</h2>
+      <div class="options-grid">
+        {[
+          { name: 'Die Cut', desc: 'Cut precisely to your artwork outline. The most popular and versatile option.', icon: '✂️', href: '/die-cut-stickers/' },
+          { name: 'Circle / Round', desc: 'Classic round shape. Great for seals, labels, and logo stickers.', icon: '⭕', href: '/1-5-inch-round-stickers/' },
+          { name: 'Square', desc: 'Clean geometric shape. Perfect for product labels and uniform branding.', icon: '⬛', href: '/custom-square-stickers/' },
+          { name: 'Rectangle', desc: 'Standard label shape. Ideal for product information and address labels.', icon: '📋', href: '/custom-sticker-printing/' },
+          { name: 'Oval', desc: 'Softer than rectangle, more formal than circle. Great for wine labels.', icon: '🥚', href: '/custom-sticker-printing/' },
+          { name: 'Star', desc: 'Fun star shape for rewards, promotions, and seasonal events.', icon: '⭐', href: '/2-inch-star-stickers/' },
+        ].map(o => (
+          <a href={o.href} class="option-card">
+            <span class="opt-icon">{o.icon}</span>
+            <h3>{o.name}</h3>
+            <p>{o.desc}</p>
+          </a>
+        ))}
+      </div>
+
+      <h2>Finishes</h2>
+      <table>
+        <thead><tr><th>Finish</th><th>Appearance</th><th>Best For</th><th>Durability Boost</th></tr></thead>
+        <tbody>
+          <tr><td><a href="/glossy-stickers/">Glossy Laminate</a></td><td>Shiny, vibrant, reflective</td><td>Product labels, promotions</td><td>+40% scratch resistance</td></tr>
+          <tr><td><a href="/matte-stickers/">Matte Laminate</a></td><td>Soft, flat, elegant</td><td>Premium brands, packaging</td><td>+40% scratch resistance</td></tr>
+          <tr><td>Soft Touch / Velvet</td><td>Velvety, luxury feel</td><td>Luxury products, cosmetics</td><td>+50% scratch resistance</td></tr>
+          <tr><td>UV Spot Coating</td><td>Selective gloss on matte</td><td>Premium packaging, awards</td><td>High durability</td></tr>
+          <tr><td><a href="/custom-holographic-stickers/">Holographic</a></td><td>Rainbow foil shimmer</td><td>Eye-catching brands</td><td>+30% scratch resistance</td></tr>
+          <tr><td><a href="/custom-clear-stickers/">Transparent / Clear</a></td><td>See-through background</td><td>Windows, bottles, glass</td><td>Standard</td></tr>
+          <tr><td>Frosted Matte</td><td>Frosted glass effect</td><td>Elegant labels, cosmetics</td><td>Standard</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Lamination Options</h2>
+      <div class="options-grid-2">
+        {[
+          { name: 'Standard Laminate', desc: 'Protects against water, UV, and scratches. Included on all vinyl orders.', rec: 'All standard orders' },
+          { name: 'Heavy-Duty Laminate', desc: 'Extra-thick protective layer for extreme outdoor or industrial applications.', rec: 'Vehicles, industrial, outdoors' },
+          { name: 'No Laminate', desc: 'No protective coating. For paper stickers used indoors only.', rec: 'Indoor paper labels' },
+        ].map(l => (
+          <div class="lam-card">
+            <h3>{l.name}</h3>
+            <p>{l.desc}</p>
+            <span class="rec-badge">Recommended for: {l.rec}</span>
+          </div>
+        ))}
+      </div>
+
+      <h2>Adhesive Types</h2>
+      <table>
+        <thead><tr><th>Adhesive Type</th><th>Removable</th><th>Strength</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>Permanent</td><td>❌ No</td><td>Very Strong</td><td>Product labels, vehicles, outdoor</td></tr>
+          <tr><td>Removable</td><td>✅ Yes (clean)</td><td>Medium</td><td>Temporary signage, windows, walls</td></tr>
+          <tr><td>Ultra-Strong</td><td>❌ No</td><td>Extreme</td><td>Rough surfaces, vehicles, industrial</td></tr>
+          <tr><td>Freezer-Grade</td><td>❌ No</td><td>Strong</td><td>Frozen food packaging, coolers</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Printing Methods</h2>
+      <ul class="print-methods">
+        <li>
+          <strong>Digital CMYK Printing</strong> — Our standard process for full-color stickers. Produces sharp, vibrant colors with photographic quality at any quantity.
+        </li>
+        <li>
+          <strong>Pantone / Spot Color Matching</strong> — For brand-critical colors requiring exact reproduction. Specify your Pantone PMS code when ordering.
+        </li>
+        <li>
+          <strong>White Ink Printing</strong> — Used for clear and holographic stickers where white elements are needed. Creates opaque white areas on transparent materials.
+        </li>
+        <li>
+          <strong>Embossing / Foil Stamping</strong> — Creates raised or metallic foil elements for premium packaging labels and certificates.
+        </li>
+      </ul>
+
+      <h2>Available Sizes</h2>
+      <table>
+        <thead><tr><th>Size Category</th><th>Common Sizes</th><th>Best For</th></tr></thead>
+        <tbody>
+          <tr><td>Mini / Small</td><td>0.5"×0.5" – 2"×2"</td><td>Product seals, pricing, small labels</td></tr>
+          <tr><td>Standard</td><td>2"×2" – 4"×4"</td><td>Branding, packaging, giveaways</td></tr>
+          <tr><td>Large</td><td>4"×4" – 8"×8"</td><td>Bumper stickers, wall decals, signage</td></tr>
+          <tr><td>Extra Large</td><td>8"×8" – 12"×12"+</td><td>Vehicle graphics, large window decals</td></tr>
+          <tr><td>Custom</td><td>Any size</td><td>Any application requiring unique dimensions</td></tr>
+        </tbody>
+      </table>
+
+      <div class="cta-band">
+        <h2>Ready to Order?</h2>
+        <p>Configure your custom stickers using our online tool and get a free quote in minutes.</p>
+        <a href="/get-a-quote/" class="btn-primary">Get Free Quote →</a>
+        <a href="/sticker-materials/" class="btn-secondary" style="margin-left:12px;">View Materials →</a>
+      </div>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .page-hero { background: linear-gradient(135deg, var(--dark), var(--gray-800)); padding: 80px 0; color: white; text-align: center; }
+  .page-hero .badge { background: rgba(249,115,22,0.2); color: #fb923c; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: white; margin-bottom: 16px; }
+  .page-hero p { color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto; }
+  .content-page { padding: 80px 0; background: var(--light-bg); }
+  .content-body-wide { background: white; border-radius: 16px; padding: 48px; box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+  .content-body-wide h2 { font-size: 1.4rem; margin: 40px 0 20px; color: var(--dark); padding-top: 12px; border-top: 1px solid var(--gray-100); }
+  .content-body-wide h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+  .content-body-wide a { color: var(--accent); text-decoration: underline; }
+  .options-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 16px; }
+  .option-card { background: var(--light-bg); border-radius: 12px; padding: 24px; text-align: center; text-decoration: none; transition: all 0.2s; border: 1.5px solid var(--gray-200); }
+  .option-card:hover { border-color: var(--primary); transform: translateY(-2px); }
+  .opt-icon { font-size: 2rem; display: block; margin-bottom: 10px; }
+  .option-card h3 { font-size: 15px; margin-bottom: 8px; color: var(--dark); }
+  .option-card p { font-size: 13px; color: var(--gray-500); }
+  .options-grid-2 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; margin-bottom: 16px; }
+  .lam-card { background: var(--light-bg); border-radius: 12px; padding: 20px; }
+  .lam-card h3 { font-size: 15px; margin-bottom: 8px; }
+  .lam-card p { font-size: 14px; color: var(--gray-600); margin-bottom: 10px; }
+  .rec-badge { display: inline-block; background: rgba(249,115,22,0.1); color: var(--primary); padding: 3px 10px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+  .print-methods { list-style: none; margin: 16px 0; }
+  .print-methods li { padding: 12px 0 12px 20px; border-bottom: 1px solid var(--gray-100); font-size: 15px; color: var(--gray-700); position: relative; line-height: 1.6; }
+  .print-methods li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-weight: 700; }
+  .print-methods li strong { color: var(--dark); }
+  .cta-band { background: linear-gradient(135deg, var(--primary), #ea580c); border-radius: 16px; padding: 40px; text-align: center; color: white; margin-top: 40px; }
+  .cta-band h2 { color: white; font-size: 1.8rem; margin-bottom: 12px; }
+  .cta-band p { color: rgba(255,255,255,0.85); margin-bottom: 24px; }
+  .cta-band .btn-primary { background: white; color: var(--primary); }
+  .cta-band .btn-secondary { background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.35); }
+  @media (max-width: 900px) { .options-grid, .options-grid-2 { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .options-grid, .options-grid-2 { grid-template-columns: 1fr; } .content-body-wide { padding: 24px; } }
+</style>

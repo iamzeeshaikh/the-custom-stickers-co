@@ -1,0 +1,62 @@
+---
+export interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+export interface Props {
+  items: BreadcrumbItem[];
+}
+const { items } = Astro.props;
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://thecustomstickers.co/" },
+    ...items.map((item, i) => ({
+      "@type": "ListItem",
+      "position": i + 2,
+      "name": item.label,
+      ...(item.href ? { "item": `https://thecustomstickers.co${item.href}` } : {}),
+    }))
+  ]
+};
+---
+<nav class="breadcrumb" aria-label="Breadcrumb">
+  <script type="application/ld+json" set:html={JSON.stringify(schema)} />
+  <ol>
+    <li><a href="/">Home</a></li>
+    {items.map((item, i) => (
+      <li>
+        {item.href && i < items.length - 1
+          ? <a href={item.href}>{item.label}</a>
+          : <span aria-current="page">{item.label}</span>
+        }
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<style>
+  .breadcrumb {
+    padding: 14px 0;
+    font-size: 13.5px;
+    color: var(--gray-500);
+  }
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+    align-items: center;
+    list-style: none;
+  }
+  .breadcrumb li { display: flex; align-items: center; gap: 4px; }
+  .breadcrumb li:not(:last-child)::after {
+    content: '›';
+    color: var(--gray-300);
+    font-size: 15px;
+  }
+  .breadcrumb a { color: var(--gray-500); transition: color 0.2s; }
+  .breadcrumb a:hover { color: var(--primary); }
+  .breadcrumb span { color: var(--dark); font-weight: 500; }
+</style>

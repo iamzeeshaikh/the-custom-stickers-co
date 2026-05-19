@@ -1,0 +1,170 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Artwork Guidelines | How to Prepare Your Sticker Design Files"
+  description="Learn how to prepare your artwork files for custom sticker printing. File formats, resolution, bleed, safe zones, color modes, and more. The Custom Stickers artwork guide."
+  canonical="https://thecustomstickers.co/artwork-guidelines/"
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+  <div class="container" style="padding-top:20px">
+    <Breadcrumb items={[{ label: 'Artwork Guidelines' }]} />
+  </div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">Artwork Guidelines</div>
+      <h1>Artwork Guidelines for Custom Sticker Printing</h1>
+      <p>Follow these guidelines to ensure your stickers print perfectly with sharp detail, accurate colors, and clean edges.</p>
+    </div>
+  </section>
+  <section class="content-page">
+    <div class="container content-layout">
+      <div class="content-body">
+        <h2>Accepted File Formats</h2>
+        <p>We accept a variety of file formats. Vector files are strongly preferred for the sharpest results:</p>
+        <table>
+          <thead><tr><th>Format</th><th>Type</th><th>Recommended</th><th>Notes</th></tr></thead>
+          <tbody>
+            <tr><td>AI (Adobe Illustrator)</td><td>Vector</td><td>✅ Best</td><td>Preferred for all die cut work</td></tr>
+            <tr><td>EPS</td><td>Vector</td><td>✅ Best</td><td>Universal vector format</td></tr>
+            <tr><td>PDF</td><td>Vector/Raster</td><td>✅ Best</td><td>Save with bleeds included</td></tr>
+            <tr><td>SVG</td><td>Vector</td><td>✅ Good</td><td>Web-standard vector format</td></tr>
+            <tr><td>PNG</td><td>Raster</td><td>⚠️ Acceptable</td><td>Must be 300 DPI minimum at print size</td></tr>
+            <tr><td>JPG/JPEG</td><td>Raster</td><td>⚠️ Acceptable</td><td>300 DPI, no compression artifacts</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Resolution Requirements</h2>
+        <ul class="art-list">
+          <li><strong>Minimum resolution:</strong> 300 DPI (dots per inch) at final print size</li>
+          <li><strong>Recommended resolution:</strong> 300–600 DPI for photos and gradients</li>
+          <li><strong>Vector files:</strong> Resolution-independent — always print at maximum quality</li>
+          <li><strong>Screen resolution (72–96 DPI) is NOT acceptable</strong> — do not use screenshots or web images</li>
+        </ul>
+
+        <h2>Color Mode</h2>
+        <ul class="art-list">
+          <li><strong>Use CMYK color mode</strong> for all print files (not RGB)</li>
+          <li>RGB colors will be converted to CMYK during production, which may cause color shifts</li>
+          <li>For precise Pantone color matching, specify the Pantone (PMS) color codes in your file notes</li>
+          <li>Black text should be set to <strong>100% K only</strong> (not rich black) for crisp results</li>
+          <li>For large solid black areas, use rich black: C:60 M:40 Y:40 K:100</li>
+        </ul>
+
+        <h2>Bleed & Safe Zone</h2>
+        <p>All artwork must include a bleed area to prevent white edges after cutting:</p>
+        <table>
+          <thead><tr><th>Setting</th><th>Requirement</th><th>Why</th></tr></thead>
+          <tbody>
+            <tr><td>Bleed</td><td>0.125" (3mm) on all sides</td><td>Prevents white borders after cutting</td></tr>
+            <tr><td>Safe Zone</td><td>0.125" inside the final edge</td><td>Keeps text/logos from being cut off</td></tr>
+            <tr><td>Cut Line</td><td>Provide as a separate path or layer</td><td>Used for die cutting your shape</td></tr>
+          </tbody>
+        </table>
+
+        <h2>Die Cut Shape Requirements</h2>
+        <ol class="art-list numbered">
+          <li>Provide your cut line as a separate spot color layer named <strong>"CutContour"</strong> or <strong>"Die Line"</strong></li>
+          <li>The cut line should be set to overprint and use a spot color (e.g., Pantone 032 C in Magenta)</li>
+          <li>Add 0.125" offset from your design edge to ensure all artwork is visible after cutting</li>
+          <li>Avoid extremely thin cuts (under 1/8") that may not cut cleanly</li>
+          <li>For intricate shapes, keep all detail paths at minimum 2pt stroke width</li>
+        </ol>
+
+        <h2>Font Guidelines</h2>
+        <ul class="art-list">
+          <li><strong>Outline all fonts</strong> before sending — this prevents font substitution issues</li>
+          <li>In Illustrator: Select all text → Type → Create Outlines</li>
+          <li>Minimum readable text size: <strong>6pt</strong> (8pt+ recommended)</li>
+          <li>Avoid very thin or hairline font weights for small sizes</li>
+        </ul>
+
+        <h2>Common Mistakes to Avoid</h2>
+        <ul class="art-list warning">
+          <li>❌ Low-resolution images (under 300 DPI)</li>
+          <li>❌ RGB color mode instead of CMYK</li>
+          <li>❌ Missing bleeds and safe zones</li>
+          <li>❌ Fonts not outlined (converted to paths)</li>
+          <li>❌ Transparency effects not flattened in raster files</li>
+          <li>❌ Die cut line not provided as a separate layer</li>
+          <li>❌ Gradient mesh objects (convert to raster before submitting)</li>
+        </ul>
+
+        <h2>File Upload & Submission</h2>
+        <p>You can submit your artwork in several ways:</p>
+        <ul class="art-list">
+          <li>Upload directly via the quote form on any product page</li>
+          <li>Email files to <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a></li>
+          <li>Share via a Dropbox, Google Drive, or WeTransfer link in your message</li>
+        </ul>
+        <p>Our design team will review your artwork for free and contact you with any issues before printing begins.</p>
+
+        <div class="help-box">
+          <h3>Need Help with Your Artwork?</h3>
+          <p>Our team can help with basic file preparation, color conversions, and file checks at no charge. For more complex design work, contact us to discuss options.</p>
+          <a href="/get-a-quote/" class="btn-primary">Submit Your Artwork →</a>
+          <a href="/contact/" class="btn-secondary" style="margin-left:12px;">Ask a Question</a>
+        </div>
+      </div>
+      <aside class="content-sidebar">
+        <div class="sidebar-card">
+          <h3>Quick Checklist</h3>
+          <ul class="checklist">
+            <li>✅ Vector or 300+ DPI raster</li>
+            <li>✅ CMYK color mode</li>
+            <li>✅ 0.125" bleed on all sides</li>
+            <li>✅ Safe zone 0.125" from edge</li>
+            <li>✅ Fonts outlined</li>
+            <li>✅ Die cut line on separate layer</li>
+            <li>✅ AI, EPS, PDF, or SVG format</li>
+          </ul>
+        </div>
+        <div class="sidebar-card">
+          <h3>Need Help?</h3>
+          <p>Can't prepare your file? We're here to help.</p>
+          <a href="tel:5033580443" class="sidebar-phone">📞 (503) 358-0443</a>
+          <a href="mailto:info@thecustomstickers.co" class="sidebar-email">✉️ Email Us</a>
+        </div>
+      </aside>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .page-hero { background: linear-gradient(135deg, var(--dark), var(--gray-800)); padding: 80px 0; color: white; text-align: center; }
+  .page-hero .badge { background: rgba(249,115,22,0.2); color: #fb923c; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: white; margin-bottom: 16px; }
+  .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+  .content-page { padding: 80px 0; background: var(--light-bg); }
+  .content-layout { display: grid; grid-template-columns: 1fr 300px; gap: 40px; align-items: start; }
+  .content-body { background: white; border-radius: 16px; padding: 40px; box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+  .content-body h2 { font-size: 1.3rem; margin: 32px 0 14px; color: var(--dark); padding-top: 8px; border-top: 1px solid var(--gray-100); }
+  .content-body h2:first-child { margin-top: 0; border-top: none; padding-top: 0; }
+  .content-body p { font-size: 15px; color: var(--gray-600); line-height: 1.75; margin-bottom: 16px; }
+  .content-body a { color: var(--accent); text-decoration: underline; }
+  .art-list { list-style: none; margin: 16px 0; }
+  .art-list li { padding: 8px 0 8px 20px; border-bottom: 1px solid var(--gray-100); font-size: 15px; color: var(--gray-700); position: relative; }
+  .art-list li::before { content: '•'; position: absolute; left: 4px; color: var(--primary); font-weight: 700; }
+  .art-list.numbered { counter-reset: c; }
+  .art-list.numbered li { counter-increment: c; }
+  .art-list.numbered li::before { content: counter(c) '.'; font-weight: 700; color: var(--primary); left: 0; }
+  .art-list.warning li::before { content: ''; }
+  .help-box { background: linear-gradient(135deg, rgba(249,115,22,0.08), rgba(249,115,22,0.04)); border: 1px solid rgba(249,115,22,0.2); border-radius: 12px; padding: 24px; margin-top: 32px; }
+  .help-box h3 { margin-bottom: 10px; }
+  .help-box p { font-size: 15px; color: var(--gray-600); margin-bottom: 16px; }
+  .sidebar-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); margin-bottom: 20px; position: sticky; top: 90px; }
+  .sidebar-card h3 { font-size: 1rem; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid var(--gray-100); }
+  .checklist { list-style: none; }
+  .checklist li { padding: 7px 0; font-size: 14px; color: var(--gray-700); border-bottom: 1px solid var(--gray-100); }
+  .sidebar-card p { font-size: 14px; color: var(--gray-600); margin-bottom: 12px; }
+  .sidebar-phone, .sidebar-email { display: block; margin-top: 10px; font-size: 14px; color: var(--primary); font-weight: 600; text-decoration: none; }
+  @media (max-width: 900px) { .content-layout { grid-template-columns: 1fr; } .sidebar-card { position: static; } }
+  @media (max-width: 600px) { .content-body { padding: 24px; } }
+</style>

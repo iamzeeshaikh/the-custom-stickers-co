@@ -1,0 +1,112 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="About The Custom Stickers | Premium Sticker Printing Company"
+  description="Learn about The Custom Stickers — a premium custom sticker printing company based in Bloomington, IL. Fast turnaround, wholesale pricing, and expert quality."
+  canonical="https://thecustomstickers.co/about/"
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+
+  <div class="container" style="padding-top:20px">
+    <Breadcrumb items={[{ label: 'About Us' }]} />
+  </div>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">About Us</div>
+      <h1>About The Custom Stickers</h1>
+      <p>We're a premium custom sticker printing company dedicated to helping businesses and individuals create stickers that make a lasting impression.</p>
+    </div>
+  </section>
+
+  <section class="about-content">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-text">
+          <h2>Who We Are</h2>
+          <p>The Custom Stickers is a full-service custom sticker printing company serving businesses, brands, and individuals across the United States. Located in Bloomington, IL, we combine cutting-edge digital printing technology with premium materials to deliver stickers that exceed expectations every time.</p>
+          <p>Our team of printing experts brings years of experience in custom sticker production, from <a href="/die-cut-stickers/">die cut stickers</a> and <a href="/custom-vinyl-stickers/">vinyl stickers</a> to <a href="/custom-holographic-stickers/">holographic labels</a> and specialty <a href="/packaging-labels/">packaging labels</a>. We serve everyone from solo entrepreneurs and small Etsy sellers to large-scale corporations requiring thousands of units per month.</p>
+          <h2>Our Mission</h2>
+          <p>Our mission is simple: to deliver premium-quality custom stickers at accessible prices with exceptional service. We believe every brand, regardless of size, deserves professional custom stickers that represent them well.</p>
+          <h2>What Sets Us Apart</h2>
+          <ul class="content-list">
+            <li><strong>100+ Product Types:</strong> The widest selection of custom sticker types, from die cut to holographic to waterproof</li>
+            <li><strong>Free Artwork Review:</strong> Every order gets a professional review before printing</li>
+            <li><strong>No Setup Fees:</strong> Transparent pricing with no hidden costs</li>
+            <li><strong>Fast Turnaround:</strong> Standard 3-5 business day production</li>
+            <li><strong>Satisfaction Guarantee:</strong> Free reprints if your order doesn't match the approved proof</li>
+            <li><strong>Expert Team:</strong> Real people who care about your order</li>
+          </ul>
+        </div>
+        <div class="about-stats">
+          <div class="stat-cards">
+            {[
+              { num: '100+', label: 'Sticker Products' },
+              { num: '50+', label: 'Min. Order Qty' },
+              { num: '3-5', label: 'Days Production' },
+              { num: '100%', label: 'Satisfaction' },
+            ].map(s => (
+              <div class="stat-card">
+                <span class="stat-num">{s.num}</span>
+                <span class="stat-label">{s.label}</span>
+              </div>
+            ))}
+          </div>
+          <div class="contact-card">
+            <h3>Contact Us</h3>
+            <p>📞 <a href="tel:5033580443">(503) 358-0443</a></p>
+            <p>✉️ <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a></p>
+            <p>📍 2975 Coburn Hollow Road<br/>Bloomington, IL 61701</p>
+            <p>🕐 Mon–Fri: 9:00 AM – 6:00 PM CT</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section">
+    <div class="container">
+      <h2>Ready to Create Your Custom Stickers?</h2>
+      <p>Get a free quote today and see why thousands of businesses trust The Custom Stickers.</p>
+      <a href="/get-a-quote/" class="btn-primary">Get Free Quote →</a>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .page-hero { background: linear-gradient(135deg, var(--dark) 0%, var(--gray-800) 100%); padding: 80px 0; color: white; text-align: center; }
+  .page-hero .badge { background: rgba(249,115,22,0.2); color: #fb923c; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); color: white; margin-bottom: 16px; }
+  .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+  .about-content { padding: 80px 0; }
+  .about-grid { display: grid; grid-template-columns: 1fr 380px; gap: 60px; }
+  .about-text h2 { font-size: 1.5rem; margin: 28px 0 14px; }
+  .about-text h2:first-child { margin-top: 0; }
+  .about-text p { font-size: 16px; color: var(--gray-600); line-height: 1.75; margin-bottom: 16px; }
+  .about-text a { color: var(--accent); text-decoration: underline; }
+  .content-list { list-style: none; margin: 16px 0; }
+  .content-list li { padding: 8px 0 8px 20px; border-bottom: 1px solid var(--gray-100); font-size: 15px; color: var(--gray-700); position: relative; }
+  .content-list li::before { content: '✓'; position: absolute; left: 0; color: var(--success); font-weight: 700; }
+  .stat-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+  .stat-card { background: white; border-radius: 16px; padding: 24px; text-align: center; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .stat-num { display: block; font-size: 2rem; font-weight: 900; color: var(--primary); font-family: var(--font-heading); }
+  .stat-label { font-size: 13px; color: var(--gray-500); }
+  .contact-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .contact-card h3 { margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-200); }
+  .contact-card p { margin-bottom: 10px; font-size: 15px; color: var(--gray-700); }
+  .contact-card a { color: var(--primary); text-decoration: none; font-weight: 500; }
+  .cta-section { background: var(--primary); padding: 80px 0; text-align: center; color: white; }
+  .cta-section h2 { color: white; font-size: clamp(1.6rem, 3vw, 2.2rem); margin-bottom: 12px; }
+  .cta-section p { color: rgba(255,255,255,0.85); margin-bottom: 28px; font-size: 16px; }
+  .cta-section .btn-primary { background: white; color: var(--primary); }
+  @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,111 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Terms and Conditions | The Custom Stickers"
+  description="Read the Terms and Conditions for The Custom Stickers. Understand the rules and policies governing our custom sticker printing services."
+  canonical="https://thecustomstickers.co/terms-and-conditions/"
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+  <div class="container" style="padding-top:20px">
+    <Breadcrumb items={[{ label: 'Terms & Conditions' }]} />
+  </div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">Legal</div>
+      <h1>Terms and Conditions</h1>
+      <p>Please read these terms carefully before placing an order with The Custom Stickers.</p>
+    </div>
+  </section>
+  <section class="content-page">
+    <div class="container content-body-wide">
+      <p class="last-updated">Last Updated: January 2025</p>
+
+      <h2>1. Acceptance of Terms</h2>
+      <p>By accessing our website at thecustomstickers.co or placing an order, you agree to be bound by these Terms and Conditions. If you do not agree, please do not use our services.</p>
+
+      <h2>2. Services</h2>
+      <p>The Custom Stickers provides custom sticker and label printing services. All products are custom-manufactured to your specifications and are non-returnable except in cases of production errors on our part.</p>
+
+      <h2>3. Orders and Approval Process</h2>
+      <ul class="policy-list">
+        <li>All orders require artwork submission and digital proof approval before production begins</li>
+        <li>By approving a digital proof, you confirm that the design, spelling, colors, and layout are correct</li>
+        <li>We are not responsible for errors approved by the customer, including spelling mistakes, design flaws, or incorrect colors</li>
+        <li>Production begins only after payment and proof approval are received</li>
+        <li>Order cancellations are not possible after production has begun</li>
+      </ul>
+
+      <h2>4. Pricing and Payment</h2>
+      <ul class="policy-list">
+        <li>All prices are listed in US Dollars (USD)</li>
+        <li>Prices are subject to change without notice until an order is confirmed</li>
+        <li>Full payment is required before production begins</li>
+        <li>We accept major credit cards and other payment methods as listed at checkout</li>
+        <li>Bulk orders over a certain threshold may require a deposit</li>
+      </ul>
+
+      <h2>5. Artwork and Intellectual Property</h2>
+      <ul class="policy-list">
+        <li>You represent that you own or have the legal right to use all artwork, logos, and designs you submit</li>
+        <li>We will not print designs that infringe on intellectual property rights, contain illegal content, or violate applicable laws</li>
+        <li>We reserve the right to refuse any order at our discretion</li>
+        <li>By submitting artwork, you grant us a limited license to reproduce it solely for fulfilling your order</li>
+      </ul>
+
+      <h2>6. Quality and Satisfaction Guarantee</h2>
+      <ul class="policy-list">
+        <li>We guarantee our products match the approved digital proof in terms of color accuracy (within normal printing tolerances of ±10%)</li>
+        <li>If your order does not match the approved proof due to a production error, we will reprint the order at no additional charge</li>
+        <li>Quality claims must be reported within 14 days of delivery with photos</li>
+        <li>Color variations may occur between screen displays and printed output — this is not grounds for a reprint unless significantly outside normal tolerances</li>
+      </ul>
+
+      <h2>7. Turnaround and Delivery</h2>
+      <ul class="policy-list">
+        <li>Production times are estimates and are not guaranteed unless explicitly stated in writing</li>
+        <li>We are not liable for delays caused by carrier issues, natural disasters, or events outside our control</li>
+        <li>Rush orders may be available at an additional cost — contact us to confirm availability</li>
+      </ul>
+
+      <h2>8. Limitation of Liability</h2>
+      <p>In no event shall The Custom Stickers be liable for any indirect, incidental, special, or consequential damages arising from the use of our services or products. Our total liability shall not exceed the amount paid for the specific order in question.</p>
+
+      <h2>9. Governing Law</h2>
+      <p>These Terms and Conditions are governed by the laws of the State of Illinois, United States. Any disputes shall be resolved in the courts of McLean County, Illinois.</p>
+
+      <h2>10. Contact</h2>
+      <p>For questions about these Terms and Conditions, contact us:</p>
+      <ul class="policy-list">
+        <li>📞 Phone: <a href="tel:5033580443">(503) 358-0443</a></li>
+        <li>✉️ Email: <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a></li>
+        <li>📍 2975 Coburn Hollow Road, Bloomington, IL 61701</li>
+      </ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .page-hero { background: linear-gradient(135deg, var(--dark), var(--gray-800)); padding: 80px 0; color: white; text-align: center; }
+  .page-hero .badge { background: rgba(249,115,22,0.2); color: #fb923c; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: white; margin-bottom: 16px; }
+  .page-hero p { color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto; }
+  .content-page { padding: 80px 0; background: var(--light-bg); }
+  .content-body-wide { background: white; border-radius: 16px; padding: 48px; box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+  .last-updated { font-size: 13px; color: var(--gray-500); margin-bottom: 32px; }
+  .content-body-wide h2 { font-size: 1.3rem; margin: 36px 0 14px; padding-top: 12px; border-top: 1px solid var(--gray-100); }
+  .content-body-wide h2:first-of-type { margin-top: 0; border-top: none; padding-top: 0; }
+  .content-body-wide p { font-size: 15px; color: var(--gray-600); line-height: 1.75; margin-bottom: 16px; }
+  .content-body-wide a { color: var(--accent); text-decoration: underline; }
+  .policy-list { list-style: none; margin: 16px 0; }
+  .policy-list li { padding: 8px 0 8px 20px; border-bottom: 1px solid var(--gray-100); font-size: 15px; color: var(--gray-700); position: relative; line-height: 1.6; }
+  .policy-list li::before { content: '•'; position: absolute; left: 4px; color: var(--primary); font-weight: 700; }
+  @media (max-width: 600px) { .content-body-wide { padding: 24px; } }
+</style>

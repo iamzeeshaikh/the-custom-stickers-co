@@ -1,0 +1,594 @@
+---
+export interface Props {
+  productName: string;
+}
+const { productName } = Astro.props;
+---
+
+<div class="ct-wrapper" id="customization-tool">
+  <div class="ct-header">
+    <h2 class="ct-title">Customize Your {productName}</h2>
+    <p class="ct-subtitle">Select your specifications step by step. Your configuration carries over to the quote form automatically.</p>
+  </div>
+
+  <div class="ct-layout">
+    <div class="ct-steps">
+
+      <!-- Step 1: Sticker Type -->
+      <div class="ct-step">
+        <div class="ct-step-header">
+          <div class="ct-step-num">1</div>
+          <div class="ct-step-meta">
+            <div class="ct-step-title">Sticker Type</div>
+            <div class="ct-step-desc">Choose the cut style that fits your design</div>
+          </div>
+        </div>
+        <div class="ct-cards" id="ct-type">
+          <button class="ct-card active" data-value="Die Cut" data-group="type">
+            <span class="ct-card-icon">✂️</span>
+            <div class="ct-card-name">Die Cut</div>
+            <div class="ct-card-desc">Cut to exact shape of your design</div>
+          </button>
+          <button class="ct-card" data-value="Kiss Cut" data-group="type">
+            <span class="ct-card-icon">💠</span>
+            <div class="ct-card-name">Kiss Cut</div>
+            <div class="ct-card-desc">Design cut, square sheet backing</div>
+          </button>
+          <button class="ct-card" data-value="Roll Labels" data-group="type">
+            <span class="ct-card-icon">🎞️</span>
+            <div class="ct-card-name">Roll Labels</div>
+            <div class="ct-card-desc">Bulk roll for dispensers &amp; applicators</div>
+          </button>
+          <button class="ct-card" data-value="Sheet Stickers" data-group="type">
+            <span class="ct-card-icon">📋</span>
+            <div class="ct-card-name">Sheet Stickers</div>
+            <div class="ct-card-desc">Multiple designs printed on one sheet</div>
+          </button>
+          <button class="ct-card" data-value="Circle / Oval" data-group="type">
+            <span class="ct-card-icon">⭕</span>
+            <div class="ct-card-name">Circle / Oval</div>
+            <div class="ct-card-desc">Standard round or oval cut</div>
+          </button>
+          <button class="ct-card" data-value="Rectangle / Square" data-group="type">
+            <span class="ct-card-icon">⬜</span>
+            <div class="ct-card-name">Rectangle / Square</div>
+            <div class="ct-card-desc">Clean straight-edge cut</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Size -->
+      <div class="ct-step">
+        <div class="ct-step-header">
+          <div class="ct-step-num">2</div>
+          <div class="ct-step-meta">
+            <div class="ct-step-title">Size</div>
+            <div class="ct-step-desc">Pick a standard size or enter custom dimensions</div>
+          </div>
+        </div>
+        <div class="ct-cards" id="ct-size">
+          <button class="ct-card" data-value='Small (1"–2")' data-group="size">
+            <span class="ct-card-icon" style="font-size:1.1rem">●</span>
+            <div class="ct-card-name">Small</div>
+            <div class="ct-card-desc">1" – 2" · labels &amp; stickers</div>
+          </button>
+          <button class="ct-card active" data-value='Medium (3"×3")' data-group="size">
+            <span class="ct-card-icon" style="font-size:1.4rem">●</span>
+            <div class="ct-card-name">Medium</div>
+            <div class="ct-card-desc">3" – 4" · branding &amp; promo</div>
+          </button>
+          <button class="ct-card" data-value='Large (5"×5")' data-group="size">
+            <span class="ct-card-icon" style="font-size:1.7rem">●</span>
+            <div class="ct-card-name">Large</div>
+            <div class="ct-card-desc">5" – 8" · decals &amp; signage</div>
+          </button>
+          <button class="ct-card" data-value="Custom Size" data-group="size" id="ct-size-custom-btn">
+            <span class="ct-card-icon">✏️</span>
+            <div class="ct-card-name">Custom</div>
+            <div class="ct-card-desc">Enter your exact dimensions</div>
+          </button>
+        </div>
+        <input type="text" id="ct-custom-size" class="ct-custom-input" placeholder='Enter dimensions e.g. 2.5" × 3.5"' style="display:none" />
+      </div>
+
+      <!-- Step 3: Material -->
+      <div class="ct-step">
+        <div class="ct-step-header">
+          <div class="ct-step-num">3</div>
+          <div class="ct-step-meta">
+            <div class="ct-step-title">Material</div>
+            <div class="ct-step-desc">Select the right material for your application</div>
+          </div>
+        </div>
+        <div class="ct-cards" id="ct-material">
+          <button class="ct-card active" data-value="White Vinyl" data-group="material">
+            <span class="ct-card-icon">🏳️</span>
+            <div class="ct-card-name">White Vinyl</div>
+            <div class="ct-card-desc">Durable, weatherproof, all-purpose</div>
+          </button>
+          <button class="ct-card" data-value="Clear Vinyl" data-group="material">
+            <span class="ct-card-icon">🔍</span>
+            <div class="ct-card-name">Clear Vinyl</div>
+            <div class="ct-card-desc">Transparent for windows &amp; bottles</div>
+          </button>
+          <button class="ct-card" data-value="Holographic" data-group="material">
+            <span class="ct-card-icon">🌈</span>
+            <div class="ct-card-name">Holographic</div>
+            <div class="ct-card-desc">Rainbow prismatic premium effect</div>
+          </button>
+          <button class="ct-card" data-value="Metallic" data-group="material">
+            <span class="ct-card-icon">✨</span>
+            <div class="ct-card-name">Metallic</div>
+            <div class="ct-card-desc">Gold, silver &amp; chrome finishes</div>
+          </button>
+          <button class="ct-card" data-value="Paper" data-group="material">
+            <span class="ct-card-icon">📄</span>
+            <div class="ct-card-name">Paper</div>
+            <div class="ct-card-desc">Budget-friendly, indoor use only</div>
+          </button>
+          <button class="ct-card" data-value="Eco-Friendly" data-group="material">
+            <span class="ct-card-icon">🌿</span>
+            <div class="ct-card-name">Eco-Friendly</div>
+            <div class="ct-card-desc">Recycled &amp; sustainable materials</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 4: Finish -->
+      <div class="ct-step">
+        <div class="ct-step-header">
+          <div class="ct-step-num">4</div>
+          <div class="ct-step-meta">
+            <div class="ct-step-title">Finish</div>
+            <div class="ct-step-desc">Finishing affects look, feel, and durability</div>
+          </div>
+        </div>
+        <div class="ct-cards" id="ct-finish">
+          <button class="ct-card active" data-value="Glossy" data-group="finish">
+            <span class="ct-card-icon">💎</span>
+            <div class="ct-card-name">Glossy</div>
+            <div class="ct-card-desc">Shiny, vivid colors — popular choice</div>
+          </button>
+          <button class="ct-card" data-value="Matte" data-group="finish">
+            <span class="ct-card-icon">🎨</span>
+            <div class="ct-card-name">Matte</div>
+            <div class="ct-card-desc">Flat, no-glare, premium modern look</div>
+          </button>
+          <button class="ct-card" data-value="Soft Touch" data-group="finish">
+            <span class="ct-card-icon">🧸</span>
+            <div class="ct-card-name">Soft Touch</div>
+            <div class="ct-card-desc">Velvety texture, luxury feel</div>
+          </button>
+          <button class="ct-card" data-value="UV Spot" data-group="finish">
+            <span class="ct-card-icon">🔦</span>
+            <div class="ct-card-name">UV Spot</div>
+            <div class="ct-card-desc">Selective gloss coating on key areas</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 5: Quantity -->
+      <div class="ct-step">
+        <div class="ct-step-header">
+          <div class="ct-step-num">5</div>
+          <div class="ct-step-meta">
+            <div class="ct-step-title">Quantity</div>
+            <div class="ct-step-desc">Higher quantity = lower per-unit cost</div>
+          </div>
+        </div>
+        <div class="ct-cards ct-cards-qty" id="ct-qty">
+          <button class="ct-card" data-value="50" data-group="qty">
+            <div class="ct-card-name">50</div>
+            <div class="ct-card-desc">Starter</div>
+          </button>
+          <button class="ct-card" data-value="100" data-group="qty">
+            <div class="ct-card-name">100</div>
+            <div class="ct-card-desc">Small run</div>
+          </button>
+          <button class="ct-card active" data-value="250" data-group="qty">
+            <div class="ct-card-name">250</div>
+            <div class="ct-card-desc ct-popular">⭐ Popular</div>
+          </button>
+          <button class="ct-card" data-value="500" data-group="qty">
+            <div class="ct-card-name">500</div>
+            <div class="ct-card-desc">Great value</div>
+          </button>
+          <button class="ct-card" data-value="1000" data-group="qty">
+            <div class="ct-card-name">1,000</div>
+            <div class="ct-card-desc">Best price/unit</div>
+          </button>
+          <button class="ct-card" data-value="2500+" data-group="qty">
+            <div class="ct-card-name">2,500+</div>
+            <div class="ct-card-desc">Bulk rate</div>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 6: Adhesive -->
+      <div class="ct-step">
+        <div class="ct-step-header">
+          <div class="ct-step-num">6</div>
+          <div class="ct-step-meta">
+            <div class="ct-step-title">Adhesive Type</div>
+            <div class="ct-step-desc">Choose how your stickers will adhere</div>
+          </div>
+        </div>
+        <div class="ct-cards" id="ct-adhesive">
+          <button class="ct-card active" data-value="Permanent" data-group="adhesive">
+            <span class="ct-card-icon">🔒</span>
+            <div class="ct-card-name">Permanent</div>
+            <div class="ct-card-desc">Strong bond — for products &amp; surfaces</div>
+          </button>
+          <button class="ct-card" data-value="Removable" data-group="adhesive">
+            <span class="ct-card-icon">🔓</span>
+            <div class="ct-card-name">Removable</div>
+            <div class="ct-card-desc">Clean peel-off without residue</div>
+          </button>
+          <button class="ct-card" data-value="Repositionable" data-group="adhesive">
+            <span class="ct-card-icon">↔️</span>
+            <div class="ct-card-name">Repositionable</div>
+            <div class="ct-card-desc">Move &amp; reapply multiple times</div>
+          </button>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Sticky Summary Sidebar -->
+    <div class="ct-summary-panel">
+      <div class="ct-summary-inner" id="ct-summary-inner">
+        <div class="ct-summary-badge">Your Configuration</div>
+        <div class="ct-summary-product" id="ct-summary-product"></div>
+        <div class="ct-summary-rows" id="ct-summary-rows">
+          <!-- populated by JS -->
+        </div>
+        <div class="ct-summary-divider"></div>
+        <div class="ct-perks">
+          <div class="ct-perk">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Free digital proof included
+          </div>
+          <div class="ct-perk">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            No setup or plate fees
+          </div>
+          <div class="ct-perk">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            Ships in 3–5 business days
+          </div>
+          <div class="ct-perk">
+            <svg width="15" height="15" fill="none" viewBox="0 0 24 24"><path stroke="#10b981" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            100% satisfaction guarantee
+          </div>
+        </div>
+        <a href="/get-a-quote/" class="ct-cta-btn" id="ct-quote-link">
+          Get a Quote →
+        </a>
+        <p class="ct-cta-note">Specs carry over to the quote form automatically</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .ct-wrapper {
+    background: #fff;
+    border-radius: 20px;
+    border: 1px solid var(--gray-200);
+    overflow: hidden;
+  }
+  .ct-header {
+    background: linear-gradient(135deg, var(--dark) 0%, #1e2d3d 100%);
+    padding: 28px 32px;
+    color: white;
+  }
+  .ct-title {
+    font-size: 1.3rem;
+    color: white;
+    margin: 0 0 6px;
+  }
+  .ct-subtitle {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    margin: 0;
+  }
+  .ct-layout {
+    display: grid;
+    grid-template-columns: 1fr 260px;
+    gap: 0;
+    align-items: start;
+  }
+  .ct-steps {
+    padding: 0;
+    border-right: 1px solid var(--gray-100);
+  }
+  .ct-step {
+    padding: 24px 28px;
+    border-bottom: 1px solid var(--gray-100);
+  }
+  .ct-step:last-child { border-bottom: none; }
+  .ct-step-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+  .ct-step-num {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+  .ct-step-title {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--dark);
+    font-family: var(--font-heading);
+  }
+  .ct-step-desc {
+    font-size: 12.5px;
+    color: var(--gray-500);
+    margin-top: 2px;
+  }
+  .ct-cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .ct-cards-qty {
+    grid-template-columns: repeat(6, 1fr);
+  }
+  .ct-card {
+    background: var(--light-bg);
+    border: 1.5px solid var(--gray-200);
+    border-radius: 10px;
+    padding: 12px 10px;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.15s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-family: var(--font-body);
+  }
+  .ct-card:hover {
+    border-color: var(--primary);
+    background: rgba(249,115,22,0.04);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(249,115,22,0.12);
+  }
+  .ct-card.active {
+    border-color: var(--primary);
+    background: rgba(249,115,22,0.08);
+    box-shadow: 0 0 0 3px rgba(249,115,22,0.15);
+  }
+  .ct-card-icon {
+    font-size: 1.5rem;
+    display: block;
+    margin-bottom: 2px;
+  }
+  .ct-card-name {
+    font-weight: 700;
+    font-size: 12.5px;
+    color: var(--dark);
+    font-family: var(--font-heading);
+    line-height: 1.2;
+  }
+  .ct-card.active .ct-card-name { color: var(--primary); }
+  .ct-card-desc {
+    font-size: 11px;
+    color: var(--gray-500);
+    line-height: 1.3;
+  }
+  .ct-popular { color: #d97706; font-weight: 600; }
+  .ct-cards-qty .ct-card { padding: 10px 6px; }
+  .ct-cards-qty .ct-card-name { font-size: 14px; }
+  .ct-custom-input {
+    margin-top: 10px;
+    width: 100%;
+    padding: 9px 14px;
+    border: 1.5px solid var(--gray-200);
+    border-radius: 8px;
+    font-size: 13px;
+    font-family: var(--font-body);
+    color: var(--dark);
+    transition: border-color 0.15s;
+  }
+  .ct-custom-input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(249,115,22,0.1); }
+
+  /* Summary Panel */
+  .ct-summary-panel {
+    background: var(--light-bg);
+  }
+  .ct-summary-inner {
+    padding: 24px 20px;
+    position: sticky;
+    top: 90px;
+  }
+  .ct-summary-badge {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--primary);
+    margin-bottom: 8px;
+  }
+  .ct-summary-product {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--dark);
+    margin-bottom: 14px;
+    font-family: var(--font-heading);
+    line-height: 1.4;
+  }
+  .ct-summary-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+  .ct-summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 8px;
+  }
+  .ct-summary-label {
+    font-size: 11.5px;
+    color: var(--gray-500);
+    white-space: nowrap;
+    padding-top: 1px;
+  }
+  .ct-summary-value {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--dark);
+    text-align: right;
+  }
+  .ct-summary-divider {
+    height: 1px;
+    background: var(--gray-200);
+    margin: 16px 0;
+  }
+  .ct-perks {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    margin-bottom: 20px;
+  }
+  .ct-perk {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: var(--gray-600);
+  }
+  .ct-perk svg { flex-shrink: 0; }
+  .ct-cta-btn {
+    display: block;
+    width: 100%;
+    padding: 13px;
+    background: var(--primary);
+    color: white;
+    font-weight: 700;
+    font-size: 14px;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    transition: background 0.15s, transform 0.1s;
+    font-family: var(--font-heading);
+  }
+  .ct-cta-btn:hover {
+    background: #ea6c00;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(249,115,22,0.35);
+  }
+  .ct-cta-note {
+    font-size: 11px;
+    color: var(--gray-400);
+    text-align: center;
+    margin-top: 8px;
+  }
+
+  @media (max-width: 900px) {
+    .ct-layout { grid-template-columns: 1fr; }
+    .ct-steps { border-right: none; }
+    .ct-summary-panel { border-top: 1px solid var(--gray-200); }
+    .ct-summary-inner { position: static; }
+    .ct-cards { grid-template-columns: repeat(2, 1fr); }
+    .ct-cards-qty { grid-template-columns: repeat(3, 1fr); }
+  }
+  @media (max-width: 600px) {
+    .ct-header { padding: 20px; }
+    .ct-step { padding: 18px 16px; }
+    .ct-cards { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+    .ct-cards-qty { grid-template-columns: repeat(3, 1fr); }
+  }
+</style>
+
+<script>
+  const ctWrapper = document.querySelector('.ct-wrapper');
+  if (ctWrapper) {
+    const productNameEl = ctWrapper.querySelector('.ct-title');
+    const rawName = productNameEl?.textContent?.replace('Customize Your ', '').trim() || '';
+
+    const summaryProductEl = document.getElementById('ct-summary-product');
+    if (summaryProductEl) summaryProductEl.textContent = rawName;
+
+    const groups: Record<string, string> = {
+      'ct-type': 'Die Cut',
+      'ct-size': 'Medium (3"×3")',
+      'ct-material': 'White Vinyl',
+      'ct-finish': 'Glossy',
+      'ct-qty': '250',
+      'ct-adhesive': 'Permanent',
+    };
+
+    const labels: Record<string, string> = {
+      'ct-type': 'Type',
+      'ct-size': 'Size',
+      'ct-material': 'Material',
+      'ct-finish': 'Finish',
+      'ct-qty': 'Quantity',
+      'ct-adhesive': 'Adhesive',
+    };
+
+    function updateSummary() {
+      const rowsEl = document.getElementById('ct-summary-rows');
+      if (!rowsEl) return;
+
+      rowsEl.innerHTML = Object.entries(groups).map(([k, v]) => `
+        <div class="ct-summary-row">
+          <span class="ct-summary-label">${labels[k]}</span>
+          <span class="ct-summary-value">${v}</span>
+        </div>
+      `).join('');
+
+      const qs = Object.entries(groups)
+        .map(([k, v]) => `${encodeURIComponent(labels[k])}=${encodeURIComponent(v)}`)
+        .join('&');
+      const link = document.getElementById('ct-quote-link');
+      if (link) {
+        (link as HTMLAnchorElement).href = `/get-a-quote/?product=${encodeURIComponent(rawName)}&${qs}`;
+      }
+    }
+
+    Object.keys(groups).forEach(groupId => {
+      const container = document.getElementById(groupId);
+      container?.querySelectorAll('.ct-card').forEach(btn => {
+        btn.addEventListener('click', () => {
+          container.querySelectorAll('.ct-card').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          const val = (btn as HTMLElement).dataset.value || '';
+          groups[groupId] = val;
+
+          if (groupId === 'ct-size') {
+            const customInput = document.getElementById('ct-custom-size') as HTMLInputElement;
+            if (customInput) {
+              customInput.style.display = val === 'Custom Size' ? 'block' : 'none';
+              if (val !== 'Custom Size') updateSummary();
+            }
+          } else {
+            updateSummary();
+          }
+        });
+      });
+    });
+
+    const customSizeInput = document.getElementById('ct-custom-size') as HTMLInputElement;
+    customSizeInput?.addEventListener('input', () => {
+      groups['ct-size'] = customSizeInput.value || 'Custom Size';
+      updateSummary();
+    });
+
+    updateSummary();
+  }
+</script>

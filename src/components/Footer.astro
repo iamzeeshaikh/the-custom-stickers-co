@@ -1,0 +1,191 @@
+---
+const year = new Date().getFullYear();
+---
+<footer class="site-footer">
+  <div class="footer-cta">
+    <div class="container footer-cta-inner">
+      <div class="footer-cta-text">
+        <h2>Ready to Print Your Custom Stickers?</h2>
+        <p>Get a free quote in minutes. Fast turnaround, premium quality, wholesale pricing.</p>
+      </div>
+      <div class="footer-cta-actions">
+        <a href="/get-a-quote/" class="btn-primary">Get Free Quote</a>
+        <a href="tel:5033580443" class="btn-secondary">📞 (503) 358-0443</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-main">
+    <div class="container footer-grid">
+      <div class="footer-col footer-brand">
+        <a href="/" class="footer-logo">
+          <svg width="40" height="40" viewBox="0 0 44 44" fill="none">
+            <rect width="44" height="44" rx="10" fill="#F97316"/>
+            <path d="M22 8L28 16H16L22 8Z" fill="white"/>
+            <rect x="14" y="18" width="16" height="12" rx="3" fill="white"/>
+            <circle cx="22" cy="34" r="2" fill="white"/>
+          </svg>
+          <span>The Custom Stickers</span>
+        </a>
+        <p>Premium custom sticker printing for businesses, brands, and creators. Fast turnaround, wholesale prices, exceptional quality.</p>
+        <div class="contact-info">
+          <a href="tel:5033580443">📞 (503) 358-0443</a>
+          <a href="mailto:info@thecustomstickers.co">✉️ info@thecustomstickers.co</a>
+          <span>📍 2975 Coburn Hollow Road, Bloomington, IL 61701</span>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h3>Popular Products</h3>
+        <ul>
+          <li><a href="/die-cut-stickers/">Custom Die Cut Stickers</a></li>
+          <li><a href="/custom-vinyl-stickers/">Custom Vinyl Stickers</a></li>
+          <li><a href="/waterproof-stickers/">Waterproof Stickers</a></li>
+          <li><a href="/custom-holographic-stickers/">Holographic Stickers</a></li>
+          <li><a href="/custom-clear-stickers/">Custom Clear Stickers</a></li>
+          <li><a href="/bumper-stickers/">Custom Bumper Stickers</a></li>
+          <li><a href="/packaging-labels/">Packaging Labels</a></li>
+          <li><a href="/promotional-stickers/">Promotional Stickers</a></li>
+          <li><a href="/glossy-stickers/">Glossy Stickers</a></li>
+          <li><a href="/matte-stickers/">Matte Stickers</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>More Products</h3>
+        <ul>
+          <li><a href="/custom-business-stickers/">Business Stickers</a></li>
+          <li><a href="/qr-code-stickers/">QR Code Stickers</a></li>
+          <li><a href="/custom-labels-and-stickers/">Custom Labels</a></li>
+          <li><a href="/metallic-stickers/">Metallic Stickers</a></li>
+          <li><a href="/glow-in-the-dark-stickers/">Glow-in-the-Dark Stickers</a></li>
+          <li><a href="/reflective-stickers/">Reflective Stickers</a></li>
+          <li><a href="/custom-laptop-stickers/">Laptop Stickers</a></li>
+          <li><a href="/car-stickers/">Car Stickers</a></li>
+          <li><a href="/window-stickers/">Window Stickers</a></li>
+          <li><a href="/stickers-and-labels/">All Stickers & Labels</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h3>Company</h3>
+        <ul>
+          <li><a href="/about/">About Us</a></li>
+          <li><a href="/contact/">Contact Us</a></li>
+          <li><a href="/get-a-quote/">Get a Quote</a></li>
+          <li><a href="/artwork-guidelines/">Artwork Guidelines</a></li>
+          <li><a href="/sticker-materials/">Sticker Materials</a></li>
+          <li><a href="/sticker-printing-options/">Printing Options</a></li>
+          <li><a href="/shipping-policy/">Shipping Policy</a></li>
+          <li><a href="/privacy-policy/">Privacy Policy</a></li>
+          <li><a href="/terms-and-conditions/">Terms & Conditions</a></li>
+          <li><a href="/sitemap-page/">Sitemap</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container footer-bottom-inner">
+      <p>&copy; {year} The Custom Stickers. All rights reserved. | <a href="/privacy-policy/">Privacy Policy</a> | <a href="/terms-and-conditions/">Terms</a></p>
+      <p class="footer-tagline">Premium Custom Sticker Printing · Fast Shipping · Wholesale Prices</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer { background: var(--dark); color: rgba(255,255,255,0.7); }
+  .footer-cta {
+    background: linear-gradient(135deg, var(--primary) 0%, #ea580c 100%);
+    padding: 56px 0;
+  }
+  .footer-cta-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .footer-cta-text h2 {
+    color: white;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    margin-bottom: 8px;
+  }
+  .footer-cta-text p { color: rgba(255,255,255,0.85); font-size: 16px; }
+  .footer-cta-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .footer-cta .btn-primary { background: white; color: var(--primary); }
+  .footer-cta .btn-primary:hover { background: var(--gray-100); box-shadow: 0 8px 25px rgba(0,0,0,0.2); }
+  .footer-cta .btn-secondary { background: transparent; color: white; border-color: rgba(255,255,255,0.4); }
+  .footer-cta .btn-secondary:hover { border-color: white; color: white; background: rgba(255,255,255,0.1); }
+  .footer-main { padding: 60px 0 40px; }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 48px;
+  }
+  .footer-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-family: var(--font-heading);
+    font-weight: 800;
+    font-size: 16px;
+    margin-bottom: 16px;
+    text-decoration: none;
+  }
+  .footer-brand p {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-size: 14px;
+  }
+  .contact-info a, .contact-info span {
+    color: rgba(255,255,255,0.7);
+    transition: color 0.2s;
+  }
+  .contact-info a:hover { color: var(--primary); }
+  .footer-col h3 {
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  .footer-col ul li { margin-bottom: 8px; }
+  .footer-col ul li a {
+    font-size: 14px;
+    color: rgba(255,255,255,0.65);
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--primary); }
+  .footer-bottom {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding: 20px 0;
+  }
+  .footer-bottom-inner {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .footer-bottom p { font-size: 13px; color: rgba(255,255,255,0.4); }
+  .footer-bottom a { color: rgba(255,255,255,0.5); }
+  .footer-bottom a:hover { color: var(--primary); }
+  .footer-tagline { font-size: 12px !important; }
+  @media (max-width: 900px) {
+    .footer-grid { grid-template-columns: 1fr 1fr; }
+    .footer-cta-inner { flex-direction: column; text-align: center; }
+  }
+  @media (max-width: 600px) {
+    .footer-grid { grid-template-columns: 1fr; }
+    .footer-bottom-inner { flex-direction: column; text-align: center; }
+  }
+</style>

@@ -1,0 +1,175 @@
+---
+export interface Props {
+  productName?: string;
+  compact?: boolean;
+}
+const { productName = '', compact = false } = Astro.props;
+---
+<div class={`quote-form-wrapper ${compact ? 'compact' : ''}`}>
+  {!compact && <h3 class="form-heading">Get a Free Quote</h3>}
+  <form class="quote-form" id="quote-form" novalidate>
+    <input type="text" name="honeypot" class="honeypot" tabindex="-1" autocomplete="off" />
+    <input type="hidden" name="product" value={productName} />
+
+    {compact ? (
+      <>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="qf-name">Your Name *</label>
+            <input type="text" id="qf-name" name="name" required placeholder="John Smith" />
+          </div>
+          <div class="form-group">
+            <label for="qf-email">Email Address *</label>
+            <input type="email" id="qf-email" name="email" required placeholder="john@example.com" />
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="qf-phone">Phone Number</label>
+            <input type="tel" id="qf-phone" name="phone" placeholder="(503) 555-0100" />
+          </div>
+          <div class="form-group">
+            <label for="qf-qty">Quantity *</label>
+            <select id="qf-qty" name="quantity" required>
+              <option value="">Select Quantity</option>
+              <option>50-99</option>
+              <option>100-249</option>
+              <option>250-499</option>
+              <option>500-999</option>
+              <option>1,000-2,499</option>
+              <option>2,500-4,999</option>
+              <option>5,000+</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="qf-msg">Message / Notes</label>
+          <textarea id="qf-msg" name="message" rows="3" placeholder="Size, material, finish, or any special requirements..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="qf-file">Upload Artwork</label>
+          <input type="file" id="qf-file" name="artwork" accept=".jpg,.jpeg,.png,.pdf,.ai,.eps,.svg" />
+          <small>Accepted: JPG, PNG, PDF, AI, EPS, SVG (max 10MB)</small>
+        </div>
+      </>
+    ) : (
+      <>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="qf-name-f">Your Name *</label>
+            <input type="text" id="qf-name-f" name="name" required placeholder="John Smith" />
+          </div>
+          <div class="form-group">
+            <label for="qf-email-f">Email Address *</label>
+            <input type="email" id="qf-email-f" name="email" required placeholder="john@example.com" />
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="qf-phone-f">Phone Number</label>
+            <input type="tel" id="qf-phone-f" name="phone" placeholder="(503) 555-0100" />
+          </div>
+          <div class="form-group">
+            <label for="qf-product-f">Product</label>
+            <input type="text" id="qf-product-f" name="product_display" value={productName} placeholder="e.g. Die Cut Stickers" />
+          </div>
+        </div>
+        <div class="form-row-2">
+          <div class="form-group">
+            <label for="qf-qty-f">Quantity *</label>
+            <select id="qf-qty-f" name="quantity" required>
+              <option value="">Select Quantity</option>
+              <option>50-99</option>
+              <option>100-249</option>
+              <option>250-499</option>
+              <option>500-999</option>
+              <option>1,000-2,499</option>
+              <option>2,500-4,999</option>
+              <option>5,000+</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="qf-size-f">Size (if known)</label>
+            <input type="text" id="qf-size-f" name="size" placeholder='e.g. 3" x 3"' />
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="qf-msg-f">Message / Notes</label>
+          <textarea id="qf-msg-f" name="message" rows="4" placeholder="Describe your project: material preferences, finish, colors, turnaround time, or any special requirements..."></textarea>
+        </div>
+        <div class="form-group">
+          <label for="qf-file-f">Upload Artwork</label>
+          <input type="file" id="qf-file-f" name="artwork" accept=".jpg,.jpeg,.png,.pdf,.ai,.eps,.svg" />
+          <small>Accepted: JPG, PNG, PDF, AI, EPS, SVG (max 10MB)</small>
+        </div>
+      </>
+    )}
+
+    <div class="success-msg" id="quote-success">
+      ✅ Thank you! Your quote request has been sent. We'll get back to you within 1 business day.
+    </div>
+    <div class="error-msg" id="quote-error">
+      ❌ Something went wrong. Please try again or call us at (503) 358-0443.
+    </div>
+
+    <button type="submit" class="btn-primary submit-btn">
+      <span class="btn-text">Send Quote Request</span>
+      <span class="btn-spinner" style="display:none">Sending...</span>
+    </button>
+  </form>
+</div>
+
+<style>
+  .quote-form-wrapper { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+  .quote-form-wrapper.compact { padding: 24px; }
+  .form-heading { font-size: 1.4rem; margin-bottom: 24px; color: var(--dark); }
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .submit-btn { width: 100%; justify-content: center; margin-top: 8px; }
+  input[type="file"] { padding: 8px 12px; font-size: 13px; }
+  small { display: block; color: var(--gray-500); font-size: 12px; margin-top: 4px; }
+  .honeypot { position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px; }
+  @media (max-width: 540px) {
+    .form-row-2 { grid-template-columns: 1fr; }
+    .quote-form-wrapper { padding: 20px; }
+  }
+</style>
+
+<script>
+  document.querySelectorAll('.quote-form').forEach(form => {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const f = e.target as HTMLFormElement;
+      const honey = f.querySelector<HTMLInputElement>('[name="honeypot"]');
+      if (honey?.value) return;
+
+      const btn = f.querySelector('.submit-btn') as HTMLButtonElement;
+      const btnText = f.querySelector('.btn-text') as HTMLElement;
+      const btnSpinner = f.querySelector('.btn-spinner') as HTMLElement;
+      const successMsg = f.querySelector('.success-msg') as HTMLElement;
+      const errorMsg = f.querySelector('.error-msg') as HTMLElement;
+
+      btn.disabled = true;
+      btnText.style.display = 'none';
+      btnSpinner.style.display = 'inline';
+      successMsg.style.display = 'none';
+      errorMsg.style.display = 'none';
+
+      try {
+        const data = new FormData(f);
+        const res = await fetch('/api/submit-form', { method: 'POST', body: data });
+        if (res.ok) {
+          successMsg.style.display = 'block';
+          f.reset();
+        } else {
+          errorMsg.style.display = 'block';
+        }
+      } catch {
+        errorMsg.style.display = 'block';
+      } finally {
+        btn.disabled = false;
+        btnText.style.display = 'inline';
+        btnSpinner.style.display = 'none';
+      }
+    });
+  });
+</script>

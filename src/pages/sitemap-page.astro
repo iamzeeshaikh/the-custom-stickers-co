@@ -1,0 +1,129 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import { products } from '../data/products';
+---
+<Layout
+  title="Sitemap | The Custom Stickers"
+  description="Complete sitemap of The Custom Stickers website. Browse all pages, product categories, and resources."
+  canonical="https://thecustomstickers.co/sitemap-page/"
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+  <div class="container" style="padding-top:20px">
+    <Breadcrumb items={[{ label: 'Sitemap' }]} />
+  </div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">Sitemap</div>
+      <h1>Website Sitemap</h1>
+      <p>All pages on The Custom Stickers website — organized for easy navigation.</p>
+    </div>
+  </section>
+  <section class="sitemap-section">
+    <div class="container">
+      <div class="sitemap-grid">
+        <div class="sitemap-col">
+          <h2>Main Pages</h2>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about/">About Us</a></li>
+            <li><a href="/contact/">Contact Us</a></li>
+            <li><a href="/get-a-quote/">Get a Quote</a></li>
+            <li><a href="/artwork-guidelines/">Artwork Guidelines</a></li>
+            <li><a href="/sticker-materials/">Sticker Materials</a></li>
+            <li><a href="/sticker-printing-options/">Printing Options</a></li>
+            <li><a href="/shipping-policy/">Shipping Policy</a></li>
+            <li><a href="/privacy-policy/">Privacy Policy</a></li>
+            <li><a href="/terms-and-conditions/">Terms & Conditions</a></li>
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h2>Core Sticker Products</h2>
+          <ul>
+            {products.filter(p => p.category === 'core').map(p => (
+              <li><a href={`/${p.slug}/`}>{p.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h2>Specialty Stickers</h2>
+          <ul>
+            {products.filter(p => p.category === 'specialty').map(p => (
+              <li><a href={`/${p.slug}/`}>{p.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h2>Business Stickers</h2>
+          <ul>
+            {products.filter(p => p.category === 'business').map(p => (
+              <li><a href={`/${p.slug}/`}>{p.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h2>Vehicle & Outdoor</h2>
+          <ul>
+            {products.filter(p => ['vehicle','outdoor'].includes(p.category)).map(p => (
+              <li><a href={`/${p.slug}/`}>{p.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h2>Seasonal & Holiday</h2>
+          <ul>
+            {products.filter(p => p.category === 'seasonal').map(p => (
+              <li><a href={`/${p.slug}/`}>{p.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h2>Food & Packaging</h2>
+          <ul>
+            {products.filter(p => ['food','packaging'].includes(p.category)).map(p => (
+              <li><a href={`/${p.slug}/`}>{p.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h2>Personal & Lifestyle</h2>
+          <ul>
+            {products.filter(p => ['personal','home','sports','educational','events'].includes(p.category)).map(p => (
+              <li><a href={`/${p.slug}/`}>{p.name}</a></li>
+            ))}
+          </ul>
+        </div>
+        <div class="sitemap-col">
+          <h2>Materials & Finishes</h2>
+          <ul>
+            {products.filter(p => ['material','finish','size','shape','security'].includes(p.category)).map(p => (
+              <li><a href={`/${p.slug}/`}>{p.name}</a></li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .page-hero { background: linear-gradient(135deg, var(--dark), var(--gray-800)); padding: 60px 0; color: white; text-align: center; }
+  .page-hero .badge { background: rgba(249,115,22,0.2); color: #fb923c; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: white; margin-bottom: 16px; }
+  .page-hero p { color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto; }
+  .sitemap-section { padding: 80px 0; }
+  .sitemap-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; }
+  .sitemap-col h2 { font-size: 1.1rem; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 2px solid var(--primary); color: var(--dark); }
+  .sitemap-col ul { list-style: none; }
+  .sitemap-col ul li { margin-bottom: 8px; }
+  .sitemap-col ul li a { font-size: 14px; color: var(--gray-700); text-decoration: none; transition: color 0.2s; }
+  .sitemap-col ul li a:hover { color: var(--primary); }
+  @media (max-width: 900px) { .sitemap-grid { grid-template-columns: 1fr 1fr; } }
+  @media (max-width: 600px) { .sitemap-grid { grid-template-columns: 1fr; } }
+</style>

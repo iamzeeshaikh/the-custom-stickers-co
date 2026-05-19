@@ -1,0 +1,118 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Shipping Policy | The Custom Stickers"
+  description="Learn about The Custom Stickers shipping policy — production times, delivery options, turnaround, and order tracking. Fast shipping across the USA."
+  canonical="https://thecustomstickers.co/shipping-policy/"
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+  <div class="container" style="padding-top:20px">
+    <Breadcrumb items={[{ label: 'Shipping Policy' }]} />
+  </div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">Shipping Policy</div>
+      <h1>Shipping Policy</h1>
+      <p>Fast production and reliable delivery. Here's everything you need to know about how we ship your custom stickers.</p>
+    </div>
+  </section>
+  <section class="content-page">
+    <div class="container content-body-wide">
+      <p class="last-updated">Last Updated: January 2025</p>
+
+      <h2>Production Time</h2>
+      <p>All orders are custom-produced after artwork approval. Production time begins once you approve your digital proof.</p>
+      <table>
+        <thead><tr><th>Production Option</th><th>Turnaround Time</th><th>Notes</th></tr></thead>
+        <tbody>
+          <tr><td>Standard Production</td><td>3–5 business days</td><td>Most orders qualify for standard production</td></tr>
+          <tr><td>Rush Production</td><td>1–2 business days</td><td>Available for most products at additional cost</td></tr>
+          <tr><td>Super Rush</td><td>Same day / Next day</td><td>Contact us to confirm availability</td></tr>
+        </tbody>
+      </table>
+      <p>Business days are Monday through Friday, excluding US federal holidays.</p>
+
+      <h2>Shipping Methods</h2>
+      <table>
+        <thead><tr><th>Shipping Method</th><th>Estimated Delivery</th><th>Carrier</th></tr></thead>
+        <tbody>
+          <tr><td>Standard Shipping</td><td>5–7 business days</td><td>USPS / UPS Ground</td></tr>
+          <tr><td>Expedited Shipping</td><td>2–3 business days</td><td>UPS / FedEx</td></tr>
+          <tr><td>Overnight Shipping</td><td>Next business day</td><td>UPS / FedEx Next Day Air</td></tr>
+        </tbody>
+      </table>
+
+      <h2>Shipping Rates</h2>
+      <p>Shipping rates are calculated at checkout based on order weight, dimensions, and destination. For bulk orders, contact us directly for shipping cost estimates.</p>
+      <ul class="policy-list">
+        <li>Free standard shipping is available on qualifying orders over certain thresholds (varies by promotion)</li>
+        <li>Expedited and overnight shipping charges are calculated in real-time at checkout</li>
+        <li>For international shipping inquiries, contact us at <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a></li>
+      </ul>
+
+      <h2>Order Tracking</h2>
+      <p>Once your order ships, you will receive a tracking number via email. You can track your package directly on the carrier's website. If you have not received a tracking number within your expected production time, contact us immediately.</p>
+
+      <h2>Delivery Address</h2>
+      <ul class="policy-list">
+        <li>Please ensure your delivery address is accurate and complete before submitting your order</li>
+        <li>We are not responsible for orders delivered to incorrect addresses provided by the customer</li>
+        <li>Address corrections after printing may result in additional shipping charges</li>
+      </ul>
+
+      <h2>Damaged or Lost Shipments</h2>
+      <p>If your order arrives damaged or is lost in transit:</p>
+      <ol class="policy-list numbered">
+        <li>Contact us within 5 business days of the expected delivery date</li>
+        <li>Provide photos of any damaged packaging or products</li>
+        <li>We will file a claim with the carrier and work to resolve the issue promptly</li>
+        <li>Replacement orders will be processed as quickly as possible at no additional cost for carrier-related damage</li>
+      </ol>
+
+      <h2>Returns & Reprints</h2>
+      <p>Because all orders are custom-produced, we do not accept returns for buyer's remorse or design changes after production begins. However, we stand behind our quality with a 100% satisfaction guarantee:</p>
+      <ul class="policy-list">
+        <li>If your stickers do not match the approved digital proof, we will reprint your order at no charge</li>
+        <li>Quality issues must be reported within 14 days of delivery with supporting photos</li>
+        <li>We do not reprint orders for design changes requested after production approval</li>
+      </ul>
+
+      <h2>Contact Us</h2>
+      <p>For shipping questions, order status, or delivery concerns, contact us at:</p>
+      <ul class="policy-list">
+        <li>📞 Phone: <a href="tel:5033580443">(503) 358-0443</a></li>
+        <li>✉️ Email: <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a></li>
+        <li>📍 Address: 2975 Coburn Hollow Road, Bloomington, IL 61701</li>
+      </ul>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .page-hero { background: linear-gradient(135deg, var(--dark), var(--gray-800)); padding: 80px 0; color: white; text-align: center; }
+  .page-hero .badge { background: rgba(249,115,22,0.2); color: #fb923c; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: white; margin-bottom: 16px; }
+  .page-hero p { color: rgba(255,255,255,0.75); max-width: 600px; margin: 0 auto; }
+  .content-page { padding: 80px 0; background: var(--light-bg); }
+  .content-body-wide { background: white; border-radius: 16px; padding: 48px; box-shadow: 0 4px 24px rgba(0,0,0,0.07); }
+  .last-updated { font-size: 13px; color: var(--gray-500); margin-bottom: 32px; }
+  .content-body-wide h2 { font-size: 1.3rem; margin: 36px 0 14px; padding-top: 12px; border-top: 1px solid var(--gray-100); }
+  .content-body-wide h2:first-of-type { margin-top: 0; border-top: none; padding-top: 0; }
+  .content-body-wide p { font-size: 15px; color: var(--gray-600); line-height: 1.75; margin-bottom: 16px; }
+  .content-body-wide a { color: var(--accent); text-decoration: underline; }
+  .policy-list { list-style: none; margin: 16px 0; }
+  .policy-list li { padding: 8px 0 8px 20px; border-bottom: 1px solid var(--gray-100); font-size: 15px; color: var(--gray-700); position: relative; }
+  .policy-list li::before { content: '•'; position: absolute; left: 4px; color: var(--primary); font-weight: 700; }
+  .policy-list.numbered { counter-reset: c; }
+  .policy-list.numbered li { counter-increment: c; }
+  .policy-list.numbered li::before { content: counter(c) '.'; font-weight: 700; color: var(--primary); left: 0; }
+  @media (max-width: 600px) { .content-body-wide { padding: 24px; } }
+</style>

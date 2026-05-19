@@ -1,0 +1,212 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Sticker Materials Guide | Vinyl, Clear, Holographic & More | The Custom Stickers"
+  description="Complete guide to custom sticker materials — vinyl, clear vinyl, holographic, metallic, paper, eco-friendly, and more. Choose the right material for your project."
+  canonical="https://thecustomstickers.co/sticker-materials/"
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+  <div class="container" style="padding-top:20px">
+    <Breadcrumb items={[{ label: 'Sticker Materials' }]} />
+  </div>
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">Materials Guide</div>
+      <h1>Custom Sticker Materials Guide</h1>
+      <p>Choose the right material for your custom stickers. Each material has unique properties suited for specific applications.</p>
+    </div>
+  </section>
+  <section class="content-page">
+    <div class="container">
+      <div class="materials-intro">
+        <p>Selecting the right material is one of the most important decisions when ordering custom stickers. The wrong material can result in stickers that peel, fade, or fail to adhere properly. Use this guide to choose the perfect material for your application.</p>
+      </div>
+      <div class="materials-cards">
+        {[
+          {
+            name: 'Premium Vinyl',
+            icon: '💧',
+            href: '/custom-vinyl-stickers/',
+            durability: '3-5 years outdoor',
+            best: 'General use, outdoor, products, vehicles',
+            props: ['100% waterproof', 'UV-resistant ink', 'Strong adhesive', 'Flexible & conformable', 'Scratch resistant'],
+            avoid: 'Not for removable/temporary applications',
+            finishes: 'Glossy, Matte, Soft Touch',
+          },
+          {
+            name: 'Clear Vinyl',
+            icon: '🔍',
+            href: '/custom-clear-stickers/',
+            durability: '3-5 years outdoor',
+            best: 'Windows, glass, bottles, transparent look',
+            props: ['Transparent background', 'Waterproof', 'Conformable to curves', 'Professional seamless look', 'UV-resistant'],
+            avoid: 'White ink required for visibility on dark surfaces',
+            finishes: 'Glossy, Matte',
+          },
+          {
+            name: 'Holographic Vinyl',
+            icon: '✨',
+            href: '/custom-holographic-stickers/',
+            durability: '2-3 years outdoor',
+            best: 'Premium brands, packaging, events, collectibles',
+            props: ['Rainbow foil effect', 'Light-catching shimmer', 'Eye-catching and unique', 'Waterproof', 'Strong adhesive'],
+            avoid: 'Colors may appear different due to foil base',
+            finishes: 'Rainbow Holographic only',
+          },
+          {
+            name: 'Metallic Vinyl',
+            icon: '⭐',
+            href: '/metallic-stickers/',
+            durability: '2-3 years outdoor',
+            best: 'Luxury brands, certificates, awards, packaging',
+            props: ['Gold, Silver, or Chrome finish', 'Premium appearance', 'Waterproof', 'High-end look', 'Great for embossed effects'],
+            avoid: 'Not suitable for complex full-color designs',
+            finishes: 'Gold, Silver, Chrome',
+          },
+          {
+            name: 'White Paper',
+            icon: '📄',
+            href: '/paper-stickers/',
+            durability: 'Indoor use only',
+            best: 'Product labels, indoor packaging, budget orders',
+            props: ['Budget-friendly', 'Bright white surface', 'Excellent color vibrancy', 'Recyclable', 'Writable surface'],
+            avoid: 'Not waterproof — will degrade with moisture',
+            finishes: 'Glossy, Matte, Uncoated',
+          },
+          {
+            name: 'Eco-Friendly',
+            icon: '🌿',
+            href: '/custom-eco-friendly-stickers/',
+            durability: 'Indoor use only',
+            best: 'Sustainable brands, organic products, eco-conscious packaging',
+            props: ['Recycled/sustainable materials', 'Biodegradable options', 'Water-based inks', 'FSC-certified', 'Natural appearance'],
+            avoid: 'Lower durability than synthetic materials',
+            finishes: 'Matte, Natural Uncoated',
+          },
+          {
+            name: 'Reflective Vinyl',
+            icon: '🔦',
+            href: '/reflective-stickers/',
+            durability: '5+ years outdoor',
+            best: 'Safety, vehicles, helmets, outdoor equipment',
+            props: ['High visibility in low light', 'Reflects headlights & flashlights', 'Weatherproof', 'Strong adhesive', 'DOT-compliant options'],
+            avoid: 'Not ideal for complex full-color designs',
+            finishes: 'Reflective Silver, Yellow, Orange',
+          },
+          {
+            name: 'Glow-in-the-Dark',
+            icon: '🌙',
+            href: '/glow-in-the-dark-stickers/',
+            durability: '2-3 years',
+            best: 'Safety, events, kids products, novelty',
+            props: ['Charges from light sources', 'Glows green in darkness', 'Non-toxic', 'Reusable effect', 'Waterproof vinyl base'],
+            avoid: 'Glow color is limited to green/yellow',
+            finishes: 'Standard (Glow)',
+          },
+        ].map(mat => (
+          <div class="material-detail-card">
+            <div class="mat-header">
+              <span class="mat-big-icon">{mat.icon}</span>
+              <div>
+                <h2><a href={mat.href}>{mat.name}</a></h2>
+                <span class="mat-best">Best for: {mat.best}</span>
+              </div>
+              <span class="mat-durability">{mat.durability}</span>
+            </div>
+            <div class="mat-body">
+              <div class="mat-col">
+                <h3>Properties</h3>
+                <ul>
+                  {mat.props.map(p => <li>{p}</li>)}
+                </ul>
+              </div>
+              <div class="mat-col">
+                <h3>Available Finishes</h3>
+                <p class="mat-finishes">{mat.finishes}</p>
+                <h3>Not Recommended For</h3>
+                <p class="mat-avoid">{mat.avoid}</p>
+              </div>
+            </div>
+            <a href={mat.href} class="mat-cta">Order {mat.name} →</a>
+          </div>
+        ))}
+      </div>
+
+      <div class="compare-table">
+        <h2>Material Comparison Chart</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Material</th>
+              <th>Waterproof</th>
+              <th>Outdoor</th>
+              <th>Indoor</th>
+              <th>Durability</th>
+              <th>Price Range</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Premium Vinyl</td><td>✅</td><td>✅</td><td>✅</td><td>★★★★★</td><td>$$</td></tr>
+            <tr><td>Clear Vinyl</td><td>✅</td><td>✅</td><td>✅</td><td>★★★★★</td><td>$$</td></tr>
+            <tr><td>Holographic</td><td>✅</td><td>✅</td><td>✅</td><td>★★★★☆</td><td>$$$</td></tr>
+            <tr><td>Metallic</td><td>✅</td><td>✅</td><td>✅</td><td>★★★★☆</td><td>$$$</td></tr>
+            <tr><td>White Paper</td><td>❌</td><td>❌</td><td>✅</td><td>★★☆☆☆</td><td>$</td></tr>
+            <tr><td>Eco-Friendly</td><td>❌</td><td>❌</td><td>✅</td><td>★★☆☆☆</td><td>$$</td></tr>
+            <tr><td>Reflective</td><td>✅</td><td>✅</td><td>✅</td><td>★★★★★</td><td>$$$</td></tr>
+            <tr><td>Glow-in-Dark</td><td>✅</td><td>⚠️</td><td>✅</td><td>★★★☆☆</td><td>$$$</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="mat-cta-box">
+        <h2>Not Sure Which Material to Choose?</h2>
+        <p>Our team will recommend the best material for your specific application. Just tell us how and where you'll use your stickers.</p>
+        <a href="/get-a-quote/" class="btn-primary">Get a Free Quote →</a>
+        <a href="/contact/" class="btn-secondary" style="margin-left:12px;">Ask Our Experts</a>
+      </div>
+    </div>
+  </section>
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .page-hero { background: linear-gradient(135deg, var(--dark), var(--gray-800)); padding: 80px 0; color: white; text-align: center; }
+  .page-hero .badge { background: rgba(249,115,22,0.2); color: #fb923c; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(1.8rem, 3.5vw, 2.8rem); color: white; margin-bottom: 16px; }
+  .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.05rem; max-width: 600px; margin: 0 auto; }
+  .content-page { padding: 80px 0; }
+  .materials-intro { max-width: 800px; margin: 0 auto 48px; text-align: center; font-size: 16px; color: var(--gray-600); line-height: 1.7; }
+  .materials-cards { display: flex; flex-direction: column; gap: 24px; margin-bottom: 48px; }
+  .material-detail-card { background: white; border-radius: 16px; padding: 28px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); }
+  .mat-header { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; padding-bottom: 20px; border-bottom: 1px solid var(--gray-100); }
+  .mat-big-icon { font-size: 2.5rem; flex-shrink: 0; margin-top: 4px; }
+  .mat-header > div { flex: 1; }
+  .mat-header h2 { font-size: 1.3rem; margin-bottom: 4px; }
+  .mat-header h2 a { color: var(--dark); text-decoration: none; }
+  .mat-header h2 a:hover { color: var(--primary); }
+  .mat-best { font-size: 13px; color: var(--gray-500); }
+  .mat-durability { background: rgba(16,185,129,0.1); color: #065f46; padding: 6px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; white-space: nowrap; flex-shrink: 0; }
+  .mat-body { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 20px; }
+  .mat-col h3 { font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray-500); margin-bottom: 10px; font-weight: 600; }
+  .mat-col ul { list-style: none; }
+  .mat-col ul li { padding: 6px 0 6px 18px; font-size: 14px; color: var(--gray-700); border-bottom: 1px solid var(--gray-100); position: relative; }
+  .mat-col ul li::before { content: '✓'; position: absolute; left: 0; color: var(--success); font-weight: 700; }
+  .mat-finishes, .mat-avoid { font-size: 14px; color: var(--gray-600); margin-bottom: 16px; }
+  .mat-cta { display: inline-flex; align-items: center; color: var(--primary); font-weight: 600; font-size: 14px; text-decoration: none; }
+  .mat-cta:hover { text-decoration: underline; }
+  .compare-table { margin-bottom: 48px; }
+  .compare-table h2 { font-size: 1.5rem; margin-bottom: 20px; }
+  .mat-cta-box { background: linear-gradient(135deg, var(--primary), #ea580c); border-radius: 20px; padding: 48px; text-align: center; color: white; }
+  .mat-cta-box h2 { color: white; font-size: 1.8rem; margin-bottom: 12px; }
+  .mat-cta-box p { color: rgba(255,255,255,0.85); font-size: 16px; margin-bottom: 24px; }
+  .mat-cta-box .btn-primary { background: white; color: var(--primary); }
+  .mat-cta-box .btn-secondary { background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.35); }
+  @media (max-width: 768px) { .mat-body { grid-template-columns: 1fr; } .mat-header { flex-wrap: wrap; } }
+</style>

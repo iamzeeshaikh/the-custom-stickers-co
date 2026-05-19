@@ -1,0 +1,372 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import QuoteForm from '../components/QuoteForm.astro';
+import CustomizationTool from '../components/CustomizationTool.astro';
+import { products, getRelatedProducts } from '../data/products';
+
+export async function getStaticPaths() {
+  return products.map(p => ({ params: { slug: p.slug }, props: { product: p } }));
+}
+
+const { product } = Astro.props;
+const related = getRelatedProducts(product.relatedSlugs).slice(0, 4);
+
+function getImageList(images: string[]): string[] {
+  return images.slice(0, 6);
+}
+const imgs = getImageList(product.images);
+
+const productSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": product.name,
+  "description": product.metaDescription,
+  "image": imgs[0] ? `https://thecustomstickers.co${imgs[0]}` : '',
+  "brand": { "@type": "Brand", "name": "The Custom Stickers" },
+  "offers": {
+    "@type": "Offer",
+    "availability": "https://schema.org/InStock",
+    "priceCurrency": "USD",
+    "seller": { "@type": "Organization", "name": "The Custom Stickers" }
+  }
+});
+
+const faqSchema = JSON.stringify({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": `What materials are available for ${product.name}?`, "acceptedAnswer": { "@type": "Answer", "text": `${product.name} are available in vinyl, clear vinyl, holographic, metallic, paper, and eco-friendly materials. Contact us for material samples.` }},
+    { "@type": "Question", "name": `What is the minimum order for ${product.name}?`, "acceptedAnswer": { "@type": "Answer", "text": `The minimum order for ${product.name} is 50 units. Bulk pricing is available for 250, 500, 1,000, and more.` }},
+    { "@type": "Question", "name": `How long does it take to print ${product.name}?`, "acceptedAnswer": { "@type": "Answer", "text": `Standard production for ${product.name} takes 3-5 business days after artwork approval. Rush options are available.` }},
+    { "@type": "Question", "name": `Can I get a sample of ${product.name} before ordering?`, "acceptedAnswer": { "@type": "Answer", "text": `Yes, we provide free digital proofs. Physical sample packs are available for a nominal fee credited toward your order.` }},
+    { "@type": "Question", "name": `What sizes are available for ${product.name}?`, "acceptedAnswer": { "@type": "Answer", "text": `${product.name} are available in any custom size. Common sizes range from 1"x1" to 12"x12" or larger for special applications.` }},
+  ]
+});
+
+const combinedSchema = `[${productSchema},${faqSchema}]`;
+---
+<Layout
+  title={product.title}
+  description={product.metaDescription}
+  canonical={`https://thecustomstickers.co/${product.slug}/`}
+  schema={combinedSchema}
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+
+  <div class="product-page">
+    <div class="container">
+      <Breadcrumb items={[{ label: 'Custom Stickers', href: '/stickers-and-labels/' }, { label: product.name }]} />
+    </div>
+
+    <!-- Product Hero -->
+    <section class="product-hero">
+      <div class="container product-hero-grid">
+        <div class="product-gallery">
+          <div class="gallery-main">
+            <img
+              id="main-img"
+              src={imgs[0]}
+              alt={product.name}
+              width="560"
+              height="440"
+              loading="eager"
+              class="main-product-img"
+            />
+          </div>
+          {imgs.length > 1 && (
+            <div class="gallery-thumbs">
+              {imgs.map((img, i) => (
+                <button class={`thumb-btn ${i === 0 ? 'active' : ''}`} data-src={img} aria-label={`View image ${i+1}`}>
+                  <img src={img} alt={`${product.name} image ${i+1}`} loading="lazy" width="100" height="80" />
+                </button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div class="product-details">
+          <div class="badge">{product.category.charAt(0).toUpperCase() + product.category.slice(1)} Product</div>
+          <h1 class="product-h1">{product.h1}</h1>
+          <p class="product-intro">{product.intro}</p>
+          <div class="product-badges">
+            <span class="pb">✅ Free Artwork Review</span>
+            <span class="pb">✅ No Setup Fees</span>
+            <span class="pb">✅ Fast Production</span>
+            <span class="pb">✅ Bulk Discounts</span>
+          </div>
+          <div class="product-actions">
+            <a href="#customization-tool" class="btn-primary">Customize &amp; Quote →</a>
+            <a href="tel:5033580443" class="btn-secondary">📞 Call Us</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Content -->
+    <div class="container product-content-layout">
+      <div class="product-main">
+
+        <!-- SEO Content -->
+        <section class="content-section">
+          <h2>About {product.name}</h2>
+          <p>{product.intro} Whether you're a small business, a growing brand, or an individual looking for high-quality <a href="/stickers-and-labels/">custom sticker products</a>, our {product.name.toLowerCase()} deliver exceptional results at competitive prices.</p>
+          <p>At The Custom Stickers, we use state-of-the-art digital printing technology combined with premium materials to ensure every {product.name.toLowerCase()} order meets the highest quality standards. Our production team reviews each file before printing, ensuring your colors, details, and dimensions are perfect before a single sheet runs.</p>
+          <p>From minimum orders of 50 units to bulk runs of 10,000+, we scale our production to match your exact needs. Whether you're ordering for product packaging, event promotions, or retail branding, every order comes with a free digital proof — no surprises, no hidden fees.</p>
+
+          <h3>Our Printing Process</h3>
+          <p>We print {product.name.toLowerCase()} using high-resolution digital presses that reproduce colors with striking accuracy. Each print run is color-calibrated to ensure consistency across your entire order, whether you're printing 50 or 5,000 units.</p>
+          <p>After printing, every sheet goes through our quality inspection process before cutting. Our computer-controlled cutting equipment follows your design path precisely — delivering clean, sharp edges on every single piece.</p>
+
+          <h3>Built to Last</h3>
+          <p>Durability is built into every order. Our vinyl-based {product.name.toLowerCase()} resist water, UV exposure, and scratching — making them suitable for both indoor and outdoor use. Optional heavy-duty lamination adds an extra protective layer for applications that demand the highest resilience.</p>
+
+          <h2>Key Benefits of Our {product.name}</h2>
+          <p>Here's what sets our {product.name.toLowerCase()} apart from the competition:</p>
+          <ul class="content-list">
+            <li><strong>Premium Print Quality:</strong> Vibrant CMYK printing with optional Pantone color matching for brand accuracy</li>
+            <li><strong>Durable Materials:</strong> Industry-grade materials selected for your specific use case and environment</li>
+            <li><strong>Precision Cutting:</strong> Computer-controlled die cutting for clean, exact edges every time</li>
+            <li><strong>Fast Turnaround:</strong> 3–5 business day standard production with rush options available</li>
+            <li><strong>Free Digital Proof:</strong> Proof provided before printing — approve before we produce</li>
+            <li><strong>Wholesale Pricing:</strong> Competitive bulk pricing with significant savings at higher quantities</li>
+            <li><strong>No Setup Fees:</strong> No hidden charges — what you see is what you pay</li>
+            <li><strong>Expert Support:</strong> Dedicated team to help with artwork, specs, and order questions</li>
+          </ul>
+
+          <h2>Materials & Options for {product.name}</h2>
+          <p>We offer a comprehensive range of materials and finishing options to match any application. Not sure which material is right for you? Our team will help you choose based on your use case and budget.</p>
+
+          <table>
+            <thead>
+              <tr>
+                <th>Material</th>
+                <th>Best For</th>
+                <th>Durability</th>
+                <th>Finish Options</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Premium Vinyl</td><td>General use, outdoor, products</td><td>3–5 years outdoor</td><td>Gloss, Matte, Soft Touch</td></tr>
+              <tr><td>Clear Vinyl</td><td>Windows, bottles, glass</td><td>3–5 years outdoor</td><td>Gloss, Matte</td></tr>
+              <tr><td>Holographic Vinyl</td><td>Premium brands, packaging</td><td>2–3 years outdoor</td><td>Rainbow Holographic</td></tr>
+              <tr><td>Metallic Vinyl</td><td>Luxury, certificates, awards</td><td>2–3 years outdoor</td><td>Gold, Silver, Chrome</td></tr>
+              <tr><td>Paper</td><td>Indoor, eco-friendly, budget</td><td>Indoor use only</td><td>Gloss, Matte, Uncoated</td></tr>
+              <tr><td>Eco-Friendly</td><td>Sustainable brands, packaging</td><td>Indoor use</td><td>Matte, Natural</td></tr>
+            </tbody>
+          </table>
+
+          <h2>Why Choose Our {product.name} for Your Brand</h2>
+          <p>Your stickers are often the first physical touchpoint customers have with your brand. A flimsy, dull sticker sends the wrong message — a sharp, vivid one makes an impression that lasts. Our {product.name.toLowerCase()} are made to represent your brand exactly the way you've designed it.</p>
+          <p>We work with small independent businesses, growing e-commerce brands, and large-scale corporate clients. Whatever your order size, you get the same attention to quality, the same expert file review, and the same dedication to getting your print right the first time.</p>
+          <p>Our pricing is transparent and competitive. There are no plate fees, no setup charges, and no minimum artwork fees. You pay for the stickers — nothing else. Request a quote and get a full price breakdown within one business day.</p>
+
+          <h2>Use Cases for {product.name}</h2>
+          <p>Our {product.name.toLowerCase()} are trusted by businesses and individuals across a wide range of applications:</p>
+          <ul class="content-list">
+            <li>Product packaging and brand labels for retail and e-commerce businesses</li>
+            <li>Promotional giveaways and marketing campaigns at events and trade shows</li>
+            <li>Vehicle graphics and outdoor advertising for maximum brand visibility</li>
+            <li>Personal expression on laptops, water bottles, and accessories</li>
+            <li>Seasonal promotions and limited edition product launches</li>
+            <li>Restaurant and food packaging branding for takeaway and delivery</li>
+            <li>Corporate branding and employee engagement programs</li>
+            <li>Retail price and inventory labeling for organized merchandising</li>
+          </ul>
+
+          <h2>Customization Options</h2>
+          <p>Every {product.name.toLowerCase()} order is fully customizable. Use the configurator on this page to select your specifications — or tell us your requirements in the quote form and we'll advise on the best options.</p>
+
+          <ol class="content-list numbered">
+            <li><strong>Size:</strong> Any custom size from 1"×1" up to 12"×12" or larger for special applications</li>
+            <li><strong>Shape:</strong> Die cut to your artwork outline, circle, square, rectangle, oval, or any custom shape</li>
+            <li><strong>Material:</strong> Vinyl, clear vinyl, holographic, metallic, paper, eco-friendly, and more</li>
+            <li><strong>Finish:</strong> Glossy, matte, soft touch, UV spot coating, transparent, or embossed</li>
+            <li><strong>Lamination:</strong> Standard or heavy-duty laminate for extra protection and longevity</li>
+            <li><strong>Adhesive:</strong> Permanent, removable, or ultra-strong adhesive options</li>
+            <li><strong>Quantity:</strong> From 50 units to 100,000+ with bulk pricing at every tier</li>
+          </ol>
+
+          <h2>How to Order {product.name}</h2>
+          <p>Getting your order started takes just a few minutes. Here's how the process works from start to delivery:</p>
+
+          <h3>1. Configure &amp; Request a Quote</h3>
+          <p>Use the customization tool on this page to select your size, material, finish, and quantity. Hit "Get a Quote" and your specs are automatically sent to our team. You'll hear back with a full price breakdown within one business day.</p>
+
+          <h3>2. Submit Your Artwork</h3>
+          <p>Upload your design file directly through the quote form. We accept AI, EPS, PDF, SVG, and high-resolution PNG or JPG files. Not ready with your artwork? No problem — our team can provide basic layout assistance or connect you with our design partners.</p>
+
+          <h3>3. Approve Your Digital Proof</h3>
+          <p>Before anything goes to print, we send you a full-color digital proof showing exactly how your {product.name.toLowerCase()} will look. Review the size, colors, and cut lines, then approve or request changes. Production starts only after your sign-off.</p>
+
+          <h3>4. Production &amp; Delivery</h3>
+          <p>Standard production takes 3–5 business days. Once complete, your order is carefully packaged and shipped to your door. We provide tracking on every order so you always know where your stickers are.</p>
+
+          <h2>Frequently Asked Questions About {product.name}</h2>
+          <div class="faq-list">
+            {[
+              { q: `What is the minimum order for ${product.name}?`, a: `The minimum order for ${product.name} is 50 units. We offer competitive pricing at 50, 100, 250, 500, 1,000, and above with greater bulk discounts at higher quantities.` },
+              { q: `How long does production take for ${product.name}?`, a: `Standard production takes 3-5 business days after artwork approval. Rush production options (1-2 business days) are available at an additional cost.` },
+              { q: `What file formats should I submit for my ${product.name} design?`, a: `We prefer vector files (AI, EPS, PDF, SVG) for the best quality. We also accept high-resolution raster files (PNG or JPG at 300 DPI minimum).` },
+              { q: `Can I order ${product.name} in a custom shape?`, a: `Yes! All our products support die cutting to any custom shape. Simply upload your artwork and we will cut precisely to your design outline.` },
+              { q: `Are your ${product.name} waterproof?`, a: `Our vinyl-based ${product.name} are fully waterproof. Paper-based options are for indoor use. Let us know your application and we'll recommend the right material.` },
+              { q: `Do you offer bulk pricing for ${product.name}?`, a: `Yes, we offer significant bulk discounts starting at 250 units. The more you order, the lower your per-unit cost. Contact us for a custom bulk quote.` },
+              { q: `Can I see a proof before my ${product.name} are printed?`, a: `Absolutely. We provide a free digital proof for every order before production begins. You must approve the proof before we print.` },
+              { q: `What is the maximum size for ${product.name}?`, a: `We can produce ${product.name} in sizes up to 12"×12" for standard orders, with larger sizes available on request for special applications.` },
+              { q: `How do I upload my artwork for ${product.name}?`, a: `You can upload your artwork directly through the quote form on this page, email it to info@thecustomstickers.co, or share it via a download link.` },
+              { q: `What if I'm not happy with my ${product.name} order?`, a: `We offer a 100% satisfaction guarantee. If your ${product.name} don't meet the approved proof specifications, we will reprint your order at no charge.` },
+            ].map(faq => (
+              <div class="faq-item">
+                <button class="faq-q">{faq.q} <span class="faq-arrow">+</span></button>
+                <div class="faq-a"><p>{faq.a}</p></div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <!-- Customization Tool -->
+        <section class="content-section">
+          <CustomizationTool productName={product.name} />
+        </section>
+
+        <!-- Related Products -->
+        {related.length > 0 && (
+          <section class="content-section related-products">
+            <h2>Related Products You Might Like</h2>
+            <div class="related-grid">
+              {related.map(rp => (
+                <a href={`/${rp.slug}/`} class="related-card card">
+                  <img src={rp.images[0]} alt={rp.name} loading="lazy" width="240" height="180" />
+                  <div class="related-info">
+                    <h3>{rp.name}</h3>
+                    <span class="related-link">Learn More →</span>
+                  </div>
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+      </div>
+
+      <aside class="product-sidebar">
+        <div class="sidebar-card">
+          <h3>Quick Quote</h3>
+          <QuoteForm productName={product.name} compact={true} />
+        </div>
+        <div class="sidebar-card sidebar-info">
+          <h3>Why Choose Us</h3>
+          <ul class="sidebar-benefits">
+            <li>✅ Free Digital Proof</li>
+            <li>✅ 3-5 Day Production</li>
+            <li>✅ Premium Materials</li>
+            <li>✅ No Setup Fees</li>
+            <li>✅ Bulk Discounts</li>
+            <li>✅ Free Artwork Review</li>
+            <li>✅ Satisfaction Guarantee</li>
+          </ul>
+          <a href="tel:5033580443" class="sidebar-phone">📞 (503) 358-0443</a>
+          <a href="mailto:info@thecustomstickers.co" class="sidebar-email">✉️ info@thecustomstickers.co</a>
+        </div>
+        <div class="sidebar-card">
+          <h3>Need Help?</h3>
+          <p>Our team is available Mon-Fri 9am-6pm CT to help with your order.</p>
+          <a href="/contact/" class="btn-secondary" style="width:100%;justify-content:center;margin-top:12px;">Contact Us</a>
+          <a href="/artwork-guidelines/" class="btn-secondary" style="width:100%;justify-content:center;margin-top:8px;">Artwork Guidelines</a>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .product-page { background: var(--light-bg); }
+  .product-hero { background: white; padding: 40px 0 48px; border-bottom: 1px solid var(--gray-200); }
+  .product-hero-grid { display: grid; grid-template-columns: 1.1fr 1fr; gap: 48px; align-items: start; }
+  .gallery-main { border-radius: 16px; overflow: hidden; background: var(--gray-100); margin-bottom: 12px; }
+  .main-product-img { width: 100%; height: 380px; object-fit: cover; display: block; transition: opacity 0.2s; }
+  .gallery-thumbs { display: flex; gap: 10px; flex-wrap: wrap; }
+  .thumb-btn { border: 2px solid var(--gray-200); border-radius: 8px; overflow: hidden; padding: 0; width: 80px; height: 64px; cursor: pointer; transition: border-color 0.2s; }
+  .thumb-btn.active { border-color: var(--primary); }
+  .thumb-btn img { width: 100%; height: 100%; object-fit: cover; }
+  .product-details { padding-top: 12px; }
+  .product-h1 { font-size: clamp(1.5rem, 2.5vw, 2.2rem); margin: 10px 0 16px; }
+  .product-intro { font-size: 16px; color: var(--gray-600); line-height: 1.7; margin-bottom: 24px; }
+  .product-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+  .pb { background: rgba(16,185,129,0.1); color: #065f46; padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
+  .product-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+  .product-content-layout { display: grid; grid-template-columns: 1fr 340px; gap: 32px; padding: 40px 20px; align-items: start; }
+  .product-main { display: flex; flex-direction: column; gap: 0; }
+  .content-section { background: white; border-radius: 16px; padding: 36px; margin-bottom: 24px; }
+  .content-section h2 { font-size: 1.4rem; margin: 36px 0 14px; color: var(--dark); }
+  .content-section h2:first-child { margin-top: 0; }
+  .content-section h3 { font-size: 1.1rem; margin: 28px 0 10px; color: var(--dark); font-family: var(--font-heading); }
+  .content-section p { font-size: 15px; color: var(--gray-600); line-height: 1.8; margin-bottom: 20px; }
+  .content-section a { color: var(--accent); text-decoration: underline; }
+  .content-list { padding-left: 0; list-style: none; margin: 16px 0; }
+  .content-list li { padding: 8px 0 8px 20px; border-bottom: 1px solid var(--gray-100); font-size: 15px; color: var(--gray-700); position: relative; line-height: 1.5; }
+  .content-list li::before { content: '•'; position: absolute; left: 4px; color: var(--primary); }
+  .content-list.numbered { counter-reset: list-counter; }
+  .content-list.numbered li { counter-increment: list-counter; }
+  .content-list.numbered li::before { content: counter(list-counter) '.'; font-weight: 600; color: var(--primary); left: 0; }
+  .faq-list { margin-top: 16px; }
+  .faq-item { border: 1px solid var(--gray-200); border-radius: 10px; margin-bottom: 10px; background: var(--light-bg); overflow: hidden; }
+  .faq-q { width: 100%; text-align: left; padding: 15px 18px; font-weight: 600; font-size: 14.5px; color: var(--dark); background: none; border: none; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 12px; font-family: var(--font-heading); }
+  .faq-q:hover { color: var(--primary); }
+  .faq-arrow { color: var(--primary); transition: transform 0.3s; flex-shrink: 0; font-size: 1.2rem; }
+  .faq-item.open .faq-arrow { transform: rotate(45deg); }
+  .faq-a { display: none; padding: 0 18px 15px; }
+  .faq-item.open .faq-a { display: block; }
+  .faq-a p { font-size: 14px; color: var(--gray-600); line-height: 1.7; }
+  .related-products {}
+  .related-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; margin-top: 16px; }
+  .related-card { display: block; text-decoration: none; }
+  .related-card img { width: 100%; height: 150px; object-fit: cover; }
+  .related-info { padding: 12px; }
+  .related-info h3 { font-size: 14px; margin-bottom: 6px; color: var(--dark); }
+  .related-link { font-size: 13px; color: var(--primary); font-weight: 600; }
+  .product-sidebar { position: sticky; top: 90px; display: flex; flex-direction: column; gap: 20px; }
+  .sidebar-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.06); }
+  .sidebar-card h3 { font-size: 1.05rem; margin-bottom: 16px; color: var(--dark); padding-bottom: 10px; border-bottom: 1px solid var(--gray-100); }
+  .sidebar-benefits { list-style: none; }
+  .sidebar-benefits li { padding: 7px 0; font-size: 14px; color: var(--gray-700); border-bottom: 1px solid var(--gray-100); }
+  .sidebar-phone, .sidebar-email { display: block; margin-top: 12px; font-size: 14px; color: var(--primary); font-weight: 600; text-decoration: none; }
+  .sidebar-info p { font-size: 14px; color: var(--gray-600); line-height: 1.6; }
+  @media (max-width: 1024px) {
+    .product-content-layout { grid-template-columns: 1fr; }
+    .product-sidebar { position: static; }
+  }
+  @media (max-width: 768px) {
+    .product-hero-grid { grid-template-columns: 1fr; }
+    .content-section { padding: 24px; }
+    .related-grid { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+
+<script>
+  const thumbBtns = document.querySelectorAll('.thumb-btn');
+  const mainImg = document.getElementById('main-img') as HTMLImageElement;
+  thumbBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      thumbBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      const src = (btn as HTMLElement).dataset.src;
+      if (src && mainImg) { mainImg.src = src; }
+    });
+  });
+
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.faq-item');
+      const isOpen = item?.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item?.classList.add('open');
+    });
+  });
+</script>

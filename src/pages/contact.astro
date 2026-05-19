@@ -1,0 +1,196 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+---
+<Layout
+  title="Contact The Custom Stickers | Get in Touch for Custom Sticker Orders"
+  description="Contact The Custom Stickers for custom sticker printing inquiries, quotes, and support. Call (503) 358-0443 or email info@thecustomstickers.co."
+  canonical="https://thecustomstickers.co/contact/"
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+
+  <div class="container" style="padding-top:20px">
+    <Breadcrumb items={[{ label: 'Contact Us' }]} />
+  </div>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">Get In Touch</div>
+      <h1>Contact The Custom Stickers</h1>
+      <p>Have a question, need a quote, or ready to start your order? We're here to help.</p>
+    </div>
+  </section>
+
+  <section class="contact-section">
+    <div class="container contact-grid">
+      <div class="contact-form-col">
+        <h2>Send Us a Message</h2>
+        <form class="contact-form" id="contact-form" novalidate>
+          <input type="text" name="honeypot" class="honeypot" tabindex="-1" autocomplete="off" />
+          <input type="hidden" name="product" value="General Inquiry" />
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="cf-name">Your Name *</label>
+              <input type="text" id="cf-name" name="name" required placeholder="John Smith" />
+            </div>
+            <div class="form-group">
+              <label for="cf-email">Email Address *</label>
+              <input type="email" id="cf-email" name="email" required placeholder="john@example.com" />
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="cf-phone">Phone Number</label>
+              <input type="tel" id="cf-phone" name="phone" placeholder="(503) 555-0100" />
+            </div>
+            <div class="form-group">
+              <label for="cf-subject">Subject</label>
+              <select id="cf-subject" name="subject">
+                <option>General Inquiry</option>
+                <option>Quote Request</option>
+                <option>Order Status</option>
+                <option>Artwork Help</option>
+                <option>Other</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="cf-msg">Message *</label>
+            <textarea id="cf-msg" name="message" required rows="6" placeholder="How can we help you? Tell us about your project, quantity, timeline, or any questions you have..."></textarea>
+          </div>
+          <div class="form-group">
+            <label for="cf-file">Attach File (optional)</label>
+            <input type="file" id="cf-file" name="artwork" accept=".jpg,.jpeg,.png,.pdf,.ai,.eps,.svg" />
+          </div>
+          <div class="success-msg" id="contact-success">
+            ✅ Message sent! We'll get back to you within 1 business day.
+          </div>
+          <div class="error-msg" id="contact-error">
+            ❌ Something went wrong. Please try again or call (503) 358-0443.
+          </div>
+          <button type="submit" class="btn-primary" style="width:100%;justify-content:center;">
+            Send Message
+          </button>
+        </form>
+      </div>
+
+      <div class="contact-info-col">
+        <div class="info-card">
+          <h3>Contact Information</h3>
+          <div class="info-item">
+            <span class="info-icon">📞</span>
+            <div>
+              <strong>Phone</strong>
+              <a href="tel:5033580443">(503) 358-0443</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">✉️</span>
+            <div>
+              <strong>Email</strong>
+              <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">📍</span>
+            <div>
+              <strong>Address</strong>
+              <span>2975 Coburn Hollow Road<br/>Bloomington, IL 61701<br/>United States</span>
+            </div>
+          </div>
+          <div class="info-item">
+            <span class="info-icon">🕐</span>
+            <div>
+              <strong>Business Hours</strong>
+              <span>Monday – Friday: 9:00 AM – 6:00 PM CT<br/>Saturday & Sunday: Closed</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="info-card">
+          <h3>Quick Links</h3>
+          <ul class="quick-links">
+            <li><a href="/get-a-quote/">→ Get a Free Quote</a></li>
+            <li><a href="/artwork-guidelines/">→ Artwork Guidelines</a></li>
+            <li><a href="/sticker-materials/">→ Sticker Materials</a></li>
+            <li><a href="/shipping-policy/">→ Shipping Policy</a></li>
+            <li><a href="/die-cut-stickers/">→ Die Cut Stickers</a></li>
+            <li><a href="/custom-vinyl-stickers/">→ Vinyl Stickers</a></li>
+          </ul>
+        </div>
+
+        <div class="info-card wa-card">
+          <h3>Chat on WhatsApp</h3>
+          <p>Get instant answers on WhatsApp. Our team responds quickly during business hours.</p>
+          <a
+            href="https://api.whatsapp.com/send/?phone=15033580443&text=Hi+The+Custom+Stickers!+I+need+more+info+about+The+Custom+Stickers+https%3A%2F%2Fthecustomstickers.co%2F&type=phone_number&app_absent=0"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="btn-primary wa-btn"
+          >
+            💬 Chat on WhatsApp
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .page-hero { background: linear-gradient(135deg, var(--dark), var(--gray-800)); padding: 80px 0; color: white; text-align: center; }
+  .page-hero .badge { background: rgba(249,115,22,0.2); color: #fb923c; margin-bottom: 16px; }
+  .page-hero h1 { font-size: clamp(2rem, 4vw, 3rem); color: white; margin-bottom: 16px; }
+  .page-hero p { color: rgba(255,255,255,0.75); font-size: 1.1rem; max-width: 600px; margin: 0 auto; }
+  .contact-section { padding: 80px 0; }
+  .contact-grid { display: grid; grid-template-columns: 1fr 380px; gap: 48px; }
+  .contact-form-col h2 { font-size: 1.5rem; margin-bottom: 28px; }
+  .contact-form { background: white; border-radius: 16px; padding: 32px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+  .form-row-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .info-card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.07); margin-bottom: 20px; }
+  .info-card h3 { font-size: 1.05rem; margin-bottom: 20px; padding-bottom: 12px; border-bottom: 1px solid var(--gray-100); }
+  .info-item { display: flex; gap: 14px; margin-bottom: 18px; align-items: flex-start; }
+  .info-icon { font-size: 1.4rem; flex-shrink: 0; margin-top: 2px; }
+  .info-item strong { display: block; font-size: 13px; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.5px; font-weight: 600; margin-bottom: 4px; }
+  .info-item a, .info-item span { font-size: 15px; color: var(--dark); display: block; }
+  .info-item a { color: var(--primary); text-decoration: none; font-weight: 500; }
+  .quick-links { list-style: none; }
+  .quick-links li { margin-bottom: 10px; }
+  .quick-links a { font-size: 15px; color: var(--accent); text-decoration: none; font-weight: 500; }
+  .quick-links a:hover { color: var(--primary); }
+  .wa-card p { font-size: 14px; color: var(--gray-600); margin-bottom: 16px; line-height: 1.6; }
+  .wa-btn { background: #25D366; width: 100%; justify-content: center; }
+  .wa-btn:hover { background: #1fba58; }
+  .honeypot { position: absolute; left: -9999px; opacity: 0; }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 540px) { .form-row-2 { grid-template-columns: 1fr; } }
+</style>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement;
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const honey = form.querySelector<HTMLInputElement>('[name="honeypot"]');
+    if (honey?.value) return;
+    const success = document.getElementById('contact-success') as HTMLElement;
+    const error = document.getElementById('contact-error') as HTMLElement;
+    const btn = form.querySelector('button[type="submit"]') as HTMLButtonElement;
+    btn.disabled = true;
+    btn.textContent = 'Sending...';
+    success.style.display = 'none';
+    error.style.display = 'none';
+    try {
+      const data = new FormData(form);
+      const res = await fetch('/api/submit-form', { method: 'POST', body: data });
+      if (res.ok) { success.style.display = 'block'; form.reset(); }
+      else { error.style.display = 'block'; }
+    } catch { error.style.display = 'block'; }
+    finally { btn.disabled = false; btn.textContent = 'Send Message'; }
+  });
+</script>
