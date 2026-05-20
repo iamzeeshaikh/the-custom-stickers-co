@@ -34,6 +34,10 @@ import Breadcrumb from '../components/Breadcrumb.astro';
           <input type="text" name="honeypot" class="honeypot" tabindex="-1" autocomplete="off" />
           <input type="hidden" name="product" value="Custom Quote Request" />
 
+          <div class="prefill-banner" id="prefill-banner" style="display:none">
+            ✅ Your customization specs have been pre-filled below. Add your contact details and submit.
+          </div>
+
           <div class="form-section-title">Contact Information</div>
           <div class="form-row-2">
             <div class="form-group">
@@ -217,6 +221,114 @@ import Breadcrumb from '../components/Breadcrumb.astro';
   <Footer slot="footer" />
 </Layout>
 
+<script>
+  // Pre-fill form from URL params sent by the customization tool
+  (function () {
+    const params = new URLSearchParams(window.location.search);
+    const productName = params.get('product');
+    const typeParam   = params.get('Type');
+    const sizeParam   = params.get('Size');
+    const matParam    = params.get('Material');
+    const finishParam = params.get('Finish');
+    const qtyParam    = params.get('Quantity');
+    const adhesive    = params.get('Adhesive');
+
+    // Only activate when coming from the customization tool
+    if (!typeParam && !matParam && !qtyParam) return;
+
+    // Show banner
+    const banner = document.getElementById('prefill-banner');
+    if (banner) banner.style.display = 'block';
+
+    // Hidden product field
+    const hiddenProd = document.querySelector<HTMLInputElement>('[name="product"]');
+    if (hiddenProd && productName) hiddenProd.value = productName;
+
+    // Product type dropdown — fuzzy match
+    const productSelect = document.getElementById('fq-product') as HTMLSelectElement;
+    if (productSelect && productName) {
+      const norm = productName.toLowerCase();
+      const opts = Array.from(productSelect.options);
+      const hit  = opts.find(o =>
+        norm.includes(o.text.toLowerCase().replace(' stickers','').replace(' labels','').trim()) ||
+        o.text.toLowerCase().includes(norm.split(' ')[0])
+      );
+      if (hit) productSelect.value = hit.value;
+      else productSelect.value = 'Other (describe below)';
+    }
+
+    // Size text input
+    const sizeInput = document.getElementById('fq-size') as HTMLInputElement;
+    if (sizeInput && sizeParam) {
+      if      (sizeParam.startsWith('Small'))  sizeInput.value = '1" x 2"';
+      else if (sizeParam.startsWith('Medium')) sizeInput.value = '3" x 3"';
+      else if (sizeParam.startsWith('Large'))  sizeInput.value = '5" x 5"';
+      else if (sizeParam !== 'Custom Size')    sizeInput.value = sizeParam;
+    }
+
+    // Material dropdown
+    const matSelect = document.getElementById('fq-material') as HTMLSelectElement;
+    if (matSelect && matParam) {
+      const matMap: Record<string, string> = {
+        'White Vinyl':  'Vinyl (Standard)',
+        'Clear Vinyl':  'Clear Vinyl',
+        'Holographic':  'Holographic',
+        'Metallic':     'Metallic',
+        'Paper':        'Paper',
+        'Eco-Friendly': 'Eco-Friendly',
+      };
+      if (matMap[matParam]) matSelect.value = matMap[matParam];
+    }
+
+    // Finish dropdown
+    const finishSelect = document.getElementById('fq-finish') as HTMLSelectElement;
+    if (finishSelect && finishParam) {
+      finishSelect.value = finishParam; // values match directly
+    }
+
+    // Quantity — map exact value to range option
+    const qtySelect = document.getElementById('fq-qty') as HTMLSelectElement;
+    if (qtySelect && qtyParam) {
+      const n = parseInt(qtyParam) || 0;
+      if      (n <= 99)   qtySelect.value = '50-99';
+      else if (n <= 249)  qtySelect.value = '100-249';
+      else if (n <= 499)  qtySelect.value = '250-499';
+      else if (n <= 999)  qtySelect.value = '500-999';
+      else if (n <= 2499) qtySelect.value = '1,000-2,499';
+      else if (n <= 4999) qtySelect.value = '2,500-4,999';
+      else                qtySelect.value = '5,000-9,999';
+    }
+
+    // Sticker type → shape dropdown
+    const shapeSelect = document.getElementById('fq-shape') as HTMLSelectElement;
+    if (shapeSelect && typeParam) {
+      const shapeMap: Record<string, string> = {
+        'Die Cut':           'Die Cut (Custom)',
+        'Kiss Cut':          'Die Cut (Custom)',
+        'Circle / Oval':     'Circle',
+        'Rectangle / Square':'Rectangle',
+        'Sheet Stickers':    'Other',
+        'Roll Labels':       'Other',
+      };
+      if (shapeMap[typeParam]) shapeSelect.value = shapeMap[typeParam];
+    }
+
+    // Append spec summary to message textarea
+    const msgEl = document.getElementById('fq-msg') as HTMLTextAreaElement;
+    if (msgEl && !msgEl.value) {
+      const lines: string[] = [];
+      if (productName) lines.push(`Product: ${productName}`);
+      if (typeParam)   lines.push(`Type: ${typeParam}`);
+      if (adhesive)    lines.push(`Adhesive: ${adhesive}`);
+      if (lines.length) msgEl.value = lines.join('\n') + '\n';
+    }
+
+    // Scroll to form smoothly
+    const form = document.getElementById('full-quote-form');
+    if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  })();
+</script>
+
 <style>
   .page-hero { background: linear-gradient(135deg, var(--dark), var(--gray-800)); padding: 80px 0; color: white; text-align: center; }
   .page-hero .badge { background: rgba(249,115,22,0.2); color: #fb923c; margin-bottom: 16px; }
@@ -243,6 +355,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
   .price-factors li { padding: 8px 0 8px 20px; border-bottom: 1px solid var(--gray-100); font-size: 14px; color: var(--gray-700); position: relative; }
   .price-factors li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-weight: 600; }
   .sidebar-card p { font-size: 14px; color: var(--gray-600); margin-bottom: 8px; }
+  .prefill-banner { background: #d1fae5; border: 1px solid #10b981; color: #065f46; padding: 12px 16px; border-radius: 8px; font-size: 14px; font-weight: 500; margin-bottom: 20px; }
   @media (max-width: 1024px) { .quote-layout { grid-template-columns: 1fr; } }
   @media (max-width: 640px) { .form-row-2, .form-row-3 { grid-template-columns: 1fr; } .full-quote-form { padding: 20px; } }
 </style>
