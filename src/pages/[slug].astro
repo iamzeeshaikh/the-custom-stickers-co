@@ -9,6 +9,7 @@ import QuoteForm from '../components/QuoteForm.astro';
 import CustomizationTool from '../components/CustomizationTool.astro';
 import { products, getRelatedProducts } from '../data/products';
 import { getInternalLinks, getCategoryFAQs } from '../data/productContent';
+import { productDetails, productHeadlines } from '../data/productDetails';
 
 export async function getStaticPaths() {
   return products.map(p => ({ params: { slug: p.slug }, props: { product: p } }));
@@ -17,7 +18,32 @@ export async function getStaticPaths() {
 const { product } = Astro.props;
 const related = getRelatedProducts(product.relatedSlugs).slice(0, 4);
 const links = getInternalLinks(product.slug);
-const faqs = getCategoryFAQs(product.category, product.name);
+const detail = productDetails[product.slug];
+// Product-specific FAQs first (unique per page), then the category set.
+const faqs = [...(detail?.faqs ?? []), ...getCategoryFAQs(product.category, product.name)];
+
+// Vary section headings across pages so they aren't an identical template.
+// Overview heading is a hand-written, keyword-rich line per product; the
+// benefits/uses headings rotate through phrasings picked deterministically
+// from the slug so each page reads differently while staying on-topic.
+const overviewHeading = productHeadlines[product.slug] ?? `About ${product.name}`;
+const slugSeed = product.slug.split('').reduce((sum, ch) => sum + ch.charCodeAt(0), 0);
+const benefitsHeadings = [
+  `Why Choose Our ${product.name}`,
+  `What Sets Our ${product.name} Apart`,
+  `The Advantages of ${product.name}`,
+  `${product.name}: Features & Benefits`,
+  `What You Get With Our ${product.name}`,
+];
+const usesHeadings = [
+  `Common Uses for ${product.name}`,
+  `Where ${product.name} Work Best`,
+  `Popular Applications for ${product.name}`,
+  `What People Use ${product.name} For`,
+  `Ways to Use ${product.name}`,
+];
+const benefitsHeading = benefitsHeadings[slugSeed % benefitsHeadings.length];
+const usesHeading = usesHeadings[(slugSeed + 2) % usesHeadings.length];
 
 function getImageList(images: string[]): string[] {
   return images.slice(0, 6);
@@ -134,32 +160,33 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
     <div class="container product-content-layout">
       <div class="product-main">
 
-        <!-- SEO Content -->
+        <!-- SEO Content (unique per product) -->
         <section class="content-section">
-          <h2>About {product.name}</h2>
-          <p>{product.intro} Whether you're a small business, a growing brand, or an individual looking for high-quality <a href={links[0].href}>{links[0].anchor}</a>, our {product.name.toLowerCase()} deliver exceptional results at competitive prices.</p>
-          <p>At The Custom Stickers, we use state-of-the-art digital printing technology combined with premium materials to ensure every {product.name.toLowerCase()} order meets the highest quality standards. Our production team reviews each file before printing, ensuring your colors, details, and dimensions are perfect before a single sheet runs.</p>
-          <p>From minimum orders of 50 units to bulk runs of 10,000+, we scale our production to match your exact needs. Whether you're ordering for product packaging, event promotions, or retail branding, every order comes with a free digital proof — no surprises, no hidden fees.</p>
+          <h2>{overviewHeading}</h2>
+          {detail
+            ? detail.overview.map(para => <p>{para}</p>)
+            : <p>{product.intro}</p>}
+          <p>Not sure {product.name.toLowerCase()} are the right fit? Many customers also look at <a href={links[0].href}>{links[0].anchor}</a> and <a href={links[1].href}>{links[1].anchor}</a>, and it's worth reading our <a href={links[2].href}>{links[2].anchor}</a> before you submit artwork.</p>
 
-          <h3>Our Printing Process</h3>
-          <p>We print {product.name.toLowerCase()} using high-resolution digital presses that reproduce colors with striking accuracy. Each print run is color-calibrated to ensure consistency across your entire order, whether you're printing 50 or 5,000 units.</p>
-          <p>After printing, every sheet goes through our quality inspection process before cutting. Our computer-controlled cutting equipment follows your design path precisely — delivering clean, sharp edges on every single piece.</p>
+          {detail && (
+            <>
+              <h2>{benefitsHeading}</h2>
+              <ul class="content-list">
+                {detail.benefits.map(b => (
+                  <li><strong>{b.title}:</strong> {b.desc}</li>
+                ))}
+              </ul>
+            </>
+          )}
 
-          <h3>Built to Last</h3>
-          <p>Durability is built into every order. Our vinyl-based {product.name.toLowerCase()} resist water, UV exposure, and scratching — making them suitable for both indoor and outdoor use. Optional heavy-duty lamination adds an extra protective layer for applications that demand the highest resilience.</p>
-
-          <h2>Key Benefits of Our {product.name}</h2>
-          <p>Here's what sets our {product.name.toLowerCase()} apart from the competition:</p>
-          <ul class="content-list">
-            <li><strong>Premium Print Quality:</strong> Vibrant CMYK printing with optional Pantone color matching for brand accuracy</li>
-            <li><strong>Durable Materials:</strong> Industry-grade materials selected for your specific use case and environment</li>
-            <li><strong>Precision Cutting:</strong> Computer-controlled die cutting for clean, exact edges every time</li>
-            <li><strong>Fast Turnaround:</strong> 3–5 business day standard production with rush options available</li>
-            <li><strong>Free Digital Proof:</strong> Proof provided before printing — approve before we produce</li>
-            <li><strong>Wholesale Pricing:</strong> Competitive bulk pricing with significant savings at higher quantities</li>
-            <li><strong>No Setup Fees:</strong> No hidden charges — what you see is what you pay</li>
-            <li><strong>Expert Support:</strong> Dedicated team to help with artwork, specs, and order questions</li>
-          </ul>
+          {detail && (
+            <>
+              <h2>{usesHeading}</h2>
+              <ul class="content-list">
+                {detail.useCases.map(u => <li>{u}</li>)}
+              </ul>
+            </>
+          )}
 
           <h2>Materials & Options for {product.name}</h2>
           <p>We offer a comprehensive range of materials and finishing options to match any application. Not sure which material is right for you? Our team will help you choose based on your use case and budget.</p>
@@ -182,24 +209,6 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
               <tr><td>Eco-Friendly</td><td>Sustainable brands, packaging</td><td>Indoor use</td><td>Matte, Natural</td></tr>
             </tbody>
           </table>
-
-          <h2>Why Choose Our {product.name} for Your Brand</h2>
-          <p>Your stickers are often the first physical touchpoint customers have with your brand. Whether you need <a href={links[1].href}>{links[1].anchor}</a> or a fully custom format, a sharp, vivid print makes an impression that lasts. Our {product.name.toLowerCase()} are made to represent your brand exactly the way you've designed it.</p>
-          <p>We work with small independent businesses, growing e-commerce brands, and large-scale corporate clients. Whatever your order size, you get the same attention to quality, the same expert file review, and the same dedication to getting your print right the first time.</p>
-          <p>Our pricing is transparent and competitive. There are no plate fees, no setup charges, and no minimum artwork fees. You pay for the stickers — nothing else. Request a quote and get a full price breakdown within one business day.</p>
-
-          <h2>Use Cases for {product.name}</h2>
-          <p>Our {product.name.toLowerCase()} are trusted by businesses and individuals across a wide range of applications:</p>
-          <ul class="content-list">
-            <li>Product packaging and brand labels for retail and e-commerce businesses</li>
-            <li>Promotional giveaways and marketing campaigns at events and trade shows</li>
-            <li>Vehicle graphics and outdoor advertising for maximum brand visibility</li>
-            <li>Personal expression on laptops, water bottles, and accessories</li>
-            <li>Seasonal promotions and limited edition product launches</li>
-            <li>Restaurant and food packaging branding for takeaway and delivery</li>
-            <li>Corporate branding and employee engagement programs</li>
-            <li>Retail price and inventory labeling for organized merchandising</li>
-          </ul>
 
           <h2>Customization Options</h2>
           <p>Every {product.name.toLowerCase()} order is fully customizable. Use the configurator on this page to select your specifications — or tell us your requirements in the quote form and we'll advise on the best options.</p>
