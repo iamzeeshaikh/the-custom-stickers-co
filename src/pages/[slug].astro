@@ -166,7 +166,7 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
           {detail
             ? detail.overview.map(para => <p>{para}</p>)
             : <p>{product.intro}</p>}
-          <p>Not sure {product.name.toLowerCase()} are the right fit? Many customers also look at <a href={links[0].href}>{links[0].anchor}</a> and <a href={links[1].href}>{links[1].anchor}</a>, and it's worth reading our <a href={links[2].href}>{links[2].anchor}</a> before you submit artwork.</p>
+          <p>If you're comparing options, it's also worth looking at our <a href={links[0].href}>{links[0].anchor}</a>.</p>
 
           {detail && (
             <>
@@ -185,6 +185,7 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
               <ul class="content-list">
                 {detail.useCases.map(u => <li>{u}</li>)}
               </ul>
+              <p>Many customers pair {product.name.toLowerCase()} with <a href={links[1].href}>{links[1].anchor}</a> for a complete order.</p>
             </>
           )}
 
