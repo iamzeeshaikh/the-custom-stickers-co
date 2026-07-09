@@ -60,7 +60,7 @@ const productSchema = JSON.stringify({
   "offers": {
     "@type": "Offer",
     "availability": "https://schema.org/InStock",
-    "price": "19.99",
+    "price": "0.30",
     "priceCurrency": "USD",
     "priceValidUntil": "2027-12-31",
     "url": `https://thecustomstickers.co/${product.slug}/`,
@@ -142,6 +142,7 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
           <div class="badge">{product.category.charAt(0).toUpperCase() + product.category.slice(1)} Product</div>
           <h1 class="product-h1">{product.h1}</h1>
           <p class="product-intro">{product.intro}</p>
+          <p class="price-note"><strong>Price starts from $0.30 per piece</strong> for large volume orders. Final pricing depends on size, material, printing, and quantity.</p>
           <div class="product-badges">
             <span class="pb">✅ Free Artwork Review</span>
             <span class="pb">✅ No Setup Fees</span>
@@ -318,7 +319,9 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
   .thumb-btn img { width: 100%; height: 100%; object-fit: cover; }
   .product-details { padding-top: 12px; }
   .product-h1 { font-size: clamp(1.5rem, 2.5vw, 2.2rem); margin: 10px 0 16px; }
-  .product-intro { font-size: 16px; color: var(--gray-600); line-height: 1.7; margin-bottom: 24px; }
+  .product-intro { font-size: 16px; color: var(--gray-600); line-height: 1.7; margin-bottom: 16px; }
+  .price-note { font-size: 15px; color: var(--gray-700); line-height: 1.6; background: rgba(249,115,22,0.08); border-left: 3px solid var(--primary); padding: 10px 14px; border-radius: 6px; margin-bottom: 24px; }
+  .price-note strong { color: var(--primary-dark); }
   .product-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
   .pb { background: rgba(16,185,129,0.1); color: #065f46; padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
   .product-actions { display: flex; gap: 12px; flex-wrap: wrap; }
