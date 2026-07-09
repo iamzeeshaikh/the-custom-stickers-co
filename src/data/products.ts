@@ -10,6 +10,10 @@ export interface Product {
   featured: boolean;
   relatedSlugs: string[];
   images: string[];
+  // Optional real last-modified date (YYYY-MM-DD) for this product's sitemap
+  // entry. Set this when you materially update a single product's content;
+  // otherwise it falls back to the global LASTMOD in sitemap.xml.ts.
+  updated?: string;
 }
 
 function getImages(folder: string, count: number, prefix: string = ''): string[] {

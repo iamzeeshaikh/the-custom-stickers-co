@@ -4,6 +4,14 @@ import { products } from '../data/products';
 
 const BASE = 'https://thecustomstickers.co';
 
+// Stable last-modified date. Bump this only when page content is materially
+// updated. Do NOT use new Date() here — this route is prerendered, so every
+// deploy would stamp all URLs with the build date even when nothing changed,
+// which makes Google distrust the sitemap's lastmod signal. Individual pages
+// can override with their own more recent date (products via `updated`,
+// static pages via a `lastmod` field below).
+const LASTMOD = '2026-07-09';
+
 const staticPages = [
   { url: '/',                          priority: '1.0', changefreq: 'weekly'  },
   { url: '/get-a-quote/',              priority: '0.9', changefreq: 'weekly'  },
@@ -19,14 +27,12 @@ const staticPages = [
 ];
 
 export function GET() {
-  const today = new Date().toISOString().split('T')[0];
-
   const staticEntries = staticPages.map(p =>
-    `  <url>\n    <loc>${BASE}${p.url}</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
+    `  <url>\n    <loc>${BASE}${p.url}</loc>\n    <lastmod>${(p as { lastmod?: string }).lastmod ?? LASTMOD}</lastmod>\n    <changefreq>${p.changefreq}</changefreq>\n    <priority>${p.priority}</priority>\n  </url>`
   );
 
   const productEntries = products.map(p =>
-    `  <url>\n    <loc>${BASE}/${p.slug}/</loc>\n    <lastmod>${today}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`
+    `  <url>\n    <loc>${BASE}/${p.slug}/</loc>\n    <lastmod>${p.updated ?? LASTMOD}</lastmod>\n    <changefreq>weekly</changefreq>\n    <priority>0.8</priority>\n  </url>`
   );
 
   const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...staticEntries, ...productEntries].join('\n')}\n</urlset>`;
