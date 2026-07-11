@@ -1,0 +1,59 @@
+---
+export const prerender = true;
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import WhatsAppButton from '../../components/WhatsAppButton.astro';
+import Breadcrumb from '../../components/Breadcrumb.astro';
+import { blogPosts } from '../../data/blogPosts';
+
+const posts = [...blogPosts].sort(
+  (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+);
+const dateFmt = new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+---
+<Layout
+  title="Sticker Blog: Guides on Materials, Finishes & Custom Printing | The Custom Stickers"
+  description="Practical custom sticker guides — choosing materials, die-cut vs kiss-cut, waterproof and outdoor stickers, packaging labels, and glossy vs matte vs holographic finishes."
+  canonical="https://thecustomstickers.co/blog/"
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+  <div class="container" style="padding-top:20px">
+    <Breadcrumb items={[{ label: 'Blog' }]} />
+  </div>
+
+  <section class="page-hero">
+    <div class="container">
+      <div class="badge">Sticker Guides</div>
+      <h1>The Custom Stickers Blog</h1>
+      <p>Practical, no-fluff guides on choosing materials, cuts, and finishes so your custom stickers look great and last.</p>
+    </div>
+  </section>
+
+  <section class="content-page">
+    <div class="container">
+      <div class="blog-grid">
+        {posts.map((post) => (
+          <a href={`/blog/${post.slug}/`} class="blog-card">
+            <span class="badge">{post.badge}</span>
+            <h2>{post.title}</h2>
+            <p>{post.excerpt}</p>
+            <span class="blog-card-meta">{dateFmt.format(new Date(post.date))} · {post.readTime}</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<style>
+  .blog-grid { display: grid; gap: 24px; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); }
+  .blog-card { display: flex; flex-direction: column; gap: 10px; border: 1px solid var(--gray-200, #e5e7eb); border-radius: 18px; padding: 26px; text-decoration: none; background: #fff; transition: border-color .2s, transform .2s, box-shadow .2s; }
+  .blog-card:hover { border-color: var(--primary); transform: translateY(-2px); box-shadow: 0 14px 30px rgba(17,17,17,0.06); }
+  .blog-card h2 { font-size: 1.2rem; line-height: 1.35; color: var(--gray-900, #111); margin: 0; }
+  .blog-card p { color: var(--gray-600, #4b5563); line-height: 1.65; font-size: 0.96rem; margin: 0; flex: 1; }
+  .blog-card-meta { color: var(--gray-500, #6b7280); font-size: 0.82rem; }
+</style>
