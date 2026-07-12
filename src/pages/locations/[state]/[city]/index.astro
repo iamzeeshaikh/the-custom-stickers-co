@@ -6,7 +6,7 @@ import Footer from '../../../../components/Footer.astro';
 import WhatsAppButton from '../../../../components/WhatsAppButton.astro';
 import Breadcrumb from '../../../../components/Breadcrumb.astro';
 import QuoteForm from '../../../../components/QuoteForm.astro';
-import { allCityParams, getLocationCity } from '../../../../data/locations';
+import { allCityParams, getLocationCity, pickLinkTargets, anchorFor, seedNum } from '../../../../data/locations';
 import { products } from '../../../../data/products';
 
 export async function getStaticPaths() {
@@ -22,6 +22,34 @@ const getP = (s: string) => products.find((p) => p.slug === s);
 const featured = city.featuredProducts.map(getP).filter(Boolean) as NonNullable<ReturnType<typeof getP>>[];
 const siblings = state.cities.filter((c) => c.slug !== city.slug);
 const basePath = `/locations/${state.slug}/${city.slug}/`;
+
+// Varied internal links — each city page draws different targets, anchor text,
+// and sentence wording, so no two pages share the same link or phrasing.
+const lt = pickLinkTargets(city.slug + state.slug, 4);
+const cseed = seedNum(city.slug + state.slug);
+const cpick = <T,>(arr: T[], off = 0): T => arr[(cseed + off) % arr.length];
+const CL = lt.map((slug, i) => ({ href: `/${slug}/`, text: anchorFor(slug, city.slug, i) }));
+const answerLine = cpick([
+  { pre: `A go-to for ${city.name} brands is our `, post: `, printed sharp and cut clean.` },
+  { pre: `${city.name} makers keep coming back for our `, post: ` — crisp, durable, and made to last.` },
+  { pre: `One of the most-ordered picks in ${city.name} is our `, post: `, printed to your exact artwork.` },
+  { pre: `Start a ${city.name} order with our `, post: ` and build from there.` },
+]);
+const sceneLine = cpick([
+  { pre: `However your brand shows up around ${city.name}, our `, post: ` help it get noticed.` },
+  { pre: `To match the way ${city.name} eats, drinks, and shops, brands turn to our `, post: `.` },
+  { pre: `Our `, post: ` fit the way ${city.name} brands build an identity people want to carry.` },
+], 1);
+const useLine = cpick([
+  { pre: `Wherever they end up, ${city.name} brands trust our `, post: ` to hold the print.` },
+  { pre: `From glass to gear, our `, post: ` keep a ${city.name} logo looking sharp.` },
+  { pre: `Popular for exactly this in ${city.name} are our `, post: `.` },
+], 2);
+const whyLine = cpick([
+  { pre: `Ready to compare options? Browse our `, post: ` or start a ${city.name} quote today.` },
+  { pre: `Weighing finishes and shapes? See our `, post: ` and send your artwork.` },
+  { pre: `Not sure where to begin? Our `, post: ` are a solid first stop for ${city.name} brands.` },
+], 3);
 
 const seed = city.slug.split('').reduce((s, c) => s + c.charCodeAt(0), 0);
 const pick = (arr: string[], off = 0) => arr[(seed + off) % arr.length];
@@ -54,7 +82,7 @@ const surfaces = [
 const faqs: [string, string][] = [
   [`Do you print custom stickers for ${city.name} businesses?`, city.faqCityAnswer],
   [`What is the minimum order for ${city.name} brands?`, `Our minimums stay low so small ${city.name} brands, bands, and makers can order without a huge commitment — and the per-sticker price drops fast as your quantity grows. Tell us your target quantity and we'll send exact pricing.`],
-  [`Can I get die cut stickers cut to my own shape?`, `Yes. Our <a href="/die-cut-stickers/">die cut stickers</a> are cut precisely around your artwork's outline with no borders or wasted space — ideal for logos, characters, mascots, and any custom shape.`],
+  [`Can I get die cut stickers cut to my own shape?`, `Yes. Our die cut stickers are cut precisely around your artwork's outline with no borders or wasted space — ideal for logos, characters, mascots, and any custom shape.`],
   [`Are your stickers waterproof and weatherproof?`, `Yes. We print on premium waterproof vinyl with a protective laminate, so your ${city.name} stickers survive rain, sun, scratching, dishwashers, and daily handling on bottles, laptops, and cars.`],
   [`What sticker finishes do you offer?`, `You can choose gloss, matte, holographic, clear, metallic, and specialty finishes. Each gives a different look and feel, so ${city.name} brands can match their stickers to their exact identity — bold and shiny or clean and subtle.`],
   [`What artwork files do you need?`, `We accept vector files (AI, EPS, PDF, SVG) and high-resolution PNG or JPG. If your file needs cleanup for print, our team will help — see our artwork guidelines or just send what you have and we'll advise.`],
@@ -132,7 +160,7 @@ const schema = JSON.stringify([
   <section class="loc-section">
     <div class="container loc-narrow">
       <h2>{answerHeading}</h2>
-      <p>The Custom Stickers prints custom die cut, vinyl, and label stickers for businesses across {city.name} and {state.name}. Every order is printed to your artwork on premium, laminated waterproof material — built for {city.signatureSector} and any brand that wants its logo to travel. A go-to for {city.name} brands is our <a href={`/${featured[0].slug}/`}>{featured[0].name.toLowerCase()}</a>, printed sharp, cut clean, and made to last.</p>
+      <p>The Custom Stickers prints custom die cut, vinyl, and label stickers for businesses across {city.name} and {state.name}. Every order is printed to your artwork on premium, laminated waterproof material — built for {city.signatureSector} and any brand that wants its logo to travel. {answerLine.pre}<a href={CL[0].href}>{CL[0].text}</a>{answerLine.post}</p>
     </div>
   </section>
 
@@ -143,7 +171,7 @@ const schema = JSON.stringify([
         <span class="badge">On the Ground in {city.name}</span>
         <h2>{city.sceneHeading}</h2>
         <p>{city.localScene}</p>
-        <p>However your brand shows up around {city.name}, the right sticker makes it stick. Our <a href={`/${featured[1].slug}/`}>{featured[1].name.toLowerCase()}</a> fit the way {city.name} brands build an identity people want to carry.</p>
+        <p>{sceneLine.pre}<a href={CL[1].href}>{CL[1].text}</a>{sceneLine.post}</p>
         <h3 class="loc-h3">Areas We Serve in {city.name}</h3>
         <div class="loc-tags">
           {city.districts.map((d) => <span class="loc-tag">{d}</span>)}
@@ -160,7 +188,7 @@ const schema = JSON.stringify([
     <div class="container loc-narrow">
       <span class="badge">Where They Go</span>
       <h2>{useHeading}</h2>
-      <p>{city.name} brands put our stickers just about everywhere their customers look. Popular surfaces include our durable <a href={`/${featured[2].slug}/`}>{featured[2].name.toLowerCase()}</a> and beyond:</p>
+      <p>{city.name} brands put our stickers just about everywhere their customers look. {useLine.pre}<a href={CL[2].href}>{CL[2].text}</a>{useLine.post} Popular surfaces include:</p>
       <ul class="loc-surfaces">
         {surfaces.map((s) => <li>{s}</li>)}
       </ul>
@@ -215,7 +243,7 @@ const schema = JSON.stringify([
         <li>Low minimums with bulk pricing</li>
         <li>Fast turnaround and nationwide shipping</li>
       </ul>
-      <p>Ready to compare options? Explore our full range of <a href="/custom-sticker-printing/">custom sticker printing</a> or start a {city.name} quote today.</p>
+      <p>{whyLine.pre}<a href={CL[3].href}>{CL[3].text}</a>{whyLine.post}</p>
     </div>
   </section>
 

@@ -558,6 +558,76 @@ export const locationStates: LocationState[] = [
   },
 ];
 
+// ── Varied internal linking ──────────────────────────────────────────────
+// Each page rotates BOTH the target product and the anchor wording off a seed,
+// so no two location pages share the same link, anchor text, or sentence.
+export const LINK_POOL = [
+  'die-cut-stickers', 'custom-vinyl-stickers', 'waterproof-stickers',
+  'custom-holographic-stickers', 'custom-clear-stickers', 'packaging-labels',
+  'custom-laptop-stickers', 'bumper-stickers', 'matte-stickers',
+  'metallic-stickers', 'custom-eco-friendly-stickers', 'die-cut-decals',
+  'custom-business-stickers', 'promotional-stickers', 'window-stickers',
+  'reflective-stickers', 'glossy-stickers', 'custom-sticker-printing',
+];
+
+export const LINK_ANCHORS: Record<string, string[]> = {
+  'die-cut-stickers': ['die-cut stickers', 'custom die-cut shapes', 'stickers cut to your logo', 'borderless die-cut prints'],
+  'custom-vinyl-stickers': ['custom vinyl stickers', 'durable vinyl stickers', 'full-colour vinyl prints', 'premium vinyl stickers'],
+  'waterproof-stickers': ['waterproof stickers', 'weatherproof vinyl stickers', 'water- and UV-resistant stickers'],
+  'custom-holographic-stickers': ['holographic stickers', 'eye-catching holographic finishes', 'rainbow holographic prints'],
+  'custom-clear-stickers': ['clear stickers', 'transparent clear-label stickers', 'see-through clear stickers'],
+  'packaging-labels': ['packaging labels', 'custom product labels', 'roll and sheet labels'],
+  'custom-laptop-stickers': ['laptop stickers', 'die-cut laptop stickers', 'hardware-ready laptop stickers'],
+  'bumper-stickers': ['bumper stickers', 'custom bumper stickers', 'car bumper decals'],
+  'matte-stickers': ['matte stickers', 'smooth matte-finish stickers'],
+  'metallic-stickers': ['metallic stickers', 'metallic-foil stickers', 'shimmering metallic prints'],
+  'custom-eco-friendly-stickers': ['eco-friendly stickers', 'recyclable kraft stickers', 'sustainable sticker options'],
+  'die-cut-decals': ['die-cut decals', 'custom vinyl decals', 'weatherproof decals'],
+  'custom-business-stickers': ['branded business stickers', 'business logo stickers'],
+  'promotional-stickers': ['promotional stickers', 'giveaway stickers', 'campaign stickers'],
+  'window-stickers': ['window stickers', 'storefront window decals'],
+  'reflective-stickers': ['reflective stickers', 'high-visibility reflective decals'],
+  'glossy-stickers': ['glossy stickers', 'high-gloss finish stickers'],
+  'custom-sticker-printing': ['custom sticker printing', 'our full sticker printing range', 'the complete sticker range'],
+};
+
+export function seedNum(text: string): number {
+  // FNV-1a hash — positional, so similar strings (san-diego vs san-francisco)
+  // produce very different seeds and don't collide modulo the pool length.
+  let h = 2166136261;
+  for (let i = 0; i < text.length; i++) {
+    h ^= text.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return Math.abs(h | 0);
+}
+
+// Pick `n` distinct product slugs from the pool, rotated by seed so different
+// pages start at different points and never share the same set/order.
+export function pickLinkTargets(seedText: string, n: number, avoid: string[] = []): string[] {
+  // Seeded Fisher–Yates shuffle (mulberry32 PRNG) so each page gets a full,
+  // near-unique permutation of the pool — collisions between pages are
+  // effectively impossible, unlike a start+stride walk with few combinations.
+  const arr = LINK_POOL.filter((s) => !avoid.includes(s));
+  let a = seedNum(seedText) || 1;
+  const rand = () => {
+    a = (a + 0x6d2b79f5) | 0;
+    let t = Math.imul(a ^ (a >>> 15), 1 | a);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(rand() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr.slice(0, n);
+}
+
+export function anchorFor(slug: string, seedText: string, off = 0): string {
+  const arr = LINK_ANCHORS[slug] ?? [slug.replace(/-/g, ' ')];
+  return arr[(seedNum(seedText) + off) % arr.length];
+}
+
 export function getLocationState(slug: string): LocationState | undefined {
   return locationStates.find((s) => s.slug === slug);
 }

@@ -6,7 +6,7 @@ import Footer from '../../../components/Footer.astro';
 import WhatsAppButton from '../../../components/WhatsAppButton.astro';
 import Breadcrumb from '../../../components/Breadcrumb.astro';
 import QuoteForm from '../../../components/QuoteForm.astro';
-import { locationStates, getLocationState } from '../../../data/locations';
+import { locationStates, getLocationState, pickLinkTargets, anchorFor, seedNum } from '../../../data/locations';
 import { products } from '../../../data/products';
 
 export async function getStaticPaths() {
@@ -21,10 +21,28 @@ const getP = (s: string) => products.find((p) => p.slug === s);
 const featured = state.featuredProducts.map(getP).filter(Boolean) as NonNullable<ReturnType<typeof getP>>[];
 const basePath = `/locations/${state.slug}/`;
 
+// Varied internal links — different target, anchor, and sentence per state page.
+const lt = pickLinkTargets(state.slug, 2);
+const sseed = seedNum(state.slug);
+const spick = <T,>(arr: T[], off = 0): T => arr[(sseed + off) % arr.length];
+const L0 = { href: `/${lt[0]}/`, text: anchorFor(lt[0], state.slug, 0) };
+const L1 = { href: `/${lt[1]}/`, text: anchorFor(lt[1], state.slug, 1) };
+const sceneLine = spick([
+  { pre: `Across the state, brands reach for our `, post: ` when they want to be remembered.` },
+  { pre: `From cans to laptops, ${state.name} teams lean on our `, post: ` to carry a logo everywhere.` },
+  { pre: `The most-ordered pick across ${state.name} tends to be our `, post: `, printed to spec and built to last.` },
+  { pre: `Whatever the scene, our `, post: ` help ${state.name} brands stand out and stick around.` },
+]);
+const stateLine = spick([
+  { pre: `Compare shapes, materials, and finishes across our `, post: `, then send your artwork for a quote.` },
+  { pre: `Not sure which style fits? Start with our `, post: ` and we'll help you dial it in.` },
+  { pre: `Explore the options — from bold to subtle — with our `, post: ` and request pricing.` },
+], 1);
+
 const faqs: [string, string][] = [
   [`Do you print custom stickers across ${state.name}?`, `Yes. We print and ship custom stickers and labels to businesses across ${state.name}, including ${state.cities.map((c) => c.name).join(', ')} and the surrounding areas. Upload your artwork for a quote.`],
   [`What is the minimum order?`, `Minimums stay low so smaller ${state.name} brands can order comfortably, with better per-unit pricing as volumes grow. Share your target quantity for a tailored quote.`],
-  [`Can I get die cut stickers cut to my shape?`, `Yes — our <a href="/die-cut-stickers/">die cut stickers</a> are cut precisely to your design's outline with no borders, ideal for logos, characters, and custom shapes.`],
+  [`Can I get die cut stickers cut to my shape?`, `Yes — our die cut stickers are cut precisely to your design's outline with no borders, ideal for logos, characters, and custom shapes.`],
   [`Are the stickers waterproof and durable?`, `Yes. We print on durable, laminated waterproof vinyl that resists water, UV fading, and scratching, so your ${state.name} stickers last indoors or outdoors.`],
   [`What sticker finishes can I choose from?`, `Gloss, matte, holographic, clear, and metallic finishes are all available, so ${state.name} brands can match the look and feel of their identity exactly.`],
   [`What artwork files do you need?`, `We accept vector files (AI, EPS, PDF, SVG) and high-resolution PNG or JPG. If your file needs print prep, our team will help before anything goes to production.`],
@@ -102,7 +120,7 @@ const schema = JSON.stringify([
       <div>
         <h2>{state.sceneHeading}</h2>
         <p>{state.marketScene}</p>
-        <p>Across every scene here, the right sticker makes a brand stick — our <a href={`/${featured[0].slug}/`}>{featured[0].name.toLowerCase()}</a> are a popular choice for {state.name} brands.</p>
+        <p>{sceneLine.pre}<a href={L0.href}>{L0.text}</a>{sceneLine.post}</p>
       </div>
       <div>
         <QuoteForm productName={`Custom Stickers — ${state.name}`} compact={true} />
@@ -159,7 +177,7 @@ const schema = JSON.stringify([
     <div class="container loc-narrow">
       <span class="badge">Statewide Printing</span>
       <h2>One {state.name} Sticker Printer, Every City</h2>
-      <p>Wherever your brand is based in {state.name}, you get the same crisp printing, precision die cutting, and durable waterproof material — with a free proof on every order. Compare finishes and shapes across our full range of <a href="/custom-sticker-printing/">custom sticker printing</a>, then send your artwork for a quote.</p>
+      <p>Wherever your brand is based in {state.name}, you get the same crisp printing, precision die cutting, and durable waterproof material — with a free proof on every order. {stateLine.pre}<a href={L1.href}>{L1.text}</a>{stateLine.post}</p>
     </div>
   </section>
 
