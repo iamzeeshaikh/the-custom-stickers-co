@@ -2,6 +2,7 @@ export const prerender = true;
 
 import { products } from '../data/products';
 import { blogPosts } from '../data/blogPosts';
+import { locationStates } from '../data/locations';
 
 const BASE = 'https://thecustomstickers.co';
 
@@ -41,7 +42,17 @@ export function GET() {
     `  <url>\n    <loc>${BASE}/blog/${p.slug}/</loc>\n    <lastmod>${p.date}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.6</priority>\n  </url>`
   );
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...staticEntries, ...productEntries, ...blogEntries].join('\n')}\n</urlset>`;
+  const locationEntries: string[] = [
+    `  <url>\n    <loc>${BASE}/locations/</loc>\n    <lastmod>${LASTMOD}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`,
+  ];
+  for (const state of locationStates) {
+    locationEntries.push(`  <url>\n    <loc>${BASE}/locations/${state.slug}/</loc>\n    <lastmod>${LASTMOD}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.75</priority>\n  </url>`);
+    for (const city of state.cities) {
+      locationEntries.push(`  <url>\n    <loc>${BASE}/locations/${state.slug}/${city.slug}/</loc>\n    <lastmod>${LASTMOD}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.75</priority>\n  </url>`);
+    }
+  }
+
+  const xml = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${[...staticEntries, ...productEntries, ...locationEntries, ...blogEntries].join('\n')}\n</urlset>`;
 
   return new Response(xml, {
     headers: { 'Content-Type': 'application/xml; charset=utf-8' },
