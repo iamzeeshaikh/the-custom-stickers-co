@@ -628,6 +628,18 @@ export function anchorFor(slug: string, seedText: string, off = 0): string {
   return arr[(seedNum(seedText) + off) % arr.length];
 }
 
+// Per-state URL base (with trailing slash). Georgia uses a keyword-rich
+// top-level slug; the rest stay under /locations/. Old /locations/georgia URLs
+// 301-redirect to the new one (see astro.config redirects).
+export function stateUrl(state: LocationState): string {
+  return state.slug === "georgia" ? "/georgia-custom-stickers/" : `/locations/${state.slug}/`;
+}
+export function cityUrl(state: LocationState, city: LocationCity): string {
+  return state.slug === "georgia"
+    ? `/georgia-custom-stickers/${city.slug}/`
+    : `/locations/${state.slug}/${city.slug}/`;
+}
+
 export function getLocationState(slug: string): LocationState | undefined {
   return locationStates.find((s) => s.slug === slug);
 }

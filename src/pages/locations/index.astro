@@ -6,7 +6,7 @@ import Footer from '../../components/Footer.astro';
 import WhatsAppButton from '../../components/WhatsAppButton.astro';
 import Breadcrumb from '../../components/Breadcrumb.astro';
 import QuoteForm from '../../components/QuoteForm.astro';
-import { locationStates } from '../../data/locations';
+import { locationStates, stateUrl } from '../../data/locations';
 
 const totalCities = locationStates.reduce((n, s) => n + s.cities.length, 0);
 const basePath = '/locations/';
@@ -18,7 +18,7 @@ const schema = JSON.stringify({
   itemListElement: locationStates.map((s, i) => ({
     '@type': 'ListItem', position: i + 1,
     name: `Custom Stickers in ${s.name}`,
-    url: `https://thecustomstickers.co/locations/${s.slug}/`,
+    url: `https://thecustomstickers.co${stateUrl(s)}`,
   })),
 });
 ---
@@ -48,7 +48,7 @@ const schema = JSON.stringify({
       <h2>Find a Custom Sticker Printer in Your State</h2>
       <div class="loc-cards">
         {locationStates.map((s) => (
-          <a href={`/locations/${s.slug}/`} class="card loc-city-card">
+          <a href={stateUrl(s)} class="card loc-city-card">
             <h3>{s.name} ({s.abbr})</h3>
             <p>{s.stat}. Serving {s.cities.map((c) => c.name).join(', ')}.</p>
             <span class="loc-card-link">Stickers in {s.name} →</span>

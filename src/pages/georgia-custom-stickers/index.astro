@@ -1,0 +1,9 @@
+---
+export const prerender = true;
+import StickerStatePage from '../../components/StickerStatePage.astro';
+import { getLocationState } from '../../data/locations';
+
+const state = getLocationState('georgia');
+if (!state) return Astro.redirect('/locations/');
+---
+<StickerStatePage state={state} />

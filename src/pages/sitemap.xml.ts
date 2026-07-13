@@ -2,7 +2,7 @@ export const prerender = true;
 
 import { products } from '../data/products';
 import { blogPosts } from '../data/blogPosts';
-import { locationStates } from '../data/locations';
+import { locationStates, stateUrl, cityUrl } from '../data/locations';
 
 const BASE = 'https://thecustomstickers.co';
 
@@ -46,9 +46,9 @@ export function GET() {
     `  <url>\n    <loc>${BASE}/locations/</loc>\n    <lastmod>${LASTMOD}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.8</priority>\n  </url>`,
   ];
   for (const state of locationStates) {
-    locationEntries.push(`  <url>\n    <loc>${BASE}/locations/${state.slug}/</loc>\n    <lastmod>${LASTMOD}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.75</priority>\n  </url>`);
+    locationEntries.push(`  <url>\n    <loc>${BASE}${stateUrl(state)}</loc>\n    <lastmod>${LASTMOD}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.75</priority>\n  </url>`);
     for (const city of state.cities) {
-      locationEntries.push(`  <url>\n    <loc>${BASE}/locations/${state.slug}/${city.slug}/</loc>\n    <lastmod>${LASTMOD}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.75</priority>\n  </url>`);
+      locationEntries.push(`  <url>\n    <loc>${BASE}${cityUrl(state, city)}</loc>\n    <lastmod>${LASTMOD}</lastmod>\n    <changefreq>monthly</changefreq>\n    <priority>0.75</priority>\n  </url>`);
     }
   }
 

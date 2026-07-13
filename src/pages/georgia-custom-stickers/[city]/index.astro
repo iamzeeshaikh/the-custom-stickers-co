@@ -1,0 +1,15 @@
+---
+export const prerender = true;
+import StickerCityPage from '../../../components/StickerCityPage.astro';
+import { getLocationState, getLocationCity } from '../../../data/locations';
+
+export async function getStaticPaths() {
+  const ga = getLocationState('georgia');
+  return ga ? ga.cities.map((c) => ({ params: { city: c.slug } })) : [];
+}
+
+const { city: citySlug } = Astro.params;
+const found = getLocationCity('georgia', citySlug!);
+if (!found) return Astro.redirect('/georgia-custom-stickers/');
+---
+<StickerCityPage state={found.state} city={found.city} />

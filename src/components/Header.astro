@@ -1,5 +1,5 @@
 ---
-import { locationStates } from '../data/locations';
+import { locationStates, stateUrl } from '../data/locations';
 const navItems = [
   { label: 'Home', href: '/' },
   {
@@ -19,7 +19,7 @@ const navItems = [
   {
     label: 'Locations', href: '/locations/',
     children: [
-      ...locationStates.map((s) => ({ label: `${s.name} Stickers`, href: `/locations/${s.slug}/` })),
+      ...locationStates.map((s) => ({ label: `${s.name} Stickers`, href: stateUrl(s) })),
       { label: 'All USA Locations →', href: '/locations/' },
     ]
   },
