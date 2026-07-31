@@ -94,7 +94,7 @@ const schema = JSON.stringify({
   .loc-card-link { color: var(--primary); font-weight: 600; font-size: 0.9rem; }
 
   @media (max-width: 900px) {
-    .loc-split { grid-template-columns: 1fr; gap: 24px; }
-    .loc-cards { grid-template-columns: 1fr; }
+    .loc-split { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .loc-cards { grid-template-columns: minmax(0, 1fr); }
   }
 </style>

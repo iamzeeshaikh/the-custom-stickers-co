@@ -168,8 +168,8 @@ import Breadcrumb from '../components/Breadcrumb.astro';
   .wa-btn { background: #25D366; width: 100%; justify-content: center; }
   .wa-btn:hover { background: #1fba58; }
   .honeypot { position: absolute; left: -9999px; opacity: 0; }
-  @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; } }
-  @media (max-width: 540px) { .form-row-2 { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) { .contact-grid { grid-template-columns: minmax(0, 1fr); } }
+  @media (max-width: 540px) { .form-row-2 { grid-template-columns: minmax(0, 1fr); } }
 </style>
 
 <script>

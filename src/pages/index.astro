@@ -1,6 +1,7 @@
 ---
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
+import { imgThumb } from '../lib/img';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
@@ -47,13 +48,13 @@ const faqSchema = JSON.stringify({
       <div class="hero-visual">
         <div class="hero-img-stack">
           <div class="hero-img-main">
-            <img src="/images/die-cut-stickers/1.jpg" alt="Custom die cut stickers premium quality printing" loading="eager" width="480" height="380" />
+            <img src="/images/die-cut-stickers/1.webp" alt="Custom die cut stickers premium quality printing" loading="eager" width="480" height="380" />
           </div>
           <div class="hero-img-float float-1">
-            <img src="/images/custom-holographic-stickers/1.jpg" alt="Custom holographic stickers" loading="lazy" width="160" height="130" />
+            <img src="/images/custom-holographic-stickers/1-400.webp" alt="Custom holographic stickers" loading="lazy" width="160" height="130" />
           </div>
           <div class="hero-img-float float-2">
-            <img src="/images/waterproof-stickers/1.jpg" alt="Waterproof custom stickers" loading="lazy" width="130" height="110" />
+            <img src="/images/waterproof-stickers/1-400.webp" alt="Waterproof custom stickers" loading="lazy" width="130" height="110" />
           </div>
           <div class="hero-badge-float">
             <span class="hbf-number">100+</span>
@@ -99,9 +100,10 @@ const faqSchema = JSON.stringify({
           <a href={`/${product.slug}/`} class="product-card card">
             <div class="product-img">
               <img
-                src={product.images[0]}
+                src={imgThumb(product.images[0])}
                 alt={product.name}
                 loading="lazy"
+                decoding="async"
                 width="320"
                 height="240"
               />
@@ -141,10 +143,10 @@ const faqSchema = JSON.stringify({
         </div>
         <div class="for-business-visual">
           <div class="biz-img-grid">
-            <img src="/images/packaging-labels/1.jpg" alt="Custom packaging labels for business" loading="lazy" width="200" height="160" />
-            <img src="/images/promotional-stickers/1.jpg" alt="Promotional stickers for marketing" loading="lazy" width="200" height="160" />
-            <img src="/images/custom-business-stickers/Custom Business Stickers-1.png" alt="Custom business stickers" loading="lazy" width="200" height="160" />
-            <img src="/images/bumper-stickers/bumper stickers-1.png" alt="Custom bumper stickers" loading="lazy" width="200" height="160" />
+            <img src="/images/packaging-labels/1-400.webp" alt="Custom packaging labels for business" loading="lazy" width="200" height="160" />
+            <img src="/images/promotional-stickers/1-400.webp" alt="Promotional stickers for marketing" loading="lazy" width="200" height="160" />
+            <img src="/images/custom-business-stickers/Custom Business Stickers-1-400.webp" alt="Custom business stickers" loading="lazy" width="200" height="160" />
+            <img src="/images/bumper-stickers/bumper stickers-1-400.webp" alt="Custom bumper stickers" loading="lazy" width="200" height="160" />
           </div>
         </div>
       </div>
@@ -295,7 +297,7 @@ const faqSchema = JSON.stringify({
               <span class="stat-label">Satisfaction</span>
             </div>
           </div>
-          <img src="/images/custom-sticker-printing/Custom Sticker Printing-1.png" alt="Premium custom sticker printing quality" loading="lazy" width="400" height="320" />
+          <img src="/images/custom-sticker-printing/Custom Sticker Printing-1-400.webp" alt="Premium custom sticker printing quality" loading="lazy" width="400" height="320" />
         </div>
       </div>
     </div>
@@ -312,7 +314,7 @@ const faqSchema = JSON.stringify({
       <div class="gallery-grid">
         {featuredProducts.slice(0, 8).map(p => (
           <a href={`/${p.slug}/`} class="gallery-item">
-            <img src={p.images[0]} alt={p.name} loading="lazy" width="280" height="220" />
+            <img src={imgThumb(p.images[0])} alt={p.name} loading="lazy" decoding="async" width="280" height="220" />
             <div class="gallery-label">{p.name}</div>
           </a>
         ))}
@@ -523,21 +525,21 @@ const faqSchema = JSON.stringify({
     .products-grid { grid-template-columns: repeat(3, 1fr); }
   }
   @media (max-width: 900px) {
-    .hero-inner { grid-template-columns: 1fr; }
+    .hero-inner { grid-template-columns: minmax(0, 1fr); }
     .hero-visual { display: none; }
-    .for-business-grid { grid-template-columns: 1fr; }
-    .why-grid { grid-template-columns: 1fr; }
+    .for-business-grid { grid-template-columns: minmax(0, 1fr); }
+    .why-grid { grid-template-columns: minmax(0, 1fr); }
     .process-steps { grid-template-columns: repeat(2, 1fr); }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    .quote-cta-box { grid-template-columns: 1fr; padding: 36px; }
+    .quote-cta-box { grid-template-columns: minmax(0, 1fr); padding: 36px; }
   }
   @media (max-width: 640px) {
     .trust-grid { grid-template-columns: repeat(2, 1fr); }
     .products-grid { grid-template-columns: 1fr 1fr; }
     .materials-grid { grid-template-columns: 1fr 1fr; }
-    .shapes-finishes-grid { grid-template-columns: 1fr; }
+    .shapes-finishes-grid { grid-template-columns: minmax(0, 1fr); }
     .gallery-grid { grid-template-columns: repeat(2, 1fr); }
-    .process-steps { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: minmax(0, 1fr); }
   }
 </style>
 

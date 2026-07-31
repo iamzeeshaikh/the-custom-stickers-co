@@ -186,7 +186,7 @@ const year = new Date().getFullYear();
     .footer-cta-inner { flex-direction: column; text-align: center; }
   }
   @media (max-width: 600px) {
-    .footer-grid { grid-template-columns: 1fr; }
+    .footer-grid { grid-template-columns: minmax(0, 1fr); }
     .footer-bottom-inner { flex-direction: column; text-align: center; }
   }
 </style>

@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { imgThumb } from '../lib/img';
 import Header from './Header.astro';
 import Footer from './Footer.astro';
 import WhatsAppButton from './WhatsAppButton.astro';
@@ -156,7 +157,7 @@ const schema = JSON.stringify([
       <div class="loc-cards">
         {featured.map((p) => (
           <a href={`/${p.slug}/`} class="card loc-card">
-            <img src={p.images[0]} alt={`${p.name} in ${state.name}`} loading="lazy" width="400" height="300" />
+            <img src={imgThumb(p.images[0])} alt={`${p.name} in ${state.name}`} loading="lazy" decoding="async" width="400" height="300" />
             <div class="loc-card-body">
               <h3>{p.name}</h3>
               <p>{p.intro}</p>
@@ -257,8 +258,8 @@ const schema = JSON.stringify([
   .loc-cta-inner .btn-secondary { background: transparent; color: white; border-color: rgba(255,255,255,0.5); }
 
   @media (max-width: 900px) {
-    .loc-hero-grid, .loc-split { grid-template-columns: 1fr; gap: 24px; }
-    .loc-cards, .loc-industries { grid-template-columns: 1fr; }
+    .loc-hero-grid, .loc-split { grid-template-columns: minmax(0, 1fr); gap: 24px; }
+    .loc-cards, .loc-industries { grid-template-columns: minmax(0, 1fr); }
     .loc-strip-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
   }
 </style>

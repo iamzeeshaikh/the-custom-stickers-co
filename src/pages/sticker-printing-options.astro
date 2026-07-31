@@ -154,5 +154,5 @@ import Breadcrumb from '../components/Breadcrumb.astro';
   .cta-band .btn-primary { background: white; color: var(--primary); }
   .cta-band .btn-secondary { background: rgba(255,255,255,0.15); color: white; border-color: rgba(255,255,255,0.35); }
   @media (max-width: 900px) { .options-grid, .options-grid-2 { grid-template-columns: 1fr 1fr; } }
-  @media (max-width: 600px) { .options-grid, .options-grid-2 { grid-template-columns: 1fr; } .content-body-wide { padding: 24px; } }
+  @media (max-width: 600px) { .options-grid, .options-grid-2 { grid-template-columns: minmax(0, 1fr); } .content-body-wide { padding: 24px; } }
 </style>

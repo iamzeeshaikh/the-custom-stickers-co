@@ -134,5 +134,5 @@ const faqSchema = {
   .blog-related-card { display: flex; flex-direction: column; gap: 8px; border: 1px solid var(--gray-200, #e5e7eb); border-radius: 14px; padding: 18px; text-decoration: none; transition: border-color .2s; }
   .blog-related-card:hover { border-color: var(--primary); }
   .blog-related-title { font-weight: 600; color: var(--gray-900, #111); }
-  @media (max-width: 640px) { .blog-related-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) { .blog-related-grid { grid-template-columns: minmax(0, 1fr); } }
 </style>

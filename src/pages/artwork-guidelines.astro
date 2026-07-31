@@ -165,6 +165,6 @@ import Breadcrumb from '../components/Breadcrumb.astro';
   .checklist li { padding: 7px 0; font-size: 14px; color: var(--gray-700); border-bottom: 1px solid var(--gray-100); }
   .sidebar-card p { font-size: 14px; color: var(--gray-600); margin-bottom: 12px; }
   .sidebar-phone, .sidebar-email { display: block; margin-top: 10px; font-size: 14px; color: var(--primary); font-weight: 600; text-decoration: none; }
-  @media (max-width: 900px) { .content-layout { grid-template-columns: 1fr; } .sidebar-card { position: static; } }
+  @media (max-width: 900px) { .content-layout { grid-template-columns: minmax(0, 1fr); } .sidebar-card { position: static; } }
   @media (max-width: 600px) { .content-body { padding: 24px; } }
 </style>

@@ -339,11 +339,11 @@ const { productName } = Astro.props;
   }
   .ct-cards {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 10px;
   }
   .ct-cards-qty {
-    grid-template-columns: repeat(6, 1fr);
+    grid-template-columns: repeat(6, minmax(0, 1fr));
   }
   .ct-card {
     background: var(--light-bg);
@@ -499,18 +499,18 @@ const { productName } = Astro.props;
   }
 
   @media (max-width: 900px) {
-    .ct-layout { grid-template-columns: 1fr; }
+    .ct-layout { grid-template-columns: minmax(0, 1fr); }
     .ct-steps { border-right: none; }
     .ct-summary-panel { border-top: 1px solid var(--gray-200); }
     .ct-summary-inner { position: static; }
-    .ct-cards { grid-template-columns: repeat(2, 1fr); }
-    .ct-cards-qty { grid-template-columns: repeat(3, 1fr); }
+    .ct-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    .ct-cards-qty { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
   @media (max-width: 600px) {
     .ct-header { padding: 20px; }
     .ct-step { padding: 18px 16px; }
-    .ct-cards { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-    .ct-cards-qty { grid-template-columns: repeat(3, 1fr); }
+    .ct-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+    .ct-cards-qty { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
 </style>
 

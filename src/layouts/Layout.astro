@@ -53,9 +53,10 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
   <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
   <!-- Preconnect -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <!-- Fonts are self-hosted variable files: no third-party round trip before
+       the first paint, and one request per family instead of fourteen. -->
+  <link rel="preload" href="/fonts/inter-var-latin.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/fonts/plus-jakarta-sans-var-latin.woff2" as="font" type="font/woff2" crossorigin />
 
   <!-- Sitemap -->
   <link rel="sitemap" href="/sitemap-index.xml" />
@@ -126,17 +127,46 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
 
   {schema && <script type="application/ld+json" set:html={schema} />}
 
-  <!-- Zendesk Chat -->
-  <script type="text/javascript">
-    window.$zopim||(function(d,s){var z=$zopim=function(c){
-    z._.push(c)},$=z.s=
-    d.createElement(s),e=d.getElementsByTagName(s)[0];z.set=function(o){z.set.
-    _.push(o)};z._=[];z.set._=[];$.async=!0;$.setAttribute('charset','utf-8');
-    $.src='https://v2.zopim.com/?4h3lbyJihoT1mCOqDA0VoQOaVQE9qTOP';z.t=+new Date;$.
-    type='text/javascript';e.parentNode.insertBefore($,e)})(document,'script');
+  <!-- ZeeOps live chat — replaced Zendesk/Zopim. Conversations land in the
+       dashboard at chat.zeeops.dev under the `thecustomstickers` site. -->
+  <script is:inline>
+    // The chat widget waits for the first interaction (or 6s of idle) so it
+    // never competes with the page's own render.
+    (function () {
+      var loaded = false;
+      function load() {
+        if (loaded) return;
+        loaded = true;
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://chat.zeeops.dev/widget.js?siteId=thecustomstickers';
+        document.head.appendChild(s);
+      }
+      ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (evt) {
+        window.addEventListener(evt, load, { once: true, passive: true });
+      });
+      window.addEventListener('load', function () { setTimeout(load, 6000); });
+    })();
   </script>
 
   <style is:global>
+    @font-face {
+      font-family: 'Inter';
+      font-style: normal;
+      font-weight: 300 900;
+      font-display: swap;
+      src: url('/fonts/inter-var-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+    @font-face {
+      font-family: 'Plus Jakarta Sans';
+      font-style: normal;
+      font-weight: 400 800;
+      font-display: swap;
+      src: url('/fonts/plus-jakarta-sans-var-latin.woff2') format('woff2');
+      unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+    }
+
     :root {
       --primary: #F97316;
       --primary-dark: #EA6D00;
@@ -336,6 +366,24 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
       .container { padding: 0 16px; }
       table { font-size: 14px; }
       table th, table td { padding: 9px 12px; }
+    }
+
+    /* --- Mobile safety net --------------------------------------------- */
+    /* Grid and flex children shrink to their column instead of pushing the
+       page wider than the viewport. */
+    .grid > *, [style*="display: grid"] > * { min-width: 0; }
+
+    img, svg, video, iframe, table { max-width: 100%; }
+    input, select, textarea, button { max-width: 100%; box-sizing: border-box; }
+
+    @media (max-width: 640px) {
+      /* Fields under 16px make iOS zoom the page on focus. */
+      input, select, textarea { font-size: 16px; }
+
+      /* Thumb-sized hit areas for the dense link lists. */
+      footer a, .breadcrumb a, .sidebar-phone, .sidebar-email { display: inline-block; padding-block: 0.3rem; }
+
+      table { display: block; overflow-x: auto; -webkit-overflow-scrolling: touch; }
     }
   </style>
 </head>

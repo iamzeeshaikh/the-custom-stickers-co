@@ -129,7 +129,7 @@ const { productName = '', compact = false } = Astro.props;
   small { display: block; color: var(--gray-500); font-size: 12px; margin-top: 4px; }
   .honeypot { position: absolute; left: -9999px; opacity: 0; width: 1px; height: 1px; }
   @media (max-width: 540px) {
-    .form-row-2 { grid-template-columns: 1fr; }
+    .form-row-2 { grid-template-columns: minmax(0, 1fr); }
     .quote-form-wrapper { padding: 20px; }
   }
 </style>
