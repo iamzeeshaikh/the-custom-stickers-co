@@ -383,6 +383,32 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
 <script>
   const thumbBtns = document.querySelectorAll('.thumb-btn');
   const mainImg = document.getElementById('main-img') as HTMLImageElement;
+
+  /* Warm the other gallery images so a thumbnail click swaps instantly instead
+     of waiting on the network. Runs at low priority when the browser is idle,
+     so it never competes with the first paint. */
+  function warm(btn: Element) {
+    const el = btn as HTMLElement;
+    if (!el.dataset.src || el.dataset.warmed) return;
+    el.dataset.warmed = '1';
+    const image = new Image();
+    image.fetchPriority = 'low';
+    image.sizes = mainImg?.sizes || '';
+    if (el.dataset.srcset) image.srcset = el.dataset.srcset;
+    image.src = el.dataset.src;
+  }
+
+  const warmAll = () => thumbBtns.forEach(warm);
+  if ('requestIdleCallback' in window) {
+    (window as any).requestIdleCallback(warmAll, { timeout: 2500 });
+  } else {
+    window.addEventListener('load', () => setTimeout(warmAll, 1200), { once: true });
+  }
+  thumbBtns.forEach(btn => {
+    btn.addEventListener('pointerenter', () => warm(btn), { once: true });
+    btn.addEventListener('touchstart', () => warm(btn), { once: true, passive: true });
+  });
+
   thumbBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       thumbBtns.forEach(b => b.classList.remove('active'));
