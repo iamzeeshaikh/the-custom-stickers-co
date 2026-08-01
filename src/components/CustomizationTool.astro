@@ -238,6 +238,10 @@ const { productName } = Astro.props;
     <div class="ct-summary-panel">
       <div class="ct-summary-inner" id="ct-summary-inner">
         <div class="ct-summary-badge">Your Configuration</div>
+        <button type="button" class="ct-summary-toggle" id="ct-summary-toggle" aria-expanded="false">
+          <span id="ct-summary-count">Nothing selected yet</span>
+          <span id="ct-summary-hint">Show</span>
+        </button>
         <div class="ct-summary-product" id="ct-summary-product"></div>
         <div class="ct-summary-rows" id="ct-summary-rows">
           <!-- populated by JS -->
@@ -275,7 +279,9 @@ const { productName } = Astro.props;
     background: #fff;
     border-radius: 20px;
     border: 1px solid var(--gray-200);
-    overflow: hidden;
+    /* clip, not hidden: hidden would make this a scroll container and stop the
+       summary panel from sticking while the visitor works down the steps. */
+    overflow: clip;
   }
   .ct-header {
     background: linear-gradient(135deg, var(--dark) 0%, #1e2d3d 100%);
@@ -408,10 +414,33 @@ const { productName } = Astro.props;
   .ct-summary-panel {
     background: var(--light-bg);
   }
-  .ct-summary-inner {
-    padding: 24px 20px;
+  /* The panel itself sticks: an inner-only sticky cannot travel because the
+     column is exactly as tall as its content. */
+  .ct-summary-panel {
+    align-self: start;
     position: sticky;
     top: 90px;
+    max-height: calc(100vh - 110px);
+    overflow-y: auto;
+  }
+  .ct-summary-toggle {
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+    width: 100%;
+    padding: 0.3rem 0;
+    background: none;
+    border: 0;
+    font: inherit;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--dark);
+    cursor: pointer;
+  }
+  .ct-summary-toggle span:last-child { font-size: 0.78rem; font-weight: 500; color: var(--gray-500); }
+  .ct-summary-inner {
+    padding: 24px 20px;
   }
   .ct-summary-badge {
     font-size: 10px;
@@ -501,8 +530,30 @@ const { productName } = Astro.props;
   @media (max-width: 900px) {
     .ct-layout { grid-template-columns: minmax(0, 1fr); }
     .ct-steps { border-right: none; }
-    .ct-summary-panel { border-top: 1px solid var(--gray-200); }
+
+    /* The configuration follows the visitor as a pinned bar, expandable to the
+       full list, so it is always clear what has been selected. */
+    .ct-summary-panel {
+      position: sticky;
+      top: auto;
+      bottom: 0;
+      max-height: none;
+      overflow: visible;
+      z-index: 30;
+      border-top: 1px solid var(--gray-200);
+      background: var(--white);
+      box-shadow: 0 -10px 30px rgba(17, 24, 39, 0.14);
+    }
     .ct-summary-inner { position: static; }
+    .ct-summary-toggle { display: flex; }
+    .ct-summary-rows,
+    .ct-summary-divider,
+    .ct-perks,
+    .ct-cta-note { display: none; }
+    .ct-summary-panel.is-open .ct-summary-rows { display: block; max-height: 38vh; overflow-y: auto; }
+    .ct-summary-panel.is-open .ct-summary-divider,
+    .ct-summary-panel.is-open .ct-cta-note { display: block; }
+    .ct-summary-inner { padding: 0.85rem 1rem 1rem; }
     .ct-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     .ct-cards-qty { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   }
@@ -559,7 +610,24 @@ const { productName } = Astro.props;
       if (link) {
         (link as HTMLAnchorElement).href = `/get-a-quote/?product=${encodeURIComponent(rawName)}&${qs}`;
       }
+
+      const chosen = Object.values(groups).filter(Boolean).length;
+      const countEl = document.getElementById('ct-summary-count');
+      if (countEl) {
+        countEl.textContent = chosen
+          ? `${chosen} option${chosen === 1 ? '' : 's'} selected`
+          : 'Nothing selected yet';
+      }
     }
+
+    const summaryPanel = document.querySelector('.ct-summary-panel');
+    const summaryToggle = document.getElementById('ct-summary-toggle');
+    summaryToggle?.addEventListener('click', () => {
+      const open = summaryPanel?.classList.toggle('is-open') ?? false;
+      summaryToggle.setAttribute('aria-expanded', String(open));
+      const hint = document.getElementById('ct-summary-hint');
+      if (hint) hint.textContent = open ? 'Hide' : 'Show';
+    });
 
     Object.keys(groups).forEach(groupId => {
       const container = document.getElementById(groupId);

@@ -158,8 +158,9 @@ const { productName = '', compact = false } = Astro.props;
         const data = new FormData(f);
         const res = await fetch('/api/submit-form', { method: 'POST', body: data });
         if (res.ok) {
-          successMsg.style.display = 'block';
           f.reset();
+          window.location.href = '/thank-you/';
+          return;
         } else {
           errorMsg.style.display = 'block';
         }

@@ -1,0 +1,108 @@
+---
+export const prerender = true;
+
+import Layout from '../layouts/Layout.astro';
+
+const title = 'Thank you — your request is with us | The Custom Stickers';
+const description =
+  'Your sticker quote request has been received. Our team replies with pricing and options within one business day.';
+---
+
+<Layout title={title} description={description} noindex={true}>
+  <section class="ty">
+    <div class="container ty-inner">
+      <div class="ty-mark" aria-hidden="true">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </div>
+      <h1>Thank you — we have your request</h1>
+      <p class="ty-lede">
+        Your details are with our quote team. We reply with pricing, material options and
+        turnaround within one business day, and sooner during US business hours.
+      </p>
+
+      <ul class="ty-next">
+        <li><strong>1.</strong> We review your size, quantity and artwork.</li>
+        <li><strong>2.</strong> You get a written price with material and finish options.</li>
+        <li><strong>3.</strong> We send a free digital proof before anything prints.</li>
+      </ul>
+
+      <div class="ty-actions">
+        <a class="btn btn-primary" href="/">Back to home</a>
+        <a class="btn btn-outline" href="/custom-die-cut-stickers/">Browse sticker types</a>
+      </div>
+
+      <p class="ty-contact">
+        Need it sooner? Call <a href="tel:+15033580443">(503) 358-0443</a> or email
+        <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a>.
+      </p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .ty {
+    padding: clamp(3rem, 8vw, 6rem) 0;
+    background: var(--light-bg);
+  }
+  .ty-inner {
+    max-width: 40rem;
+    text-align: center;
+  }
+  .ty-mark {
+    display: grid;
+    place-items: center;
+    width: 68px;
+    height: 68px;
+    margin: 0 auto 1.5rem;
+    border-radius: 999px;
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--success);
+  }
+  .ty h1 {
+    font-size: clamp(1.7rem, 1.2rem + 2vw, 2.5rem);
+    margin-bottom: 1rem;
+  }
+  .ty-lede {
+    color: var(--gray-600);
+    line-height: 1.7;
+    margin-bottom: 2rem;
+  }
+  .ty-next {
+    display: grid;
+    gap: 0.75rem;
+    margin: 0 auto 2rem;
+    padding: 1.25rem;
+    max-width: 34rem;
+    text-align: left;
+    list-style: none;
+    background: var(--white);
+    border: 1px solid var(--gray-200);
+    border-radius: 16px;
+  }
+  .ty-next li {
+    display: flex;
+    gap: 0.6rem;
+    font-size: 0.95rem;
+    color: var(--gray-700);
+  }
+  .ty-next strong {
+    color: var(--primary);
+  }
+  .ty-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+  }
+  .ty-contact {
+    font-size: 0.9rem;
+    color: var(--gray-600);
+  }
+  .ty-contact a {
+    color: var(--primary);
+    font-weight: 600;
+  }
+</style>
