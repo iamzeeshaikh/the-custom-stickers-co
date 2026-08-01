@@ -533,17 +533,26 @@ const { productName } = Astro.props;
 
     /* The configuration follows the visitor as a pinned bar, expandable to the
        full list, so it is always clear what has been selected. */
+    /* A sticky grid item cannot travel in a single column, so the panel becomes
+       a fixed bar that shows while the tool is on screen. */
     .ct-summary-panel {
-      position: sticky;
+      position: fixed;
+      left: 0;
+      right: 0;
       top: auto;
       bottom: 0;
       max-height: none;
       overflow: visible;
-      z-index: 30;
+      z-index: 40;
       border-top: 1px solid var(--gray-200);
       background: var(--white);
-      box-shadow: 0 -10px 30px rgba(17, 24, 39, 0.14);
+      box-shadow: 0 -10px 30px rgba(17, 24, 39, 0.18);
+      transform: translateY(110%);
+      transition: transform 0.25s ease;
+      pointer-events: none;
     }
+    .ct-summary-panel.is-visible { transform: translateY(0); pointer-events: auto; }
+    .ct-summary-inner { max-height: 80vh; overflow-y: auto; }
     .ct-summary-inner { position: static; }
     .ct-summary-toggle { display: flex; }
     .ct-summary-rows,
@@ -621,6 +630,13 @@ const { productName } = Astro.props;
     }
 
     const summaryPanel = document.querySelector('.ct-summary-panel');
+    const toolSection = document.querySelector('.ct-wrapper');
+    if (summaryPanel && toolSection && window.matchMedia('(max-width: 900px)').matches) {
+      new IntersectionObserver(
+        ([entry]) => summaryPanel.classList.toggle('is-visible', entry.isIntersecting),
+        { rootMargin: '-10% 0px -20% 0px' },
+      ).observe(toolSection);
+    }
     const summaryToggle = document.getElementById('ct-summary-toggle');
     summaryToggle?.addEventListener('click', () => {
       const open = summaryPanel?.classList.toggle('is-open') ?? false;
