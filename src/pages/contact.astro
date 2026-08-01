@@ -188,7 +188,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
     try {
       const data = new FormData(form);
       const res = await fetch('/api/submit-form', { method: 'POST', body: data });
-      if (res.ok) { success.style.display = 'block'; form.reset(); }
+      if (res.ok) { form.reset(); window.location.href = '/thank-you/'; return; }
       else { error.style.display = 'block'; }
     } catch { error.style.display = 'block'; }
     finally { btn.disabled = false; btn.textContent = 'Send Message'; }
