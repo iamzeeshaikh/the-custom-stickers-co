@@ -135,7 +135,7 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
           {imgs.length > 1 && (
             <div class="gallery-thumbs">
               {imgs.map((img, i) => (
-                <button class={`thumb-btn ${i === 0 ? 'active' : ''}`} data-src={imgFull(img)} aria-label={`View image ${i+1}`}>
+                <button class={`thumb-btn ${i === 0 ? 'active' : ''}`} data-src={imgFull(img)} data-srcset={imgSrcset(img)} aria-label={`View image ${i+1}`}>
                   <img src={imgThumb(img)} alt={`${product.name} image ${i+1}`} loading="lazy" decoding="async" width="100" height="80" />
                 </button>
               ))}
@@ -388,7 +388,12 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
       thumbBtns.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       const src = (btn as HTMLElement).dataset.src;
-      if (src && mainImg) { mainImg.src = src; }
+      // The main image carries a srcset, which wins over src — swap both or the
+      // picture never changes.
+      if (src && mainImg) {
+        mainImg.srcset = (btn as HTMLElement).dataset.srcset || '';
+        mainImg.src = src;
+      }
     });
   });
 
