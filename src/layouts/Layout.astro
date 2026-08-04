@@ -59,7 +59,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
   <link rel="preload" href="/fonts/plus-jakarta-sans-var-latin.woff2" as="font" type="font/woff2" crossorigin />
 
   <!-- Sitemap -->
-  <link rel="sitemap" href="/sitemap-index.xml" />
+  <link rel="sitemap" href="/sitemap.xml" />
 
   <!-- Schema Markup -->
   <script type="application/ld+json">
@@ -73,7 +73,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
         "url": "https://thecustomstickers.co",
         "logo": {
           "@type": "ImageObject",
-          "url": "https://thecustomstickers.co/logo.svg"
+          "url": "https://thecustomstickers.co/favicon.svg"
         },
         "contactPoint": {
           "@type": "ContactPoint",
@@ -114,12 +114,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
         "@type": "WebSite",
         "@id": "https://thecustomstickers.co/#website",
         "url": "https://thecustomstickers.co",
-        "name": "The Custom Stickers",
-        "potentialAction": {
-          "@type": "SearchAction",
-          "target": "https://thecustomstickers.co/?s={search_term_string}",
-          "query-input": "required name=search_term_string"
-        }
+        "name": "The Custom Stickers"
       }
     ]
   }

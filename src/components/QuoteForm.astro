@@ -156,7 +156,7 @@ const { productName = '', compact = false } = Astro.props;
 
       try {
         const data = new FormData(f);
-        const res = await fetch('/api/submit-form', { method: 'POST', body: data });
+        const res = await fetch('/api/submit-form/', { method: 'POST', body: data });
         if (res.ok) {
           f.reset();
           window.location.href = '/thank-you/';
