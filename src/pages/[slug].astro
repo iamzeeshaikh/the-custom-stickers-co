@@ -56,14 +56,16 @@ const productSchema = JSON.stringify({
   "@type": "Product",
   "name": product.name,
   "description": product.metaDescription,
-  "image": imgs[0] ? `https://thecustomstickers.co${imgs[0]}` : '',
+  "image": imgs.map(img => `https://thecustomstickers.co${encodeURI(img)}`),
+  "sku": product.slug,
   "brand": { "@type": "Brand", "name": "The Custom Stickers" },
   "offers": {
     "@type": "Offer",
     "availability": "https://schema.org/InStock",
+    "itemCondition": "https://schema.org/NewCondition",
     "price": "0.30",
     "priceCurrency": "USD",
-    "priceValidUntil": "2027-12-31",
+    "priceValidUntil": "2027-08-04",
     "url": `https://thecustomstickers.co/${product.slug}/`,
     "seller": { "@type": "Organization", "name": "The Custom Stickers" },
     "shippingDetails": {
