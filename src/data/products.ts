@@ -1325,7 +1325,7 @@ export const products: Product[] = [
     category: 'vehicle',
     featured: false,
     relatedSlugs: ['car-stickers','bumper-stickers','custom-vinyl-stickers','die-cut-stickers'],
-    images: ['/images/cornish-flag-car-stickers/cornish flag car sticker-1.png','/images/cornish-flag-car-stickers/cornish flag car sticker-2.png'],
+    images: ['/images/cornish-flag-car-sticker/cornish flag car sticker-1.png','/images/cornish-flag-car-sticker/cornish flag car sticker-2.png'],
   },
 ];
 
