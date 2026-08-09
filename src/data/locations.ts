@@ -570,24 +570,27 @@ export const LINK_POOL = [
   'reflective-stickers', 'glossy-stickers', 'custom-sticker-printing',
 ];
 
+// Every variant stays within the 3-8 word anchor rule and describes the
+// destination on its own — a two-word anchor like "matte stickers" reads as a
+// label rather than telling the reader what the page holds.
 export const LINK_ANCHORS: Record<string, string[]> = {
-  'die-cut-stickers': ['die-cut stickers', 'custom die-cut shapes', 'stickers cut to your logo', 'borderless die-cut prints'],
+  'die-cut-stickers': ['custom die-cut sticker shapes', 'custom die-cut shapes', 'stickers cut to your logo', 'borderless die-cut prints'],
   'custom-vinyl-stickers': ['custom vinyl stickers', 'durable vinyl stickers', 'full-colour vinyl prints', 'premium vinyl stickers'],
-  'waterproof-stickers': ['waterproof stickers', 'weatherproof vinyl stickers', 'water- and UV-resistant stickers'],
-  'custom-holographic-stickers': ['holographic stickers', 'eye-catching holographic finishes', 'rainbow holographic prints'],
-  'custom-clear-stickers': ['clear stickers', 'transparent clear-label stickers', 'see-through clear stickers'],
-  'packaging-labels': ['packaging labels', 'custom product labels', 'roll and sheet labels'],
-  'custom-laptop-stickers': ['laptop stickers', 'die-cut laptop stickers', 'hardware-ready laptop stickers'],
-  'bumper-stickers': ['bumper stickers', 'custom bumper stickers', 'car bumper decals'],
-  'matte-stickers': ['matte stickers', 'smooth matte-finish stickers'],
-  'metallic-stickers': ['metallic stickers', 'metallic-foil stickers', 'shimmering metallic prints'],
-  'custom-eco-friendly-stickers': ['eco-friendly stickers', 'recyclable kraft stickers', 'sustainable sticker options'],
-  'die-cut-decals': ['die-cut decals', 'custom vinyl decals', 'weatherproof decals'],
+  'waterproof-stickers': ['waterproof stickers for outdoor use', 'weatherproof vinyl stickers', 'water- and UV-resistant stickers'],
+  'custom-holographic-stickers': ['custom holographic sticker printing', 'eye-catching holographic finishes', 'rainbow holographic prints'],
+  'custom-clear-stickers': ['custom clear sticker printing', 'transparent clear-label stickers', 'see-through clear stickers'],
+  'packaging-labels': ['custom labels for product packaging', 'custom product labels', 'roll and sheet labels'],
+  'custom-laptop-stickers': ['custom laptop sticker printing', 'die-cut laptop stickers', 'hardware-ready laptop stickers'],
+  'bumper-stickers': ['custom printed bumper stickers', 'custom bumper stickers', 'car bumper decals'],
+  'matte-stickers': ['matte-finish sticker printing', 'smooth matte-finish stickers'],
+  'metallic-stickers': ['metallic foil sticker printing', 'stickers with a metallic foil finish', 'shimmering metallic prints'],
+  'custom-eco-friendly-stickers': ['eco-friendly sticker materials', 'recyclable kraft stickers', 'sustainable sticker options'],
+  'die-cut-decals': ['custom die-cut vinyl decals', 'custom vinyl decals', 'weatherproof outdoor vinyl decals'],
   'custom-business-stickers': ['branded business stickers', 'business logo stickers'],
-  'promotional-stickers': ['promotional stickers', 'giveaway stickers', 'campaign stickers'],
-  'window-stickers': ['window stickers', 'storefront window decals'],
-  'reflective-stickers': ['reflective stickers', 'high-visibility reflective decals'],
-  'glossy-stickers': ['glossy stickers', 'high-gloss finish stickers'],
+  'promotional-stickers': ['promotional stickers for giveaways', 'stickers for event giveaways', 'campaign and event stickers'],
+  'window-stickers': ['custom window and storefront stickers', 'storefront window decals'],
+  'reflective-stickers': ['high-visibility reflective stickers', 'high-visibility reflective decals'],
+  'glossy-stickers': ['high-gloss sticker printing', 'high-gloss finish stickers'],
   'custom-sticker-printing': ['custom sticker printing', 'our full sticker printing range', 'the complete sticker range'],
 };
 
