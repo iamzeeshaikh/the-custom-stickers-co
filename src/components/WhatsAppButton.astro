@@ -50,6 +50,11 @@
     flex-direction: column;
     align-items: flex-start;
     gap: 12px;
+    /* The FAB alone defines the widget box. The popup auto-opens on a 4s timer,
+       and while it was in flow that 396px panel resized the widget and
+       registered as a layout shift — 0.163 CLS on a slow mobile load. */
+    width: 60px;
+    height: 60px;
   }
   .whatsapp-fab {
     width: 60px;
@@ -84,6 +89,11 @@
     100% { transform: scale(1.5); opacity: 0; }
   }
   .whatsapp-popup {
+    /* Anchored to the FAB instead of stacked above it in flow, so opening it
+       never changes the widget's own box. */
+    position: absolute;
+    bottom: 72px;
+    left: 0;
     background: white;
     border-radius: 16px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.18);
