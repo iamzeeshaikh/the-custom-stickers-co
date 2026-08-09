@@ -105,7 +105,7 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
   title={product.title}
   description={product.metaDescription}
   canonical={`https://thecustomstickers.co/${product.slug}/`}
-  ogImage={encodeURI(imgFull(imgs[0]))}
+  ogImage={imgFull(imgs[0])}
   schema={combinedSchema}
 >
   <Header slot="header" />
