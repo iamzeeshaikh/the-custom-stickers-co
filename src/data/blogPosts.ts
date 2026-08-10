@@ -77,7 +77,7 @@ export const blogPosts: BlogPost[] = [
   {
     slug: "die-cut-vs-kiss-cut-stickers",
     title: "Die-Cut vs Kiss-Cut Stickers: What's the Difference?",
-    metaTitle: "Die-Cut vs Kiss-Cut Stickers | What's the Difference & Which To Choose",
+    metaTitle: "Die-Cut vs Kiss-Cut Stickers: Which Should You Choose?",
     metaDescription:
       "Die-cut and kiss-cut stickers look similar but peel and present very differently. Learn the difference, the pros of each, and which cut fits your project.",
     excerpt:

@@ -19,6 +19,17 @@ const {
 
 const siteUrl = 'https://thecustomstickers.co';
 const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
+
+// Google truncates around 65 characters. Past that the brand suffix costs us the
+// tail of the title, which is the part that differentiates the result, so it is
+// dropped rather than the headline. Pages bake the suffix into their own title
+// prop, so the trim has to happen here at the render point.
+const TITLE_BUDGET = 65;
+const BRAND_SUFFIX = ' | The Custom Stickers';
+const snippetTitle =
+  title.length > TITLE_BUDGET && title.endsWith(BRAND_SUFFIX)
+    ? title.slice(0, -BRAND_SUFFIX.length)
+    : title;
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +39,7 @@ const canonicalUrl = canonical || new URL(Astro.url.pathname, siteUrl).href;
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="google-site-verification" content="yHRvDMTg98eoBNRwG29tYZMRADRNXl-95hJkwiHBrzc" />
 
-  <title>{title}</title>
+  <title>{snippetTitle}</title>
   <meta name="description" content={description} />
   {noindex ? <meta name="robots" content="noindex, nofollow" /> : <meta name="robots" content="index, follow" />}
   <link rel="canonical" href={canonicalUrl} />
