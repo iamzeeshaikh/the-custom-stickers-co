@@ -92,7 +92,7 @@ const productSchema = JSON.stringify({
 const faqSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": faqs.slice(0, 5).map(faq => ({
+  "mainEntity": faqs.map(faq => ({
     "@type": "Question",
     "name": faq.q,
     "acceptedAnswer": { "@type": "Answer", "text": faq.a }

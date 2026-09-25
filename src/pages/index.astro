@@ -7,15 +7,27 @@ import Footer from '../components/Footer.astro';
 import WhatsAppButton from '../components/WhatsAppButton.astro';
 import { featuredProducts } from '../data/products';
 
+// One array feeds the FAQ markup below and this schema, so the two cannot
+// drift apart the way a hand-kept copy does.
+const homeFaqs = [
+          { q: 'What types of custom stickers do you offer?', a: 'We offer over 100 sticker types including die cut stickers, vinyl stickers, waterproof stickers, holographic stickers, clear stickers, matte stickers, glossy stickers, bumper stickers, packaging labels, and many more.' },
+          { q: 'What is the minimum order quantity?', a: 'Our minimum order is 50 stickers. We offer competitive bulk pricing for orders of 250, 500, 1,000, and above with greater discounts at higher quantities.' },
+          { q: 'How long does production take?', a: 'Standard production takes 3-5 business days after artwork approval. Rush production (1-2 business days) is available for an additional fee.' },
+          { q: 'What file formats do you accept?', a: 'We accept AI, EPS, PDF, SVG, PNG (300 DPI+), and JPG files. Vector formats (AI, EPS, PDF, SVG) are preferred for the best print quality.' },
+          { q: 'Do you offer free proofs?', a: 'Yes! We provide free digital proofs for every order before printing. You approve the proof before we start production.' },
+          { q: 'Are your stickers waterproof?', a: 'Our vinyl stickers are waterproof by default. We also offer enhanced waterproof stickers with stronger adhesive and UV coating for demanding outdoor or wet applications.' },
+          { q: 'Can I order custom shapes?', a: "Absolutely. Our die cutting technology can cut stickers to virtually any shape. Upload your design and we'll cut it precisely to your artwork outline." },
+          { q: 'Do you ship internationally?', a: 'We ship across the United States. Contact us at info@thecustomstickers.co to inquire about international shipping options.' },
+        ];
+
 const faqSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": [
-    { "@type": "Question", "name": "What types of custom stickers do you offer?", "acceptedAnswer": { "@type": "Answer", "text": "We offer over 100 sticker types including die cut stickers, vinyl stickers, waterproof stickers, holographic stickers, clear stickers, matte stickers, glossy stickers, bumper stickers, packaging labels, and many more." }},
-    { "@type": "Question", "name": "What is the minimum order quantity?", "acceptedAnswer": { "@type": "Answer", "text": "Our minimum order is 50 stickers. We offer competitive bulk pricing for orders of 250, 500, 1,000, and above with greater discounts at higher quantities." }},
-    { "@type": "Question", "name": "How long does production take?", "acceptedAnswer": { "@type": "Answer", "text": "Standard production takes 3-5 business days after artwork approval. Rush production (1-2 business days) is available for an additional fee." }},
-    { "@type": "Question", "name": "Do you offer free proofs?", "acceptedAnswer": { "@type": "Answer", "text": "Yes! We provide free digital proofs for every order before printing. You approve the proof before we start production." }},
-  ]
+  "mainEntity": homeFaqs.map(faq => ({
+    "@type": "Question",
+    "name": faq.q,
+    "acceptedAnswer": { "@type": "Answer", "text": faq.a }
+  }))
 });
 ---
 <Layout
@@ -330,16 +342,7 @@ const faqSchema = JSON.stringify({
         <h2 class="section-title">Frequently Asked Questions</h2>
       </div>
       <div class="faq-grid">
-        {[
-          { q: 'What types of custom stickers do you offer?', a: 'We offer over 100 sticker types including die cut stickers, vinyl stickers, waterproof stickers, holographic stickers, clear stickers, matte stickers, glossy stickers, bumper stickers, packaging labels, and many more.' },
-          { q: 'What is the minimum order quantity?', a: 'Our minimum order is 50 stickers. We offer competitive bulk pricing for orders of 250, 500, 1,000, and above with greater discounts at higher quantities.' },
-          { q: 'How long does production take?', a: 'Standard production takes 3-5 business days after artwork approval. Rush production (1-2 business days) is available for an additional fee.' },
-          { q: 'What file formats do you accept?', a: 'We accept AI, EPS, PDF, SVG, PNG (300 DPI+), and JPG files. Vector formats (AI, EPS, PDF, SVG) are preferred for the best print quality.' },
-          { q: 'Do you offer free proofs?', a: 'Yes! We provide free digital proofs for every order before printing. You approve the proof before we start production.' },
-          { q: 'Are your stickers waterproof?', a: 'Our vinyl stickers are waterproof by default. We also offer enhanced waterproof stickers with stronger adhesive and UV coating for demanding outdoor or wet applications.' },
-          { q: 'Can I order custom shapes?', a: "Absolutely. Our die cutting technology can cut stickers to virtually any shape. Upload your design and we'll cut it precisely to your artwork outline." },
-          { q: 'Do you ship internationally?', a: 'We ship across the United States. Contact us at info@thecustomstickers.co to inquire about international shipping options.' },
-        ].map(faq => (
+        {homeFaqs.map(faq => (
           <div class="faq-item">
             <button class="faq-q">{faq.q} <span class="faq-arrow">+</span></button>
             <div class="faq-a"><p>{faq.a}</p></div>
