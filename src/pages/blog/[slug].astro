@@ -1,4 +1,5 @@
 ---
+import { withExtras } from '../../lib/page-faqs';
 export const prerender = true;
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
@@ -31,10 +32,11 @@ const articleSchema = {
   author: { '@type': 'Organization', name: 'The Custom Stickers' },
   publisher: { '@type': 'Organization', name: 'The Custom Stickers', url: 'https://thecustomstickers.co' },
 };
+const postFaqs = withExtras(Astro.url.pathname, post.faq);
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
-  mainEntity: post.faq.map((f) => ({
+  mainEntity: postFaqs.map((f) => ({
     '@type': 'Question',
     name: f.q,
     acceptedAnswer: { '@type': 'Answer', text: f.a },
@@ -77,7 +79,7 @@ const faqSchema = {
       <div class="blog-section">
         <h2>Frequently asked questions</h2>
         <div class="faq-list">
-          {post.faq.map((f) => (
+          {postFaqs.map((f) => (
             <div class="faq-item">
               <h3>{f.q}</h3>
               <p>{f.a}</p>

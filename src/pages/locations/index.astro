@@ -1,4 +1,5 @@
 ---
+import ExtraFaqs from '../../components/ExtraFaqs.astro';
 export const prerender = true;
 import Layout from '../../layouts/Layout.astro';
 import Header from '../../components/Header.astro';
@@ -71,6 +72,7 @@ const schema = JSON.stringify({
     </div>
   </section>
 
+  <ExtraFaqs />
   <Footer slot="footer" />
   <WhatsAppButton />
 </Layout>

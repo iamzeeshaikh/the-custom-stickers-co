@@ -1,0 +1,36 @@
+---
+// A FAQ block plus its FAQPage node, for pages that had no FAQs of their own.
+import { extraFaqs, extraHeading } from '../lib/page-faqs';
+const route = Astro.url.pathname;
+const faqs = extraFaqs(route);
+const schema = JSON.stringify({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
+});
+---
+{faqs.length > 0 && (
+  <section class="xfaq">
+    <div class="xfaq__inner">
+      <h2>{extraHeading(route)}</h2>
+      {faqs.map((f) => (
+        <details class="xfaq__item">
+          <summary>{f.q}</summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+    <script type="application/ld+json" set:html={schema} />
+  </section>
+)}
+<style>
+  .xfaq { padding: 64px 20px; }
+  .xfaq__inner { max-width: 820px; margin: 0 auto; }
+  .xfaq h2 { font-size: clamp(1.5rem, 2.6vw, 2rem); margin-bottom: 20px; }
+  .xfaq__item { border: 1px solid var(--gray-200, #e5e7eb); border-radius: 12px; background: #fff; margin-bottom: 12px; }
+  .xfaq__item summary { cursor: pointer; list-style: none; padding: 18px 48px 18px 20px; font-weight: 600; position: relative; }
+  .xfaq__item summary::-webkit-details-marker { display: none; }
+  .xfaq__item summary::after { content: '+'; position: absolute; right: 20px; top: 50%; transform: translateY(-50%); font-size: 1.3rem; }
+  .xfaq__item[open] summary::after { content: '\2212'; }
+  .xfaq__item p { padding: 0 20px 18px; line-height: 1.7; color: var(--gray-600, #4b5563); }
+</style>

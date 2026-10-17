@@ -1,4 +1,5 @@
 ---
+import { withExtras } from '../lib/page-faqs';
 export const prerender = true;
 import Layout from '../layouts/Layout.astro';
 import { imgThumb } from '../lib/img';
@@ -23,7 +24,7 @@ const homeFaqs = [
 const faqSchema = JSON.stringify({
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  "mainEntity": homeFaqs.map(faq => ({
+  "mainEntity": withExtras('/', homeFaqs).map(faq => ({
     "@type": "Question",
     "name": faq.q,
     "acceptedAnswer": { "@type": "Answer", "text": faq.a }
@@ -342,7 +343,7 @@ const faqSchema = JSON.stringify({
         <h2 class="section-title">Frequently Asked Questions</h2>
       </div>
       <div class="faq-grid">
-        {homeFaqs.map(faq => (
+        {withExtras('/', homeFaqs).map(faq => (
           <div class="faq-item">
             <button class="faq-q">{faq.q} <span class="faq-arrow">+</span></button>
             <div class="faq-a"><p>{faq.a}</p></div>
