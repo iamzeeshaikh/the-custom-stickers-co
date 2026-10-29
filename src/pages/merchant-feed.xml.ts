@@ -19,7 +19,7 @@ export const GET: APIRoute = () => {
     .map((p) => {
       const imgs = p.images.slice(0, 6).map(absImage);
       return `  <item>
-    <g:id>TCS-${x(p.slug)}</g:id>
+    <g:id>${x(`TCS-${p.slug}`.slice(0, 50))}</g:id>
     <title>${x(`${p.name}, Pack of ${PACK_QTY}`)}</title>
     <description>${x(`${p.metaDescription} Sold in packs of ${PACK_QTY} stickers ($${UNIT_PRICE_TEXT} each), printed with your artwork after a free digital proof.`)}</description>
     <link>${SITE}/${x(p.slug)}/</link>
