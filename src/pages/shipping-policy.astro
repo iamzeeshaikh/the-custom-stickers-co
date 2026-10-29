@@ -8,7 +8,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
 ---
 <Layout
   title="Shipping Policy | The Custom Stickers"
-  description="Learn about The Custom Stickers shipping policy — production times, delivery options, turnaround, and order tracking. Fast shipping across the USA."
+  description="The Custom Stickers shipping and returns policy: free shipping to the USA, UK, Canada and Australia, production and delivery times, tracking, and defective-only returns."
   canonical="https://thecustomstickers.co/shipping-policy/"
 >
   <Header slot="header" />
@@ -19,13 +19,13 @@ import Breadcrumb from '../components/Breadcrumb.astro';
   <section class="page-hero">
     <div class="container">
       <div class="badge">Shipping Policy</div>
-      <h1>Shipping Policy</h1>
-      <p>Fast production and reliable delivery. Here's everything you need to know about how we ship your custom stickers.</p>
+      <h1>Shipping &amp; Returns Policy</h1>
+      <p>Free shipping to the USA, UK, Canada and Australia. Here's how long printing and delivery take, and what happens if something arrives wrong.</p>
     </div>
   </section>
   <section class="content-page">
     <div class="container content-body-wide">
-      <p class="last-updated">Last Updated: January 2025</p>
+      <p class="last-updated">Last Updated: October 2026</p>
 
       <h2>Production Time</h2>
       <p>All orders are custom-produced after artwork approval. Production time begins once you approve your digital proof.</p>
@@ -39,22 +39,25 @@ import Breadcrumb from '../components/Breadcrumb.astro';
       </table>
       <p>Business days are Monday through Friday, excluding US federal holidays.</p>
 
-      <h2>Shipping Methods</h2>
+      <h2>Where We Ship and How Long It Takes</h2>
+      <p>Shipping is free on every order to the four countries below. Delivery time starts when your order leaves us, after production.</p>
       <table>
-        <thead><tr><th>Shipping Method</th><th>Estimated Delivery</th><th>Carrier</th></tr></thead>
+        <thead><tr><th>Destination</th><th>Shipping Cost</th><th>Production</th><th>Delivery After Dispatch</th></tr></thead>
         <tbody>
-          <tr><td>Standard Shipping</td><td>5–7 business days</td><td>USPS / UPS Ground</td></tr>
-          <tr><td>Expedited Shipping</td><td>2–3 business days</td><td>UPS / FedEx</td></tr>
-          <tr><td>Overnight Shipping</td><td>Next business day</td><td>UPS / FedEx Next Day Air</td></tr>
+          <tr><td>United States</td><td>Free</td><td>3–5 business days</td><td>5–7 business days</td></tr>
+          <tr><td>United Kingdom</td><td>Free</td><td>3–5 business days</td><td>7–10 business days</td></tr>
+          <tr><td>Canada</td><td>Free</td><td>3–5 business days</td><td>7–10 business days</td></tr>
+          <tr><td>Australia</td><td>Free</td><td>3–5 business days</td><td>7–10 business days</td></tr>
         </tbody>
       </table>
+      <p>US orders go by USPS or UPS Ground. UK, Canadian and Australian orders go by tracked international mail or courier. If you need US stickers sooner, ask about expedited (2–3 business days) or overnight delivery before you order and we'll quote it separately.</p>
 
       <h2>Shipping Rates</h2>
-      <p>Shipping rates are calculated at checkout based on order weight, dimensions, and destination. For bulk orders, contact us directly for shipping cost estimates.</p>
       <ul class="policy-list">
-        <li>Free standard shipping is available on qualifying orders over certain thresholds (varies by promotion)</li>
-        <li>Expedited and overnight shipping charges are calculated in real-time at checkout</li>
-        <li>For international shipping inquiries, contact us at <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a></li>
+        <li>Standard shipping is free on all orders to the United States, the United Kingdom, Canada and Australia. There is no minimum order for free shipping.</li>
+        <li>Expedited and overnight delivery within the US are optional extras, quoted before you order.</li>
+        <li>We don't currently ship online orders to other countries. If you're outside these four, email <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a> and we'll tell you what we can do.</li>
+        <li>Prices are in US dollars. For orders delivered outside the United States, any import duties or taxes charged by the destination country are paid by the recipient.</li>
       </ul>
 
       <h2>Order Tracking</h2>
@@ -68,20 +71,21 @@ import Breadcrumb from '../components/Breadcrumb.astro';
       </ul>
 
       <h2>Damaged or Lost Shipments</h2>
-      <p>If your order arrives damaged or is lost in transit:</p>
+      <p>If your order arrives damaged or doesn't arrive at all:</p>
       <ol class="policy-list numbered">
-        <li>Contact us within 5 business days of the expected delivery date</li>
-        <li>Provide photos of any damaged packaging or products</li>
-        <li>We will file a claim with the carrier and work to resolve the issue promptly</li>
-        <li>Replacement orders will be processed as quickly as possible at no additional cost for carrier-related damage</li>
+        <li>Contact us within 14 days of delivery (or of the expected delivery date, if it never arrived)</li>
+        <li>Send photos of the damaged packaging and stickers</li>
+        <li>We reprint and reship the order free, or refund it, and we deal with the carrier</li>
       </ol>
 
-      <h2>Returns & Reprints</h2>
-      <p>Because all orders are custom-produced, we do not accept returns for buyer's remorse or design changes after production begins. However, we stand behind our quality with a 100% satisfaction guarantee:</p>
+      <h2 id="returns">Returns, Reprints &amp; Refunds</h2>
+      <p>Every sticker order is printed to your own artwork, so it can't be resold. We don't accept returns for a change of mind, a design change after you approve the proof, or ordering the wrong quantity.</p>
+      <p>We stand behind our quality with a 100% satisfaction guarantee, so if an order arrives damaged, defective or misprinted, we put it right:</p>
       <ul class="policy-list">
-        <li>If your stickers do not match the approved digital proof, we will reprint your order at no charge</li>
-        <li>Quality issues must be reported within 14 days of delivery with supporting photos</li>
-        <li>We do not reprint orders for design changes requested after production approval</li>
+        <li>Report the problem within 14 days of delivery, with photos and your order number</li>
+        <li>This covers stickers damaged in transit, printing or cutting defects, and anything that doesn't match the proof you approved</li>
+        <li>We reprint the affected stickers free or refund them, whichever you prefer, and we pay any shipping involved</li>
+        <li>Refunds go back the way you paid; cash-on-delivery orders are refunded by PayPal or bank transfer</li>
       </ul>
 
       <h2>Contact Us</h2>

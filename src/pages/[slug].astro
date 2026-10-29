@@ -11,6 +11,8 @@ import { products, getRelatedProducts } from '../data/products';
 import { imgFull, imgThumb, imgSrcset } from '../lib/img';
 import { getInternalLinks, getCategoryFAQs } from '../data/productContent';
 import { productDetails, productHeadlines } from '../data/productDetails';
+import OrderBox from '../components/OrderBox.astro';
+import { productOffer, absImage, BRAND, PRODUCTION_TEXT, SHIP_LINE, RETURNS } from '../data/order';
 
 export async function getStaticPaths() {
   return products.map(p => ({ params: { slug: p.slug }, props: { product: p } }));
@@ -56,37 +58,12 @@ const productSchema = JSON.stringify({
   "@type": "Product",
   "name": product.name,
   "description": product.metaDescription,
-  "image": imgs.map(img => `https://thecustomstickers.co${encodeURI(img)}`),
+  "image": imgs.map(img => absImage(img)),
   "sku": product.slug,
-  "brand": { "@type": "Brand", "name": "The Custom Stickers" },
-  "offers": {
-    "@type": "Offer",
-    "availability": "https://schema.org/InStock",
-    "itemCondition": "https://schema.org/NewCondition",
-    "price": "0.30",
-    "priceCurrency": "USD",
-    "priceValidUntil": "2027-08-04",
-    "url": `https://thecustomstickers.co/${product.slug}/`,
-    "seller": { "@type": "Organization", "name": "The Custom Stickers" },
-    "shippingDetails": {
-      "@type": "OfferShippingDetails",
-      "shippingRate": { "@type": "MonetaryAmount", "value": "0", "currency": "USD" },
-      "shippingDestination": { "@type": "DefinedRegion", "addressCountry": "US" },
-      "deliveryTime": {
-        "@type": "ShippingDeliveryTime",
-        "handlingTime": { "@type": "QuantitativeValue", "minValue": 3, "maxValue": 5, "unitCode": "DAY" },
-        "transitTime": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 3, "unitCode": "DAY" }
-      }
-    },
-    "hasMerchantReturnPolicy": {
-      "@type": "MerchantReturnPolicy",
-      "applicableCountry": "US",
-      "returnPolicyCategory": "https://schema.org/MerchantReturnFiniteReturnWindow",
-      "merchantReturnDays": 30,
-      "returnMethod": "https://schema.org/ReturnByMail",
-      "returnFees": "https://schema.org/FreeReturn"
-    }
-  }
+  "brand": { "@type": "Brand", "name": BRAND },
+  // Pack price, shipping and returns come from src/data/order.ts, the same
+  // constants /merchant-feed.xml prints, so the page and the feed always agree.
+  "offers": productOffer(product.slug),
 });
 
 const faqSchema = JSON.stringify({
@@ -150,13 +127,14 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
           <div class="badge">{product.category.charAt(0).toUpperCase() + product.category.slice(1)} Product</div>
           <h1 class="product-h1">{product.h1}</h1>
           <p class="product-intro">{product.intro}</p>
-          <p class="price-note"><strong>Price starts from $0.30 per piece</strong> for large volume orders. Final pricing depends on size, material, printing, and quantity.</p>
+          <OrderBox slug={product.slug} name={product.name} />
           <div class="product-badges">
             <span class="pb">✅ Free Artwork Review</span>
             <span class="pb">✅ No Setup Fees</span>
             <span class="pb">✅ Fast Production</span>
             <span class="pb">✅ Bulk Discounts</span>
           </div>
+          <p class="policy-note">{SHIP_LINE}. Returns: damaged, defective or misprinted orders reported within {RETURNS.claimDays} days are reprinted or refunded. <a href="/shipping-policy/#returns">Shipping and returns policy</a></p>
           <div class="product-actions">
             <a href="#customization-tool" class="btn-primary">Customize &amp; Quote →</a>
             <a href="tel:5034614788" class="btn-secondary">📞 Call Us</a>
@@ -221,7 +199,7 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
           </table>
 
           <h2>Customization Options</h2>
-          <p>Every {product.name.toLowerCase()} order is fully customizable. Use the configurator on this page to select your specifications — or tell us your requirements in the quote form and we'll advise on the best options.</p>
+          <p>Every {product.name.toLowerCase()} order is fully customizable. Pick your size, material and finish in the options further down this page, or tell us what you need in the quote form and we'll suggest what works best.</p>
 
           <ol class="content-list numbered">
             <li><strong>Size:</strong> Any custom size from 1"×1" up to 12"×12" or larger for special applications</li>
@@ -236,8 +214,8 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
           <h2>How to Order {product.name}</h2>
           <p>Getting your order started takes just a few minutes. Here's how the process works from start to delivery:</p>
 
-          <h3>1. Configure &amp; Request a Quote</h3>
-          <p>Use the customization tool on this page to select your size, material, finish, and quantity. Hit "Get a Quote" and your specs are automatically sent to our team. You'll hear back with a full price breakdown within one business day.</p>
+          <h3>1. Order Online or Request a Quote</h3>
+          <p>For a standard run, choose how many packs of 100 you need in the order box at the top of this page and check out. You'll pay by invoice after you approve your proof, or cash on delivery in the US and Canada. For a special size, material, or a large run, pick your options further down and hit "Get a Quote" — we reply with a full price breakdown within one business day.</p>
 
           <h3>2. Submit Your Artwork</h3>
           <p>Upload your design file directly through the quote form. We accept AI, EPS, PDF, SVG, and high-resolution PNG or JPG files. Review our <a href={links[2].href}>{links[2].anchor}</a> before submitting for the best print results. Not ready with your artwork? No problem — our team can provide basic layout assistance.</p>
@@ -246,7 +224,7 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
           <p>Before anything goes to print, we send you a full-color digital proof showing exactly how your {product.name.toLowerCase()} will look. Review the size, colors, and cut lines, then approve or request changes. Production starts only after your sign-off.</p>
 
           <h3>4. Production &amp; Delivery</h3>
-          <p>Standard production takes 3–5 business days. Once complete, your order is carefully packaged and shipped to your door. We provide tracking on every order so you always know where your stickers are.</p>
+          <p>Standard production takes {PRODUCTION_TEXT}. Shipping is free to the USA (5–7 business days), and to the UK, Canada and Australia (7–10 business days). We provide tracking on every order so you always know where your stickers are.</p>
 
           <h2>Frequently Asked Questions About {product.name}</h2>
           <div class="faq-list">
@@ -328,8 +306,8 @@ const combinedSchema = `[${productSchema},${faqSchema}]`;
   .product-details { padding-top: 12px; }
   .product-h1 { font-size: clamp(1.5rem, 2.5vw, 2.2rem); margin: 10px 0 16px; }
   .product-intro { font-size: 16px; color: var(--gray-600); line-height: 1.7; margin-bottom: 16px; }
-  .price-note { font-size: 15px; color: var(--gray-700); line-height: 1.6; background: rgba(249,115,22,0.08); border-left: 3px solid var(--primary); padding: 10px 14px; border-radius: 6px; margin-bottom: 24px; }
-  .price-note strong { color: var(--primary-dark); }
+  .policy-note { font-size: 13px; color: var(--gray-600); line-height: 1.6; margin: 0 0 20px; }
+  .policy-note a { color: var(--accent); text-decoration: underline; }
   .product-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
   .pb { background: rgba(16,185,129,0.1); color: #065f46; padding: 5px 12px; border-radius: 100px; font-size: 12px; font-weight: 600; }
   .product-actions { display: flex; gap: 12px; flex-wrap: wrap; }

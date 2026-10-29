@@ -1,0 +1,83 @@
+---
+/**
+ * Online order box on every product page. The price comes from src/data/order.ts,
+ * the same constants the Product Offer JSON-LD and the Merchant feed read, so the
+ * page, the listing and the order cannot disagree. "Add to order" keeps the line
+ * in localStorage and opens /checkout/.
+ */
+import { PACK_QTY, PACK_PRICE, MAX_PACKS, PRICE_LINE, SHIP_LINE, PAYMENT_LINE, PRODUCTION_TEXT, money } from '../data/order';
+
+interface Props {
+  slug: string;
+  name: string;
+}
+const { slug, name } = Astro.props;
+const options = Array.from({ length: MAX_PACKS }, (_, i) => i + 1);
+---
+
+<form class="tcs-ob" id="order" data-tcs-order data-slug={slug} data-pack={PACK_PRICE} action="/checkout/" method="get">
+  <p class="tcs-ob-title">Order online</p>
+  <p class="tcs-ob-price"><strong>{PRICE_LINE}</strong></p>
+  <p class="tcs-ob-ship">🚚 {SHIP_LINE}</p>
+  <div class="tcs-ob-row">
+    <label class="tcs-ob-field">
+      <span>Quantity</span>
+      <select name="packs" aria-label={`Quantity of ${name}`}>
+        {options.map((n) => <option value={n}>{(n * PACK_QTY).toLocaleString('en-US')} stickers</option>)}
+      </select>
+    </label>
+    <p class="tcs-ob-total">Total <strong data-total>{money(PACK_PRICE)}</strong></p>
+  </div>
+  <input type="hidden" name="add" value={slug} />
+  <button type="submit" class="tcs-ob-btn">Add to order →</button>
+  <p class="tcs-ob-note">
+    Sold in packs of {PACK_QTY}. Printing takes {PRODUCTION_TEXT} after you approve a free digital proof. {PAYMENT_LINE} Need an unusual size, material or a bigger run? <a href="/get-a-quote/">Ask for a quote</a>.
+  </p>
+</form>
+
+<script>
+  const KEY = 'tcs-cart';
+  for (const f of document.querySelectorAll<HTMLFormElement>('[data-tcs-order]')) {
+    const sel = f.querySelector('select') as HTMLSelectElement;
+    const out = f.querySelector('[data-total]') as HTMLElement;
+    const pack = Number(f.dataset.pack);
+    sel.addEventListener('change', () => {
+      out.textContent = `$${(Number(sel.value) * pack).toFixed(2)}`;
+    });
+    f.addEventListener('submit', (e) => {
+      e.preventDefault();
+      let cart: { slug: string; packs: number }[] = [];
+      try {
+        cart = JSON.parse(localStorage.getItem(KEY) || '[]');
+      } catch {}
+      const slug = f.dataset.slug as string;
+      const packs = Number(sel.value);
+      const line = cart.find((l) => l.slug === slug);
+      if (line) line.packs = packs;
+      else cart.push({ slug, packs });
+      try {
+        localStorage.setItem(KEY, JSON.stringify(cart));
+      } catch {}
+      const w = window as unknown as { gtag?: (...a: unknown[]) => void };
+      w.gtag?.('event', 'add_to_cart', { currency: 'USD', value: packs * pack, items: [{ item_id: slug, quantity: packs }] });
+      location.href = `/checkout/?add=${encodeURIComponent(slug)}&packs=${packs}`;
+    });
+  }
+</script>
+
+<style>
+  .tcs-ob { margin: 0 0 22px; padding: 20px; background: #fff; border: 2px solid var(--primary); border-radius: 14px; box-shadow: 0 6px 18px rgba(0,0,0,0.05); }
+  .tcs-ob-title { margin: 0 0 6px; font-size: 12px; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gray-500); }
+  .tcs-ob-price { margin: 0; color: var(--dark); }
+  .tcs-ob-price strong { font-size: 1.45rem; font-weight: 800; color: var(--dark); line-height: 1.25; }
+  .tcs-ob-ship { margin: 8px 0 14px; color: #065f46; font-size: 14px; font-weight: 700; }
+  .tcs-ob-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 12px; align-items: end; margin-bottom: 14px; }
+  .tcs-ob-field { display: grid; gap: 6px; font-size: 12px; font-weight: 700; color: var(--gray-500); text-transform: uppercase; letter-spacing: 0.04em; }
+  .tcs-ob-field select { width: 100%; padding: 11px 12px; border: 1px solid var(--gray-200); border-radius: 10px; font: inherit; font-size: 16px; text-transform: none; letter-spacing: 0; color: var(--dark); background: #fff; }
+  .tcs-ob-total { margin: 0 0 10px; color: var(--gray-600); font-size: 14px; white-space: nowrap; }
+  .tcs-ob-total strong { color: var(--dark); font-size: 1.15rem; }
+  .tcs-ob-btn { display: flex; align-items: center; justify-content: center; width: 100%; padding: 14px 24px; border: 0; border-radius: 10px; background: var(--primary); color: #fff; font-weight: 800; font-size: 16px; cursor: pointer; }
+  .tcs-ob-btn:hover { background: var(--primary-dark); }
+  .tcs-ob-note { margin: 12px 0 0; color: var(--gray-600); font-size: 13px; line-height: 1.55; }
+  .tcs-ob-note a { color: var(--accent); text-decoration: underline; }
+</style>

@@ -12,13 +12,13 @@ import { featuredProducts } from '../data/products';
 // drift apart the way a hand-kept copy does.
 const homeFaqs = [
           { q: 'What types of custom stickers do you offer?', a: 'We offer over 100 sticker types including die cut stickers, vinyl stickers, waterproof stickers, holographic stickers, clear stickers, matte stickers, glossy stickers, bumper stickers, packaging labels, and many more.' },
-          { q: 'What is the minimum order quantity?', a: 'Our minimum order is 50 stickers. We offer competitive bulk pricing for orders of 250, 500, 1,000, and above with greater discounts at higher quantities.' },
+          { q: 'What is the minimum order quantity?', a: 'Online, every sticker is sold in packs of 100 for $30.00 ($0.30 each) with free shipping, and you can order as many packs as you need. For a smaller run from 50 stickers, or special sizes and materials, request a quote. We offer competitive bulk pricing for orders of 250, 500, 1,000, and above with greater discounts at higher quantities.' },
           { q: 'How long does production take?', a: 'Standard production takes 3-5 business days after artwork approval. Rush production (1-2 business days) is available for an additional fee.' },
           { q: 'What file formats do you accept?', a: 'We accept AI, EPS, PDF, SVG, PNG (300 DPI+), and JPG files. Vector formats (AI, EPS, PDF, SVG) are preferred for the best print quality.' },
           { q: 'Do you offer free proofs?', a: 'Yes! We provide free digital proofs for every order before printing. You approve the proof before we start production.' },
           { q: 'Are your stickers waterproof?', a: 'Our vinyl stickers are waterproof by default. We also offer enhanced waterproof stickers with stronger adhesive and UV coating for demanding outdoor or wet applications.' },
           { q: 'Can I order custom shapes?', a: "Absolutely. Our die cutting technology can cut stickers to virtually any shape. Upload your design and we'll cut it precisely to your artwork outline." },
-          { q: 'Do you ship internationally?', a: 'We ship across the United States. Contact us at info@thecustomstickers.co to inquire about international shipping options.' },
+          { q: 'Do you ship internationally?', a: 'Yes. Shipping is free to the United States, the United Kingdom, Canada and Australia. Printing takes 3–5 business days after you approve your proof, then delivery takes 5–7 business days in the US and 7–10 business days to the UK, Canada and Australia. For other countries, email info@thecustomstickers.co and we will tell you what we can do.' },
         ];
 
 const faqSchema = JSON.stringify({
@@ -87,7 +87,7 @@ const faqSchema = JSON.stringify({
         { icon: '💧', title: 'Waterproof Quality', desc: 'UV-resistant & durable' },
         { icon: '📦', title: 'Bulk Pricing', desc: 'Wholesale rates available' },
         { icon: '🔄', title: '100% Satisfaction', desc: 'Free reprint if needed' },
-        { icon: '🚀', title: 'Fast Shipping', desc: 'Ships across the USA' },
+        { icon: '🚀', title: 'Free Shipping', desc: 'USA, UK, Canada & Australia' },
       ].map(badge => (
         <div class="trust-item">
           <span class="trust-icon">{badge.icon}</span>
@@ -246,9 +246,9 @@ const faqSchema = JSON.stringify({
       <div class="process-steps">
         {[
           { step: '01', title: 'Choose Your Product', desc: 'Browse our 100+ sticker types and select the perfect product for your needs.', icon: '🔍' },
-          { step: '02', title: 'Customize & Configure', desc: 'Select your size, shape, material, finish, and quantity using our easy tool.', icon: '⚙️' },
+          { step: '02', title: 'Pick Your Options', desc: 'Order packs of 100 online, or choose your size, shape, material and finish for a custom quote.', icon: '⚙️' },
           { step: '03', title: 'Upload Your Artwork', desc: 'Submit your design file. Our team reviews it for free and confirms before printing.', icon: '🎨' },
-          { step: '04', title: 'We Print & Ship', desc: 'Production in 3-5 business days, then fast shipping to your door anywhere in the USA.', icon: '📦' },
+          { step: '04', title: 'We Print & Ship', desc: 'Production in 3-5 business days, then free shipping to the USA, UK, Canada or Australia.', icon: '📦' },
         ].map(s => (
           <div class="process-step">
             <div class="step-number">{s.step}</div>

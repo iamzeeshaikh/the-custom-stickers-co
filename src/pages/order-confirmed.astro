@@ -1,0 +1,66 @@
+---
+export const prerender = true;
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import WhatsAppButton from '../components/WhatsAppButton.astro';
+import { PAYMENT_METHODS, PRODUCTION_TEXT, TRANSIT_US_TEXT, TRANSIT_INTL_TEXT } from '../data/order';
+
+const pay = JSON.stringify(Object.fromEntries(PAYMENT_METHODS.map((m) => [m.id, m.detail])));
+---
+
+<Layout
+  title="Order Received | The Custom Stickers"
+  description="Your sticker order has been received. We email a free digital proof before anything is printed."
+  canonical="https://thecustomstickers.co/order-confirmed/"
+  noindex={true}
+>
+  <Header slot="header" />
+  <WhatsAppButton />
+
+  <section class="tcs-oc" data-pay={pay}>
+    <div class="container tcs-oc-inner">
+      <h1>Order received</h1>
+      <p class="tcs-oc-lede">Thank you. Your order is with our team, and a copy is on its way to your inbox.</p>
+      <p data-ref hidden>Your order number: <strong data-ref-value></strong></p>
+      <h2>What happens next</h2>
+      <ol>
+        <li>We check your artwork and email you a free digital proof.</li>
+        <li>You approve the proof or ask for changes. Nothing is printed before you approve.</li>
+        <li data-pay-line>{PAYMENT_METHODS[0].detail}</li>
+        <li>Printing takes {PRODUCTION_TEXT}. Shipping is free and takes {TRANSIT_US_TEXT} in the USA, {TRANSIT_INTL_TEXT} to the UK, Canada and Australia.</li>
+      </ol>
+      <p class="tcs-oc-small">Questions? Call <a href="tel:5034614788">(503) 461-4788</a> or email <a href="mailto:info@thecustomstickers.co">info@thecustomstickers.co</a> with your order number.</p>
+    </div>
+  </section>
+
+  <Footer slot="footer" />
+</Layout>
+
+<script>
+  const root = document.querySelector('[data-pay]') as HTMLElement | null;
+  if (root) {
+    const pay = JSON.parse(root.dataset.pay || '{}') as Record<string, string>;
+    const q = new URLSearchParams(location.search);
+    const ref = q.get('ref');
+    const p = q.get('pay');
+    if (ref) {
+      const r = root.querySelector('[data-ref]') as HTMLElement;
+      (r.querySelector('[data-ref-value]') as HTMLElement).textContent = ref;
+      r.hidden = false;
+    }
+    if (p && pay[p]) (root.querySelector('[data-pay-line]') as HTMLElement).textContent = pay[p];
+  }
+</script>
+
+<style>
+  .tcs-oc { padding: 56px 0 80px; background: var(--light-bg); }
+  .tcs-oc-inner { max-width: 760px; color: var(--dark); line-height: 1.7; }
+  .tcs-oc h1 { margin: 0 0 8px; font-size: clamp(1.8rem, 4vw, 2.4rem); }
+  .tcs-oc h2 { margin: 28px 0 10px; font-size: 1.25rem; }
+  .tcs-oc ol { padding-left: 22px; color: var(--gray-700); }
+  .tcs-oc li { margin-bottom: 8px; }
+  .tcs-oc-lede { color: var(--gray-600); }
+  .tcs-oc-small { color: var(--gray-600); font-size: 14px; margin-top: 20px; }
+  .tcs-oc-small a { color: var(--accent); text-decoration: underline; }
+</style>
