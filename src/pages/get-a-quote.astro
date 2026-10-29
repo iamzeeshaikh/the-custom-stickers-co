@@ -87,7 +87,6 @@ import Breadcrumb from '../components/Breadcrumb.astro';
               <label for="fq-qty">Quantity *</label>
               <select id="fq-qty" name="quantity" required>
                 <option value="">Select Quantity</option>
-                <option>50-99</option>
                 <option>100-249</option>
                 <option>250-499</option>
                 <option>500-999</option>
@@ -292,8 +291,7 @@ import Breadcrumb from '../components/Breadcrumb.astro';
     const qtySelect = document.getElementById('fq-qty') as HTMLSelectElement;
     if (qtySelect && qtyParam) {
       const n = parseInt(qtyParam) || 0;
-      if      (n <= 99)   qtySelect.value = '50-99';
-      else if (n <= 249)  qtySelect.value = '100-249';
+      if      (n <= 249)  qtySelect.value = '100-249';
       else if (n <= 499)  qtySelect.value = '250-499';
       else if (n <= 999)  qtySelect.value = '500-999';
       else if (n <= 2499) qtySelect.value = '1,000-2,499';

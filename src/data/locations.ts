@@ -88,7 +88,7 @@ export const locationStates: LocationState[] = [
         name: "San Francisco",
         metaTitle: "Custom Stickers in San Francisco, CA | The Custom Stickers",
         metaDescription:
-          "Custom laptop, die cut, and vinyl stickers for San Francisco startups and tech brands. Durable, vibrant, and fast. Free quote and low minimums.",
+          "Custom laptop, die cut, and vinyl stickers for San Francisco startups and tech brands. Durable, vibrant, and fast. 100-sticker minimum.",
         h1: "Custom Stickers for San Francisco Startups",
         intro:
           "In San Francisco, the laptop sticker is a status symbol and startup swag is a growth channel. We print custom die cut, vinyl, and laptop stickers for Bay Area tech companies and brands.",
@@ -98,7 +98,7 @@ export const locationStates: LocationState[] = [
         districts: ["SoMa", "Mission District", "Financial District", "Dogpatch", "Oakland"],
         signatureSector: "tech startups and laptop swag",
         deliveryNote:
-          "We print and ship custom stickers to businesses across San Francisco and the wider Bay Area, with durable finishes, low minimums, and quick quote turnaround.",
+          "We print and ship custom stickers to businesses across San Francisco and the wider Bay Area, with durable finishes, a 100-sticker minimum, and quick quote turnaround.",
         featuredProducts: ["custom-laptop-stickers", "die-cut-stickers", "custom-vinyl-stickers"],
         faqCityAnswer:
           "Yes. We print and ship custom stickers to startups and businesses across San Francisco and the Bay Area, including SoMa, the Mission, and the East Bay. Send your artwork for a fast quote.",
@@ -156,7 +156,7 @@ export const locationStates: LocationState[] = [
         name: "Austin",
         metaTitle: "Custom Stickers in Austin, TX | The Custom Stickers",
         metaDescription:
-          "Custom die cut and vinyl stickers for Austin bands, breweries, and makers. Merch-ready, waterproof, and fast. Free quote and low minimums.",
+          "Custom die cut and vinyl stickers for Austin bands, breweries, and makers. Merch-ready, waterproof, and fast. 100-sticker minimum.",
         h1: "Custom Stickers for Austin's Music & Maker Scene",
         intro:
           "Austin runs on music, makers, and merch — and stickers are the connective tissue. We print custom die cut and vinyl stickers for the bands, breweries, food trailers, and indie brands that keep Austin weird.",

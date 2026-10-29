@@ -136,7 +136,7 @@ export const products: Product[] = [
     name: 'Custom Sticker Printing',
     folder: 'custom-sticker-printing',
     title: 'Custom Sticker Printing | Premium Sticker Print Services',
-    metaDescription: 'Professional custom sticker printing service with premium materials, vibrant colors, and fast delivery. Get a free quote for any quantity.',
+    metaDescription: 'Professional custom sticker printing service with premium materials, vibrant colors, and fast delivery. Get a free quote on any order from 100 stickers up.',
     h1: 'Custom Sticker Printing – Premium Quality, Any Quantity',
     intro: 'From single sheets to bulk orders, our custom sticker printing service delivers professional results with fast turnaround and competitive pricing.',
     category: 'core',

@@ -143,7 +143,7 @@ export const productDetails: Record<string, ProductDetail> = {
       'Prototype and short-run test batches',
     ],
     faqs: [
-      { q: 'What is the minimum order for custom sticker printing?', a: 'Our standard minimum is 50 units, which keeps small test runs and personal orders affordable. Per-unit pricing drops significantly at 250, 500, and 1,000+ as the setup is amortized across more pieces.' },
+      { q: 'What is the minimum order for custom sticker printing?', a: 'The minimum is 100 stickers. Online, they come in packs of 100 for $30.00 ($0.30 each) with free shipping, which keeps test runs and personal orders affordable. For runs of 1,000 and up, ask for a quote, since setup cost is spread across more pieces.' },
       { q: 'How fast can I get my custom stickers?', a: 'Standard production is 3–5 business days after you approve your digital proof, plus shipping. Rush production of 1–2 business days is available for an additional charge — contact us to confirm current turnaround before ordering.' },
     ],
   },
@@ -236,7 +236,7 @@ export const productDetails: Record<string, ProductDetail> = {
       { title: 'Premium waterproof vinyl', desc: 'Durable, laminated stock rated for indoor and outdoor use.' },
       { title: 'Brand-accurate color', desc: 'CMYK plus optional Pantone matching keeps your identity consistent.' },
       { title: 'Free digital proof', desc: 'You approve the cut line and colors before anything is produced.' },
-      { title: 'Scales from 50 to 50,000', desc: 'Same quality on a small test run or a bulk reorder.' },
+      { title: 'Scales from 100 to 50,000', desc: 'Same quality on a one-pack test run or a bulk reorder.' },
     ],
     useCases: [
       'Signature brand and logo stickers',
